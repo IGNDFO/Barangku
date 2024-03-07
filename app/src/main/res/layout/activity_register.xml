@@ -36,12 +36,18 @@
         android:layout_marginTop="16dp"
         android:hint="Password"
         android:inputType="textPassword" />
-
     <Button
+
         android:id="@+id/btn_register_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Register" />
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Click to Login " />
 
 </LinearLayout>

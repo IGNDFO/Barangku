@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Barangku"
         tools:targetApi="31" >
         <activity
-            android:name=".Register"
+            android:name=".activity.Register"
             android:exported="false" />
         <activity
             android:name=".activity.Login"

@@ -7,10 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.barangku.R;
@@ -23,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class Login extends AppCompatActivity {
     private EditText etEmail_login,etPassword_login;
     private Button btn_login;
+    private TextView tv_register;
     private FirebaseAuth mAuth;
     private String email, password;
     @Override
@@ -39,11 +42,13 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+           tv_register=findViewById(R.id.tv_register);
            mAuth=FirebaseAuth.getInstance();
            etEmail_login= findViewById(R.id.et_email_login);
            etPassword_login=findViewById(R.id.et_password_login);
            btn_login=findViewById(R.id.btn_login_button);
+
+
 
    btn_login.setOnClickListener(new View.OnClickListener() {
        @Override
@@ -57,25 +62,66 @@ public class Login extends AppCompatActivity {
            if(password.trim().isEmpty()){
                etPassword_login.setError("Silakan Masukan Password ");
            }
-           mAuth.signInWithEmailAndPassword(email, password)
-                   .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-                       @Override
-                       public void onComplete(@NonNull Task<AuthResult> task) {
-                           if (task.isSuccessful()) {
-                               Toast.makeText(Login.this, "Login Berhasil", Toast.LENGTH_SHORT).show();
-                               Intent intent = new Intent(Login.this, MainActivity.class);
-                               startActivity(intent);
-                               finish();
-                           } else {
-                               Toast.makeText(Login.this, "Email atau Password Yang Dimasukan Salah", Toast.LENGTH_SHORT).show();
-                               Intent intent = new Intent(Login.this, Login.class);
-                               startActivity(intent);
-                               finish();
+           // Get the email and password from the EditText fields
+           String email = etEmail_login.getText().toString().trim();
+           String password = etPassword_login.getText().toString().trim();
+
+// Check if the email and password fields are not empty
+           if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+               // Proceed with Firebase sign in
+               mAuth.signInWithEmailAndPassword(email, password)
+                       .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+                           @Override
+                           public void onComplete(@NonNull Task<AuthResult> task) {
+                               if (task.isSuccessful()) {
+                                   // Sign in success, update UI with the signed-in user's information
+                                   Toast.makeText(Login.this, "Login berhasil", Toast.LENGTH_SHORT).show();
+                                   FirebaseUser user = mAuth.getCurrentUser();
+                                   Intent intent = new Intent(Login.this, MainActivity.class);
+                                   startActivity(intent);
+                                   finish();
+//                                   updateUI(user);
+                               } else {
+                                   // If sign in fails, display a message to the user.
+//                                   Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                   Toast.makeText(Login.this, "login Gagal.",
+                                           Toast.LENGTH_SHORT).show();
+//                                   updateUI(null);
+                               }
                            }
-                       }
-                   });
+                       });
+           } else {
+               // Display a message to the user telling them to enter an email and password
+               Toast.makeText(Login.this, "Silakan Isi Email dan Password", Toast.LENGTH_SHORT).show();
+           }
+//           mAuth.signInWithEmailAndPassword(email, password)
+//                   .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+//                       @Override
+//                       public void onComplete(@NonNull Task<AuthResult> task) {
+//                           if (task.isSuccessful()) {
+//
+//                               Toast.makeText(Login.this, "Login Berhasil", Toast.LENGTH_SHORT).show();
+//                               Intent intent = new Intent(Login.this, MainActivity.class);
+//                               startActivity(intent);
+//                               finish();
+//                           } else {
+//
+//                               Toast.makeText(Login.this, "Authentication failed.",
+//                                       Toast.LENGTH_SHORT).show();
+//                           }
+//                       }
+//                   });
+
 
        }
    });
+        tv_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, Register.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }
