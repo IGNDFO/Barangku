@@ -16,6 +16,7 @@
         android:layout_height="128dp"
         android:contentDescription="App Logo"
         android:src="@drawable/logo" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,30 +25,38 @@
         android:textStyle="bold"
         android:textSize="60dp"
         android:layout_marginLeft="60px"/>
-    <EditText
-        android:layout_below="@+id/logo_image"
-        android:id="@+id/et_email_login"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Email"
-        android:inputType="text" />
+        android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:layout_marginTop="15dp"
+            android:inputType="textEmailAddress"
+            android:id="@+id/et_email_login"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:layout_below="@+id/et_email_login"
-        android:id="@+id/et_password_login"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Password"
-        android:inputType="textPassword" />
+        android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:layout_marginTop="15dp"
+            android:inputType="textPassword"
+            android:id="@+id/et_password_login"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/btn_login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/et_password_login"
-
         android:layout_marginTop="31dp"
         android:text="Login" />
 
