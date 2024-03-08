@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="800px"
         android:layout_height="700px"
-        android:src="@mipmap/logo"
+        android:src="@drawable/logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -50,6 +50,14 @@ private String email, password;
         btn_register=findViewById(R.id.btn_register_button);
         mAuth = FirebaseAuth.getInstance();
 
+        tv_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Register.this, Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
             btn_register.setOnClickListener(new View.OnClickListener() {
             @Override

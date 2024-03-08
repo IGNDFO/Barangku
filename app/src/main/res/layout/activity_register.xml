@@ -14,11 +14,12 @@
         android:layout_width="300dp"
         android:layout_height="128dp"
         android:contentDescription="App Logo"
-        app:srcCompat="@mipmap/logo" />
+        android:src="@drawable/logo" />
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Register"
+    android:textSize="60dp"
     />
     <EditText
 
