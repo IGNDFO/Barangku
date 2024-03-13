@@ -14,20 +14,28 @@
         android:theme="@style/Theme.Barangku"
         tools:targetApi="31">
         <activity
-            android:name=".Admin"
+            android:name=".activity.Stock_Barang"
             android:exported="false" />
         <activity
-            android:name=".Laporan"
-            android:exported="false" />
+            android:name=".activity.Admin"
+            android:exported="false"
+            android:parentActivityName=".activity.MainActivity" />
         <activity
-            android:name=".Client"
-            android:exported="false" />
+            android:name=".activity.Laporan"
+            android:exported="false"
+            android:parentActivityName=".activity.MainActivity" />
         <activity
-            android:name=".Barang_Keluar"
-            android:exported="false" />
+            android:name=".activity.Client"
+            android:exported="false"
+            android:parentActivityName=".activity.MainActivity" />
         <activity
-            android:name=".Barang_Masuk"
-            android:exported="false" />
+            android:name=".activity.Barang_Keluar"
+            android:exported="false"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
+            android:name=".activity.Barang_Masuk"
+            android:exported="false"
+            android:parentActivityName=".activity.MainActivity" />
         <activity
             android:name=".activity.Register"
             android:exported="false" />
@@ -36,7 +44,7 @@
             android:exported="false" />
         <activity
             android:name=".activity.MainActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".activity.SplashScreen"
             android:exported="true">
