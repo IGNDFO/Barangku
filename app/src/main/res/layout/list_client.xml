@@ -51,7 +51,11 @@
             android:layout_height="wrap_content"
             android:text="Email Client"
             android:textSize="21sp"/>
-
+<!--<ImageView-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:id="@+id/img"-->
+<!--    android:src="@drawable/ic_launcher_background"/>-->
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

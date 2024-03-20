@@ -27,7 +27,6 @@ private Button btnsignout,btnlaporan,btnadmin,btnbarngmasuk,btnbarangkeluar,btnc
         btnclient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(MainActivity.this, Client.class);
                 startActivity(intent);
 
@@ -79,7 +78,6 @@ private Button btnsignout,btnlaporan,btnadmin,btnbarngmasuk,btnbarangkeluar,btnc
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Stock_Barang.class);
                 startActivity(intent);
-
             }
         });
 
