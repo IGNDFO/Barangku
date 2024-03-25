@@ -74,6 +74,14 @@
         android:layout_below="@id/et_password_login"
      android:layout_marginTop="15px"
         android:layout_toRightOf="@id/btn_login_button"
-        android:text="register now" />
+        android:text="daftar sekarang" />
+    <TextView
+        android:id="@+id/tv_lupaPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_password_login"
+        android:layout_marginTop="15px"
+        android:layout_toRightOf="@id/btn_login_button"
+        android:text="lupa password" />
 
 </LinearLayout>

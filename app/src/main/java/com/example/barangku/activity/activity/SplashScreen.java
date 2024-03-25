@@ -1,4 +1,4 @@
-package com.example.barangku.activity;
+package com.example.barangku.activity.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

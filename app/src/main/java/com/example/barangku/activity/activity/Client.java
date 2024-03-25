@@ -1,4 +1,4 @@
-package com.example.barangku.activity;
+package com.example.barangku.activity.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.example.barangku.R;
+import com.example.barangku.activity.adapter.adapter_client;
+import com.example.barangku.activity.model.model_client;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
 

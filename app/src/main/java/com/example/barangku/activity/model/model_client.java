@@ -1,14 +1,14 @@
-package com.example.barangku.activity;
+package com.example.barangku.activity.model;
 
 public class model_client {
     String nama, alamat, email,  catatan;
-    Long no_telp;
+    String no_telp;
 
 
     model_client() {
     }
 
-    public model_client(String nama, String alamat, String email, Long no_telp, String catatan) {
+    public model_client(String nama, String alamat, String email, String no_telp, String catatan) {
         this.nama = nama;
         this.alamat = alamat;
         this.email = email;
@@ -40,11 +40,11 @@ public class model_client {
         this.email = email;
     }
 
-    public Long getNo_telp() {
+    public  String getNo_telp() {
         return no_telp;
     }
 
-    public void setNo_telp(Long no_telp) {
+    public void setNo_telp(String no_telp) {
         this.no_telp = no_telp;
     }
 

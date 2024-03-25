@@ -1,17 +1,16 @@
-package com.example.barangku.activity;
+package com.example.barangku.activity.adapter;
 
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.barangku.R;
+import com.example.barangku.activity.model.model_client;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
@@ -34,14 +33,8 @@ public class adapter_client extends FirebaseRecyclerAdapter<model_client,adapter
     holder.tvnama.setText(mc.getNama());
     holder.tvalamat.setText(mc.getAlamat());
     holder.tvemail.setText(mc.getEmail());
-    holder.tvnomor.setText(String.valueOf(mc.getNo_telp()));
-    //untuk manggil gambar ic_launcher_background gambaar yang pakai di list client
-//        Glide.with(holder.img.getContext())
-//                .load(model.getImg())
-//                .placeholder(R.drawable.ic_launcher_background)
-//                .circleCrop()
-//                .error(R.drawable.ic_launcher_foreground)
-//                .into(holder.img);
+    holder.tvnomor.setText(mc.getNo_telp());
+
     }
 
     @NonNull

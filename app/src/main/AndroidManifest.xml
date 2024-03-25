@@ -14,39 +14,42 @@
         android:theme="@style/Theme.Barangku"
         tools:targetApi="31">
         <activity
-            android:name=".activity.Stock_Barang"
+            android:name=".activity.activity.LupaPassword"
             android:exported="false" />
         <activity
-            android:name=".activity.Admin"
-            android:exported="false"
-            android:parentActivityName=".activity.MainActivity" />
-        <activity
-            android:name=".activity.Laporan"
-            android:exported="false"
-            android:parentActivityName=".activity.MainActivity" />
-        <activity
-            android:name=".activity.Client"
-            android:exported="false"
-            android:parentActivityName=".activity.MainActivity" />
-        <activity
-            android:name=".activity.Barang_Keluar"
-            android:exported="false"
-            android:parentActivityName=".activity.MainActivity" />
-        <activity
-            android:name=".activity.Barang_Masuk"
-            android:exported="false"
-            android:parentActivityName=".activity.MainActivity" />
-        <activity
-            android:name=".activity.Register"
+            android:name=".activity.activity.Stock_Barang"
             android:exported="false" />
         <activity
-            android:name=".activity.Login"
+            android:name=".activity.activity.Admin"
+            android:exported="false"
+            android:parentActivityName=".activity.activity.MainActivity" />
+        <activity
+            android:name=".activity.activity.Laporan"
+            android:exported="false"
+            android:parentActivityName=".activity.activity.MainActivity" />
+        <activity
+            android:name=".activity.activity.Client"
+            android:exported="false"
+            android:parentActivityName=".activity.activity.MainActivity" />
+        <activity
+            android:name=".activity.activity.Barang_Keluar"
+            android:exported="false"
+            android:parentActivityName=".activity.activity.MainActivity" />
+        <activity
+            android:name=".activity.activity.Barang_Masuk"
+            android:exported="false"
+            android:parentActivityName=".activity.activity.MainActivity" />
+        <activity
+            android:name=".activity.activity.Register"
             android:exported="false" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.activity.Login"
             android:exported="false" />
         <activity
-            android:name=".activity.SplashScreen"
+            android:name=".activity.activity.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
