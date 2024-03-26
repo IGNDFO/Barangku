@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.barangku.R;
@@ -31,6 +32,7 @@ public class LupaPassword extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private String email;
+    private TextView tv_toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,8 @@ public class LupaPassword extends AppCompatActivity {
         ilEmail = findViewById(R.id.il_email);
         progressBar = findViewById(R.id.progressBar);
         mAuth = FirebaseAuth.getInstance();
-
+tv_toolbar=findViewById(R.id.tv_judul);
+        tv_toolbar.setText("Lupa Password");
         etEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

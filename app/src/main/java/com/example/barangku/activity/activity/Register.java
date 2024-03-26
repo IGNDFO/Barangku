@@ -26,9 +26,10 @@ import com.google.firebase.auth.FirebaseUser;
 public class Register extends AppCompatActivity {
     private TextInputEditText etregister_email,etregister_password;
     private Button btn_register;
-    private TextView tv_login;
+    private TextView tv_login,tv_toolbar;
     private String email, password;
     private FirebaseAuth mAuth;
+
 
     @Override
     public void onStart() {
@@ -49,6 +50,9 @@ public class Register extends AppCompatActivity {
         tv_login=findViewById(R.id.tv_login);
         btn_register=findViewById(R.id.btn_register_button);
         mAuth = FirebaseAuth.getInstance();
+     //TOOLBAR MODIF
+tv_toolbar=findViewById(R.id.tv_judul);
+tv_toolbar.setText("Register");
 
         tv_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,29 +78,6 @@ public class Register extends AppCompatActivity {
 
 // Check if the email and password fields are not empty
                 if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-                    // Proceed with Firebase sign in
-//                    mAuth.signInWithEmailAndPassword(email, password)
-//                            .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<AuthResult> task) {
-//                                    if (task.isSuccessful()) {
-//                                        // Sign in success, update UI with the signed-in user's information
-//                                        Log.d(TAG, "signInWithEmail:success");
-//                                        FirebaseUser user =mAuth.getCurrentUser();
-//                                        Intent intent = new Intent(Register.this, Login.class);
-//                                           startActivity(intent);
-//                                           finish();
-////                                        updateUI(user);
-//                                    } else {
-//                                        // If sign in fails, display a message to the user.
-//                                        Log.w(TAG, "signInWithEmail:failure", task.getException());
-//                                        Toast.makeText(Register.this, "Authentication failed.",
-//                                                Toast.LENGTH_SHORT).show();
-////                                        updateUI(null);
-//                                    }
-//                                }
-//                            }
-
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                                        @Override
