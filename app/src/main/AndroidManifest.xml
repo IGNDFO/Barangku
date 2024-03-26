@@ -47,7 +47,8 @@
             android:parentActivityName=".activity.activity.MainActivity"/>
         <activity
             android:name=".activity.activity.Login"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".activity.activity.MainActivity"
             android:exported="true" />
