@@ -92,5 +92,7 @@ private Button btnsignout,btnlaporan,btnadmin,btnbarngmasuk,btnbarangkeluar,btnc
                 finish();
             }
         });
+
+
     }
 }
