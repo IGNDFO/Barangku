@@ -1,7 +1,9 @@
 package com.example.barangku.activity.activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -94,5 +96,35 @@ private Button btnsignout,btnlaporan,btnadmin,btnbarngmasuk,btnbarangkeluar,btnc
         });
 
 
+    }
+    @Override
+    public void onBackPressed() {
+        // Check if user is on the first screen of the app (MainActivity)
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            // Display a dialog asking if the user wants to exit the app
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Are you sure you want to exit the app?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // Close the app
+                            moveTaskToBack(true);
+                            android.os.Process.killProcess(android.os.Process.myPid());
+                            System.exit(1);
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // Do nothing and keep the app open
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+        // If the user is not on the first screen, just close the current activity
+        else {
+            finish();
+        }
     }
 }
