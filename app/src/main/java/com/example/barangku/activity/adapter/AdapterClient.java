@@ -10,11 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.barangku.R;
-import com.example.barangku.activity.model.model_client;
+import com.example.barangku.activity.model.ModelClient;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-public class adapter_client extends FirebaseRecyclerAdapter<model_client,adapter_client.clientViewHolder>{
+public class AdapterClient extends FirebaseRecyclerAdapter<ModelClient, AdapterClient.clientViewHolder>{
 
 
     /**
@@ -23,12 +23,20 @@ public class adapter_client extends FirebaseRecyclerAdapter<model_client,adapter
      *
      * @param options
      */
-    public adapter_client(@NonNull FirebaseRecyclerOptions<model_client> options) {
+    public AdapterClient(@NonNull FirebaseRecyclerOptions<ModelClient> options) {
         super(options);
+        notifyDataSetChanged();
+    }
+    public void setFilteredList(FirebaseRecyclerOptions<ModelClient> options){
+        updateOptions(options);
+    }
+
+    public void updateOptions(FirebaseRecyclerOptions<ModelClient> options) {
+        super.updateOptions(options);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull clientViewHolder holder, int position, @NonNull model_client mc) {
+    protected void onBindViewHolder(@NonNull clientViewHolder holder, int position, @NonNull ModelClient mc) {
 
     holder.tvnama.setText(mc.getNama());
     holder.tvalamat.setText(mc.getAlamat());

@@ -15,6 +15,6 @@ public class Barang_Masuk extends AppCompatActivity {
         setContentView(R.layout.activity_barang_masuk);
 
         tv_toolbar=findViewById(R.id.tv_judul);
-        tv_toolbar.setText("Barang Masukr");
+        tv_toolbar.setText("Barang Masuk");
     }
 }

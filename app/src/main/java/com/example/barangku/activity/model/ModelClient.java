@@ -1,14 +1,14 @@
 package com.example.barangku.activity.model;
 
-public class model_client {
+public class ModelClient {
     String nama, alamat, email,  catatan;
     String no_telp;
 
 
-    model_client() {
+    ModelClient() {
     }
 
-    public model_client(String nama, String alamat, String email, String no_telp, String catatan) {
+    public ModelClient(String nama, String alamat, String email, String no_telp, String catatan) {
         this.nama = nama;
         this.alamat = alamat;
         this.email = email;
