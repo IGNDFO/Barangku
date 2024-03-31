@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ public class LupaPassword extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String email;
     private TextView tv_toolbar;
+    private ImageView ivback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +44,21 @@ public class LupaPassword extends AppCompatActivity {
         btnResetPassword = findViewById(R.id.btn_resetpassword);
         etEmail = findViewById(R.id.et_email);
         ilEmail = findViewById(R.id.il_email);
+        ivback=findViewById(R.id.iv_back);
         progressBar = findViewById(R.id.progressBar);
         mAuth = FirebaseAuth.getInstance();
-tv_toolbar=findViewById(R.id.tv_judul);
+
+        tv_toolbar=findViewById(R.id.tv_judul);
         tv_toolbar.setText("Lupa Password");
+
+        ivback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LupaPassword.this, Login.class);
+                startActivity(intent);
+            }
+        });
+
         etEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

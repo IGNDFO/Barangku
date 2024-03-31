@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class Register extends AppCompatActivity {
     private TextView tv_login,tv_toolbar;
     private String email, password;
     private FirebaseAuth mAuth;
+    private ImageView ivback;
 
     @Override
     public void onStart() {
@@ -53,7 +55,7 @@ public class Register extends AppCompatActivity {
         etregister_password = findViewById(R.id.et_password_register);
         tv_login=findViewById(R.id.tv_login);
         btn_register=findViewById(R.id.btn_register_button);
-
+        ivback = findViewById(R.id.iv_back);
         // Set up toolbar title
         tv_toolbar=findViewById(R.id.tv_judul);
         tv_toolbar.setText("Register");
@@ -66,6 +68,14 @@ public class Register extends AppCompatActivity {
                 startActivity(intent);
                 // Close Register activity when login button is clicked
                 finish();
+            }
+        });
+
+        ivback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Register.this, Login.class);
+                startActivity(intent);
             }
         });
 

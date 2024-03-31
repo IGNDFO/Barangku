@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +27,8 @@ import java.util.List;
 public class Client extends AppCompatActivity {
 private TextView tvToolbar;
 private NavigationView navClient;
+private TextView tv_toolbar;
+private ImageView ivback;
 RecyclerView rv_client;
 AdapterClient adapterClient;
 
@@ -32,7 +37,8 @@ AdapterClient adapterClient;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
-        tvToolbar =findViewById(R.id.tv_judul);
+
+        tvToolbar = findViewById(R.id.tv_judul);
         tvToolbar.setText("Client");
     navClient = findViewById(R.id.nav_Client);
     navClient.setNavigationItemSelectedListener(item -> {
@@ -41,6 +47,11 @@ AdapterClient adapterClient;
 
                 MenuItem searchItem = item;
                 SearchView searchView = (SearchView) searchItem.getActionView();
+
+        ivback=findViewById(R.id.iv_back);
+        tv_toolbar = findViewById(R.id.tv_judul);
+        tv_toolbar.setText("Client");
+
 
 
                 searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -82,10 +93,24 @@ AdapterClient adapterClient;
         rv_client=findViewById(R.id.rv_client);
         rv_client.setLayoutManager(new LinearLayoutManager(this));
 
+
         FirebaseRecyclerOptions<ModelClient> options =
                 new FirebaseRecyclerOptions.Builder<ModelClient>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Client"), ModelClient.class)
                         .build();
+        ivback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Client.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+//        FirebaseRecyclerOptions<ModelClient> options =
+//                new FirebaseRecyclerOptions.Builder<ModelClient>()
+//                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Client"), ModelClient.class)
+//                        .build();
 
      adapterClient = new AdapterClient(options);
      rv_client.setAdapter(adapterClient);
