@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -18,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Client extends AppCompatActivity {
 private TextView tv_toolbar;
+private ImageView ivback;
 RecyclerView rv_client;
 adapter_client Adapter_client;
 
@@ -25,12 +29,21 @@ adapter_client Adapter_client;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
-
-    tv_toolbar=findViewById(R.id.tv_judul);
-    tv_toolbar.setText("Client");
+        ivback=findViewById(R.id.iv_back);
+        tv_toolbar=findViewById(R.id.tv_judul);
+        tv_toolbar.setText("Client");
 
         rv_client=findViewById(R.id.rv_client);
         rv_client.setLayoutManager(new LinearLayoutManager(this));
+
+        ivback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Client.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         FirebaseRecyclerOptions<model_client> options =
                 new FirebaseRecyclerOptions.Builder<model_client>()
