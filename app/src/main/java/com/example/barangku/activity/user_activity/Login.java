@@ -1,4 +1,4 @@
-package com.example.barangku.activity.activity;
+package com.example.barangku.activity.user_activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.barangku.activity.*;
+
 import com.example.barangku.R;
 
 import com.google.android.gms.tasks.OnCompleteListener;

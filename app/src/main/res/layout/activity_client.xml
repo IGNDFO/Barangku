@@ -6,18 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.activity.Client">
+    tools:context=".activity.user_activity.Client">
 
 
     <include
         layout="@layout/toolbar"/>
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_Client"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        app:menu="@menu/search"/>
+        android:layout_margin="6dp"
+        app:iconifiedByDefault="false"
+        app:queryHint="Search here..." />
+
 
     <FrameLayout
         android:layout_width="match_parent"

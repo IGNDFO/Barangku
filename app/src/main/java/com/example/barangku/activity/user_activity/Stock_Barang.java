@@ -1,4 +1,4 @@
-package com.example.barangku.activity.activity;
+package com.example.barangku.activity.user_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,25 +10,21 @@ import android.widget.TextView;
 
 import com.example.barangku.R;
 
-public class Barang_Masuk extends AppCompatActivity {
-    private TextView tv_toolbar;
-    private ImageView ivback;
+public class Stock_Barang extends AppCompatActivity {
+private TextView tv_toolbar;
+private ImageView ivback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_barang_masuk);
-
-        ivback=findViewById(R.id.iv_back);
+        setContentView(R.layout.activity_stock_barang);
         tv_toolbar=findViewById(R.id.tv_judul);
-
-        tv_toolbar.setText("Barang Masuk");
-
-        tv_toolbar.setText("Barang Masukr");
+        ivback=findViewById(R.id.iv_back);
+        tv_toolbar.setText("Stock Barang");
 
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Barang_Masuk.this, MainActivity.class);
+                Intent intent = new Intent(Stock_Barang.this, MainActivity.class);
                 startActivity(intent);
             }
         });

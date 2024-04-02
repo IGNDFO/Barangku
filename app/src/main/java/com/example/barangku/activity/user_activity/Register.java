@@ -1,11 +1,9 @@
-package com.example.barangku.activity.activity;
+package com.example.barangku.activity.user_activity;
 
 import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -112,8 +110,9 @@ public class Register extends AppCompatActivity {
                                                                                if (task.isSuccessful()) {
                                                                                    Toast.makeText(Register.this, "Berhasil Daftar Akun, Silakan Verif email",
                                                                                            Toast.LENGTH_SHORT).show();
-                                                                                   // Close Register activity when verification email is sent
-                                                                                   finish();
+                                                                                   Intent intent= new Intent(Register.this,Login.class);
+                                                                                   startActivity(intent);
+
                                                                                }
                                                                                else {
                                                                                    Log.w(TAG, "sendEmailVerification:failure", task.getException());
@@ -126,8 +125,7 @@ public class Register extends AppCompatActivity {
                                                            // If the registration is not successful, display a failure message
                                                            else {
                                                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                                               Toast.makeText(Register.this, "Gagal Daftar akun",
-                                                                       Toast.LENGTH_SHORT).show();
+                                                               Toast.makeText(Register.this, "Gagal Daftar akun", Toast.LENGTH_SHORT).show();
                                                            }
                                                        }
                                                    }
@@ -150,36 +148,6 @@ public class Register extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-//
-//    @Override
-//    public void onBackPressed() {
-//        // Check if user is on the first screen of the app (MainActivity)
-//        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
-//            // Display a dialog asking if the user wants to exit the app
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//            builder.setMessage("Are you sure you want to exit the app?")
-//                    .setCancelable(false)
-//                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int id) {
-//                            // Close the app
-//                            moveTaskToBack(true);
-//                            android.os.Process.killProcess(android.os.Process.myPid());
-//                            System.exit(1);
-//                        }
-//                    })
-//                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int id) {
-//                            // Do nothing and keep the app open
-//                            dialog.cancel();
-//                        }
-//                    });
-//            AlertDialog alert = builder.create();
-//            alert.show();
-//        }
-//        // If the user is not on the first screen, just close the current activity
-//        else {
-//            finish();
-//        }
-    //}
+
 
 }

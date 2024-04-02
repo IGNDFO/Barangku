@@ -4,5 +4,5 @@
     <item android:id="@+id/search"
         app:showAsAction="never"
         app:actionViewClass="android.widget.SearchView"
-        android:title="Search" />
+        android:title="" />
 </menu>

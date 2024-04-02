@@ -1,4 +1,4 @@
-package com.example.barangku.activity.activity;
+package com.example.barangku.activity.user_activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

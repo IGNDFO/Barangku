@@ -1,6 +1,6 @@
 package com.example.barangku.activity.adapter;
 
-
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,51 +11,51 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.barangku.R;
 import com.example.barangku.activity.model.ModelClient;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-public class AdapterClient extends FirebaseRecyclerAdapter<ModelClient, AdapterClient.clientViewHolder>{
+import java.util.List;
 
+public class AdapterClient extends RecyclerView.Adapter<AdapterClient.ViewHolder> {
+    private Context ctx;
+    private List<ModelClient> list_client;
 
-    /**
-     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
-     * {@link FirebaseRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
-    public AdapterClient(@NonNull FirebaseRecyclerOptions<ModelClient> options) {
-        super(options);
+    public AdapterClient(Context ctx, List<ModelClient> list_client) {
+        this.ctx = ctx;
+        this.list_client = list_client;
+
+    }
+
+    public void setFilter(List<ModelClient> filteredList){
+        this.list_client = filteredList;
         notifyDataSetChanged();
-    }
-    public void setFilteredList(FirebaseRecyclerOptions<ModelClient> options){
-        updateOptions(options);
-    }
-
-    public void updateOptions(FirebaseRecyclerOptions<ModelClient> options) {
-        super.updateOptions(options);
-    }
-
-    @Override
-    protected void onBindViewHolder(@NonNull clientViewHolder holder, int position, @NonNull ModelClient mc) {
-
-    holder.tvnama.setText(mc.getNama());
-    holder.tvalamat.setText(mc.getAlamat());
-    holder.tvemail.setText(mc.getEmail());
-    holder.tvnomor.setText(mc.getNo_telp());
-
     }
 
     @NonNull
     @Override
-    public clientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.list_client,parent,false);
-        return new clientViewHolder(view);
+    public AdapterClient.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View varview = LayoutInflater.from(ctx).inflate(R.layout.list_client, viewGroup, false);
+        return new ViewHolder(varview);
     }
 
-    class clientViewHolder extends RecyclerView.ViewHolder{
+    @Override
+    public void onBindViewHolder(@NonNull AdapterClient.ViewHolder holder, int i ) {
+        ModelClient mc= list_client.get(i);
 
+        holder.tvnama.setText(mc.getNama());
+        holder.tvalamat.setText(mc.getAlamat());
+        holder.tvemail.setText(mc.getEmail());
+        holder.tvnomor.setText(mc.getNo_telp());
+
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return list_client.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvnama,tvnomor,tvalamat,tvemail;
-        public clientViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvalamat=(TextView)itemView.findViewById(R.id.tv_alamat_client);
@@ -65,5 +65,4 @@ public class AdapterClient extends FirebaseRecyclerAdapter<ModelClient, AdapterC
 
         }
     }
-
 }

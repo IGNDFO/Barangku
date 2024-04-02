@@ -28,7 +28,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
-
 dependencies {
 
     // Firebase dependencies
@@ -37,11 +36,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-database'
-    implementation 'com.google.firebase:firebase-ui-database:8.0.2'
-    implementation 'com.google.firebase:firebase-ui-firestore:8.0.2'
-    implementation 'com.google.firebase:firebase-ui-auth:8.0.2'
-    implementation 'com.google.firebase:firebase-analytics:20.0.2'
-    implementation 'com.firebaseui:firebase-ui-storage:8.0.2'
+//    implementation 'com.google.firebase:firebase-ui-auth:8.0.2'
+//    implementation 'com.google.firebase:firebase-ui-database:8.0.2'
+//    implementation 'com.google.firebase:firebase-ui-firestore:8.0.2'
+//    implementation 'com.firebaseui:firebase-ui-storage:8.0.2'
+
 
     // Support and design libraries
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -50,7 +49,6 @@ dependencies {
 
     // UI libraries
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation 'com.squareup.picasso:picasso:2.8.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
 
     // Networking libraries
@@ -58,13 +56,11 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.google.code.gson:gson:2.8.8'
     implementation 'com.cedarsoftware:json-io:4.10.1'
-    implementation 'com.android.volley:volley:1.2.1'
 
     // Testing dependencies
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
-
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.android.application'
