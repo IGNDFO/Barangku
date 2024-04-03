@@ -11,16 +11,17 @@ import android.widget.TextView;
 import com.example.barangku.R;
 
 public class Laporan extends AppCompatActivity {
-private TextView tv_toolbar;
+private TextView tvToolbar;
 private ImageView ivback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_laporan);
 
-        tv_toolbar=findViewById(R.id.tv_judul);
-        tv_toolbar.setText("Laporan");
-        ivback.findViewById(R.id.iv_back);
+        tvToolbar=findViewById(R.id.tv_judul);
+        tvToolbar.setText("Laporan");
+
+        ivback = findViewById(R.id.iv_back);
 
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -32,9 +32,7 @@ import java.util.List;
 
 public class Client extends AppCompatActivity {
     private TextView tvToolbar;
-    private NavigationView navClient;
     private SearchView searchView;
-    private TextView tv_toolbar;
     private ImageView ivback;
     private ProgressDialog pd;
     RecyclerView rv_client;
@@ -49,8 +47,18 @@ public class Client extends AppCompatActivity {
 
         tvToolbar = findViewById(R.id.tv_judul);
         tvToolbar.setText("Client");
+
         searchView = findViewById(R.id.search);
         rv_client=findViewById(R.id.rv_client);
+
+        ivback=findViewById(R.id.iv_back);
+        ivback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Client.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         pd=new ProgressDialog(this);
         pd.setMessage("Loading");
