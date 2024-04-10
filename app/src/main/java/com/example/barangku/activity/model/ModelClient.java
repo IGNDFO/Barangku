@@ -5,9 +5,6 @@ public class ModelClient {
     String no_telp;
 
 
-    ModelClient() {
-    }
-
     public ModelClient(String nama, String alamat, String email, String no_telp, String catatan) {
         this.nama = nama;
         this.alamat = alamat;

@@ -14,13 +14,14 @@
         android:theme="@style/Theme.Barangku"
         tools:targetApi="31">
         <activity
-            android:name=".activity.user_activity.LupaPassword"
-            android:exported="false"
-            />
+            android:name=".activity.adapter.TambahAdmin"
+            android:exported="false" />
         <activity
-            android:name=".activity.user_activity.Stock_Barang"
-            android:exported="false"
-            />
+            android:name=".activity.user_activity.LupaPassword"
+            android:exported="false" />
+        <activity
+            android:name=".activity.user_activity.StockBarang"
+            android:exported="false" />
         <activity
             android:name=".activity.user_activity.Admin"
             android:exported="false"
@@ -44,11 +45,11 @@
         <activity
             android:name=".activity.user_activity.Register"
             android:exported="false"
-            android:parentActivityName=".activity.user_activity.MainActivity"/>
+            android:parentActivityName=".activity.user_activity.MainActivity" />
         <activity
             android:name=".activity.user_activity.Login"
             android:exported="false"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.user_activity.MainActivity"
             android:exported="false" />

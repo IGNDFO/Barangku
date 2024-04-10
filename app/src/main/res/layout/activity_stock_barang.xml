@@ -10,25 +10,33 @@
     <include
         layout="@layout/toolbar"/>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="24dp"
-            android:background="@color/Birulogo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_stock"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="1"
+                tools:listitem="@layout/list_stock" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_tambah"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Stock barang"
-                android:textSize="50dp"/>
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="32dp"
+                android:src="@drawable/a"
+                app:tint="@null"/>
 
-        </LinearLayout>
-    </FrameLayout>
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pb"
+                android:visibility="gone"
+                android:layout_centerInParent="true"/>
+       </RelativeLayout>
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>
