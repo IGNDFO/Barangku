@@ -33,7 +33,7 @@ private ImageView ivback;
         });
         rvStock = findViewById(R.id.rv_stock);
 
-        adapterStock =new AdapterStock(StockBarang.this, list_stock);
+//        adapterStock =new AdapterStock(StockBarang.this, list_stock);
 
         pd = new ProgressDialog(this);
         pd.setMessage("Loading");
