@@ -13,8 +13,8 @@ public class AdapterStock {
     private List<ModelStock> list_stock;
 
     public AdapterStock(Context ctx, List<ModelStock> list_stock) {
-        this.ctx = ctx;
-        this.list_stock = list_stock;
+//        this.ctx = ctx;
+//        this.list_stock = list_stock;
 
     }
 }

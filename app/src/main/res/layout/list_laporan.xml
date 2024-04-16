@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    android:elevation="32dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="8dp"
+        android:background="#BA7070"
+        android:orientation="vertical">
+       <TextView
+           android:id="@+id/tv_jenis_proyek"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Jenis Proyek"
+           android:textStyle="bold"
+           android:layout_marginLeft="8dp"
+           android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/tv_alamat_client"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginLeft="8dp"
+            android:text="Alamat"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/tv_nama_client"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginLeft="8dp"
+            android:text="Nama Client"
+            android:textSize="20sp" />
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
