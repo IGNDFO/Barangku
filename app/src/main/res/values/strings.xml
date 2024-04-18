@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Barangku</string>
+    <string-array name="Pilih">
+        <item>Kotak</item>
+        <item>Bungkus</item>
+        <item>Set</item>
+        <item>Keping</item>
+        <item>Galon</item>
+        <item>Kardus</item>
+        <item>Buah</item>
+    </string-array>
 </resources>
