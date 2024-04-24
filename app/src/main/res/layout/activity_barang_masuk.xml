@@ -32,6 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_calendar"
+            
             android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
@@ -55,10 +56,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="18dp"
         android:hint="Jumlah barang" />
+
     <Spinner
         android:id="@+id/sp_satuan"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <Button
         android:layout_width="wrap_content"

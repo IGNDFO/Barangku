@@ -4,6 +4,7 @@ public class ModelClient {
     String nama, alamat, email,  catatan;
     String no_telp;
 
+    public ModelClient() {}
 
     public ModelClient(String nama, String alamat, String email, String no_telp, String catatan) {
         this.nama = nama;
