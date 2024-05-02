@@ -2,11 +2,14 @@ package com.example.barangku.activity.user_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,12 +20,16 @@ import android.widget.Toast;
 import com.example.barangku.R;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Locale;
 
 public class Barang_Masuk extends AppCompatActivity {
     private TextView tv_toolbar, tvTanggalMasuk;
+    private EditText etNama, etKeterangan, etJumlah;
+    private Button btnSimpan;
     private ImageView ivback, ivKalender;
+    private String simpan, nama, keterangan, jumlah, tanggal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +37,12 @@ public class Barang_Masuk extends AppCompatActivity {
         setContentView(R.layout.activity_barang_masuk);
 
         ivback=findViewById(R.id.iv_back);
+        etNama = findViewById(R.id.et_nama_barang);
+        etJumlah = findViewById(R.id.et_jumlah_barang);
+        etKeterangan = findViewById(R.id.et_keterangan);
+
+        btnSimpan = findViewById(R.id.btn_simpan);
+
 
         tv_toolbar=findViewById(R.id.tv_judul);
         tv_toolbar.setText("Barang Masuk");
@@ -37,7 +50,7 @@ public class Barang_Masuk extends AppCompatActivity {
         tvTanggalMasuk = findViewById(R.id.tv_tanggal_masuk);
         ivKalender = findViewById(R.id.iv_kalender);
 
-        ivKalender.setOnClickListener(new View.OnClickListener() {
+    /**   ivKalender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar calendar = Calendar.getInstance();
@@ -59,17 +72,40 @@ public class Barang_Masuk extends AppCompatActivity {
                         }, year, month, dayOfMonth);
                 datePickerDialog.show();
             }
+        });**/
+
+        LocalDate localDate = LocalDate.now();
+        int yearToday = localDate.getYear();
+        int monthToday = localDate.getMonthValue();
+        int dayOfMonthToday = localDate.getDayOfMonth();
+
+        tanggal = String.format("%04d-%02d-%02d", yearToday, monthToday, dayOfMonthToday);
+        tvTanggalMasuk.setText((tanggal));
+
+
+
+        Spinner sp = (Spinner) findViewById(R.id.sp_satuan);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.Pilih,
+                android.R.layout.simple_spinner_item
+        );
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp.setAdapter(adapter);
+
+        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
+                simpan = adapterView.getItemAtPosition(pos).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
         });
 
-//        Spinner sp = (Spinner) findViewById(R.id.sp_satuan);
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-//                this,
-//                R.array.Pilih,
-//                R.layout.activity_barang_masuk
-//        );
-//
-//        adapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
-//        sp.setAdapter(adapter);
 
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,5 +115,18 @@ public class Barang_Masuk extends AppCompatActivity {
             }
         });
 
+        btnSimpan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nama = etNama.getText().toString();
+                keterangan = etKeterangan.getText().toString();
+                jumlah = etJumlah.getText().toString();
+
+
+            }
+        });
+
     }
+
+
 }
