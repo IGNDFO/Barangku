@@ -26,17 +26,24 @@
                 android:text="Nama Barang"
                 android:textSize="20sp"/>
 
-
                 <TextView
                     android:id="@+id/tv_jumlah_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:paddingLeft="100dp"
+                    android:paddingLeft="40dp"
                     android:layout_toRightOf="@id/tv_nama_barang"
                     android:text="Jumlah item"
                     android:textSize="16sp" />
-
+                <TextView
+                    android:id="@+id/tv_satuan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="14dp"
+                    android:textSize="14sp"
+                    android:text="Satuan"
+                    android:layout_toRightOf="@id/tv_jumlah_item"/>
 
         </RelativeLayout>
 

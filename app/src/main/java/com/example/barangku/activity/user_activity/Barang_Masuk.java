@@ -1,10 +1,12 @@
 package com.example.barangku.activity.user_activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.barangku.R;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -28,7 +31,8 @@ public class Barang_Masuk extends AppCompatActivity {
     private TextView tv_toolbar, tvTanggalMasuk;
     private EditText etNama, etKeterangan, etJumlah;
     private Button btnSimpan;
-    private ImageView ivback, ivKalender;
+    private ImageView ivback, ivKalender, ivGambar;
+    private Uri gambarBarang;
     private String simpan, nama, keterangan, jumlah, tanggal;
 
     @Override
@@ -49,6 +53,7 @@ public class Barang_Masuk extends AppCompatActivity {
 
         tvTanggalMasuk = findViewById(R.id.tv_tanggal_masuk);
         ivKalender = findViewById(R.id.iv_kalender);
+        ivGambar = findViewById(R.id.iv_gambar);
 
     /**   ivKalender.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,18 +120,33 @@ public class Barang_Masuk extends AppCompatActivity {
             }
         });
 
+        ivGambar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImagePicker.with(Barang_Masuk.this)
+                        .galleryMimeTypes(new String[]{"image/png", "image/jpg", "image/jpeg"})
+                        .crop()
+                        .compress(256)
+                        .maxResultSize(1080, 1080)
+                        .start();
+            }
+        });
+
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 nama = etNama.getText().toString();
                 keterangan = etKeterangan.getText().toString();
                 jumlah = etJumlah.getText().toString();
-
-
             }
         });
 
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        gambarBarang = data.getData();
+        ivGambar.setImageURI(gambarBarang);
+    }
 }
