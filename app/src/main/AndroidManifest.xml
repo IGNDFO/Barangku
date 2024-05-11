@@ -38,11 +38,11 @@
             android:exported="false"
             android:parentActivityName=".activity.user_activity.MainActivity" />
         <activity
-            android:name=".activity.user_activity.Barang_Keluar"
+            android:name=".activity.user_activity.BarangKeluar"
             android:exported="false"
             android:parentActivityName=".activity.user_activity.MainActivity" />
         <activity
-            android:name=".activity.user_activity.Barang_Masuk"
+            android:name=".activity.user_activity.BarangMasuk"
             android:exported="false"
             android:parentActivityName=".activity.user_activity.MainActivity" />
         <activity

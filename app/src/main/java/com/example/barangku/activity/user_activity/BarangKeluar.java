@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.barangku.R;
 
-public class Barang_Keluar extends AppCompatActivity {
+public class BarangKeluar extends AppCompatActivity {
     private TextView tv_toolbar;
     private ImageView ivback;
     @Override
@@ -23,7 +23,7 @@ public class Barang_Keluar extends AppCompatActivity {
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Barang_Keluar.this, MainActivity.class);
+                Intent intent = new Intent(BarangKeluar.this, MainActivity.class);
                 startActivity(intent);
             }
         });

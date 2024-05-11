@@ -41,7 +41,7 @@
                 tools:listitem="@layout/list_client" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_tambah"
+                android:id="@+id/fab_tambah_klien"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

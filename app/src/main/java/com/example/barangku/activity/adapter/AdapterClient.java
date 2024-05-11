@@ -11,17 +11,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.barangku.R;
 import com.example.barangku.activity.model.ModelClient;
+import com.example.barangku.activity.user_activity.ItemClickListener;
 
 import java.util.List;
 
 public class AdapterClient extends RecyclerView.Adapter<AdapterClient.ViewHolder> {
     private Context ctx;
+    private ItemClickListener itemClickListener;
     private List<ModelClient> list_client;
 
     public AdapterClient(Context ctx, List<ModelClient> list_client) {
         this.ctx = ctx;
         this.list_client = list_client;
+    }
 
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
     }
 
     public void setFilter(List<ModelClient> filteredList){
@@ -38,14 +43,18 @@ public class AdapterClient extends RecyclerView.Adapter<AdapterClient.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull AdapterClient.ViewHolder holder, int i ) {
-        ModelClient mc= list_client.get(i);
+        ModelClient mc = list_client.get(i);
 
         holder.tvnama.setText(mc.getNama());
         holder.tvalamat.setText(mc.getAlamat());
         holder.tvemail.setText(mc.getEmail());
         holder.tvnomor.setText(mc.getNo_telp());
-
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                itemClickListener.onItemClickListener(mc, i);
+            }
+        });
     }
 
     @Override

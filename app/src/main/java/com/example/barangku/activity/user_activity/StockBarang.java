@@ -91,30 +91,6 @@ private AdapterStock adapterStock;
         pd.show();
 
         rvStock = findViewById(R.id.rv_stock);
-
-        adapterStock = new AdapterStock(StockBarang.this, list_stock);
-        LinearLayoutManager lmStock = new  LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        rvStock.setLayoutManager(lmStock);
-        rvStock.setAdapter(adapterStock);
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    ModelStock ms = snapshot.getValue(ModelStock.class);
-                    list_stock.add(ms);
-                }
-
-                pd.dismiss();
-                adapterStock.notifyDataSetChanged();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-
-
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -129,6 +105,30 @@ private AdapterStock adapterStock;
                 return true;
             }
         });
+
+        adapterStock = new AdapterStock(StockBarang.this, list_stock);
+        LinearLayoutManager lmStock = new  LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        rvStock.setLayoutManager(lmStock);
+        rvStock.setAdapter(adapterStock);//
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("StockBarang");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    ModelStock ms = snapshot.getValue(ModelStock.class);
+                    list_stock.add(ms);
+                }
+                pd.dismiss();
+                adapterStock.notifyDataSetChanged();//
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(StockBarang.this, "Data Berhasil Disimpan1", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         fabTambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -184,22 +184,24 @@ private AdapterStock adapterStock;
                 dialog.findViewById(R.id.btn_simpan).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        namabarang= etNamaBarang.getText().toString();
-                        jumlahbarang= etJumlahBarang.getText().toString();
+                        namabarang = etNamaBarang.getText().toString();
+                        jumlahbarang = etJumlahBarang.getText().toString();
 
-                        if(namabarang.trim().isEmpty()){
+                        if (namabarang.trim().isEmpty()) {
                             etNamaBarang.setError("Required");
                             return;
                         }
-                        if(jumlahbarang.trim().isEmpty()){
+                        if (jumlahbarang.trim().isEmpty()) {
                             etJumlahBarang.setError("Required");
                             return;
                         }
-                        if(gambar == null){
+                        if (gambar == null) {
                             Toast.makeText(StockBarang.this, "Pilih Gambar", Toast.LENGTH_SHORT).show();
                             return;
-                        }
+                        }//
+                        else {
                         saveFirebase();
+                        }
                     }
                 });
 
@@ -218,6 +220,29 @@ private AdapterStock adapterStock;
                         ModelStock ms = new ModelStock(namabarang, jumlahbarang, satuan, uri.toString());
                         reference.child(namabarang).setValue(ms);
                         Toast.makeText(StockBarang.this, "Stock Barang Berhasil Disimpan", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                // Clear the list again to ensure only new data is fetched
+                                list_stock.clear();
+
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    ModelStock ms = snapshot.getValue(ModelStock.class);
+                                    list_stock.add(ms);
+
+                                }
+
+                                adapterStock.notifyDataSetChanged();
+                                pd.dismiss();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                // Handle database errors (optional)
+                                Toast.makeText(StockBarang.this, "Data Berhasil Disimpan2", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
 
                 }).addOnFailureListener(new OnFailureListener() {
@@ -253,7 +278,5 @@ private AdapterStock adapterStock;
         super.onActivityResult(requestCode, resultCode, data);
         gambar = data.getData();
         ivStockBarang.setImageURI(gambar);
-
-
     }
 }

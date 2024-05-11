@@ -21,48 +21,42 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tambah Stock"
+            android:text="Tambah Klien"
             android:textAlignment="center"
             android:textSize="30sp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tambah Gambar"
-            android:textSize="18sp"/>
-        <ImageView
-            android:id="@+id/iv_stock_barang"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="@color/black"
-            android:src="@drawable/ic_add"
-            android:layout_margin="8dp"/>
 
         <EditText
-            android:id="@+id/et_nama_barang"
+            android:id="@+id/et_nama_klien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nama Barang" />
-
-        <LinearLayout
+            android:hint="Nama Klien"/>
+        <EditText
+            android:id="@+id/et_alamat_klien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                android:id="@+id/et_jumlah_barang"
-                android:inputType="number"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:hint="Jumlah barang"/>
-            <Spinner
-                android:id="@+id/sp_satuan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+            android:hint="Alamat"/>
+        <EditText
+            android:id="@+id/et_telp_klien"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="No. Telp"
+            android:inputType="number"/>
+        <EditText
+            android:id="@+id/et_email_klien"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email Klien"
+            android:inputType="textEmailAddress"/>
+        <EditText
+            android:id="@+id/et_catatan_klien"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Catatan Klien"/>
         <Button
             android:id="@+id/btn_simpan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Simpan" />
+            android:text="Simpan"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -39,7 +39,7 @@ private Button btnsignout,btnlaporan,btnadmin,btnbarngmasuk,btnbarangkeluar,btnc
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this, Barang_Masuk.class);
+                Intent intent = new Intent(MainActivity.this, BarangMasuk.class);
                 startActivity(intent);
 
             }
@@ -49,7 +49,7 @@ private Button btnsignout,btnlaporan,btnadmin,btnbarngmasuk,btnbarangkeluar,btnc
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this, Barang_Keluar.class);
+                Intent intent = new Intent(MainActivity.this, BarangKeluar.class);
                 startActivity(intent);
 
             }

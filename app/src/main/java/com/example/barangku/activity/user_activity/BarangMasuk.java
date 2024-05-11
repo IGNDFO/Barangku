@@ -3,8 +3,6 @@ package com.example.barangku.activity.user_activity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,22 +10,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.barangku.R;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Locale;
 
-public class Barang_Masuk extends AppCompatActivity {
+public class BarangMasuk extends AppCompatActivity {
     private TextView tv_toolbar, tvTanggalMasuk;
     private EditText etNama, etKeterangan, etJumlah;
     private Button btnSimpan;
@@ -115,7 +108,7 @@ public class Barang_Masuk extends AppCompatActivity {
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Barang_Masuk.this, MainActivity.class);
+                Intent intent = new Intent(BarangMasuk.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -123,7 +116,7 @@ public class Barang_Masuk extends AppCompatActivity {
         ivGambar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ImagePicker.with(Barang_Masuk.this)
+                ImagePicker.with(BarangMasuk.this)
                         .galleryMimeTypes(new String[]{"image/png", "image/jpg", "image/jpeg"})
                         .crop()
                         .compress(256)
