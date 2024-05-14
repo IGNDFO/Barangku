@@ -21,42 +21,70 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tambah Klien"
+            android:text="DETAIL KLIEN"
             android:textAlignment="center"
-            android:textSize="30sp"/>
+            android:textSize="25sp"/>
 
-        <EditText
-            android:id="@+id/et_nama_klien"
+        <TextView
+            android:id="@+id/tv_nama_klien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nama Klien"/>
-        <EditText
-            android:id="@+id/et_alamat_klien"
+            android:text="Nama Klien"
+            android:textSize="20sp"
+            android:padding="5dp"
+            android:drawableStart="@drawable/ic_person"/>
+        <TextView
+            android:id="@+id/tv_alamat_klien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Alamat"/>
-        <EditText
-            android:id="@+id/et_telp_klien"
+            android:text="Alamat Klien"
+            android:textSize="20sp"
+            android:padding="5dp"
+            android:drawableStart="@drawable/ic_lokasi"/>
+        <TextView
+            android:id="@+id/tv_telp_klien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="No. Telp"
-            android:inputType="number"/>
-        <EditText
-            android:id="@+id/et_email_klien"
+            android:text="No. Telp"
+            android:textSize="20sp"
+            android:padding="5dp"
+            android:drawableStart="@drawable/ic_telephone"/>
+        <TextView
+            android:id="@+id/tv_email_klien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email Klien"
-            android:inputType="textEmailAddress"/>
-        <EditText
-            android:id="@+id/et_catatan_klien"
+            android:text="Email Klien"
+            android:textSize="20sp"
+            android:padding="5dp"
+            android:drawableStart="@drawable/ic_email_tag"/>
+        <TextView
+            android:id="@+id/tv_catatan_klien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Catatan Klien"/>
-        <Button
-            android:id="@+id/btn_simpan"
+            android:text="Catatan Klien"
+            android:textSize="20sp"
+            android:padding="5dp"
+            android:drawableStart="@drawable/ic_catatan"/>
+        <LinearLayout
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Simpan"/>
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+            <Button
+                android:id="@+id/btn_edit_klien"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:text="Edit"/>
+            <Button
+                android:id="@+id/btn_hapus_klien"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Hapus"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

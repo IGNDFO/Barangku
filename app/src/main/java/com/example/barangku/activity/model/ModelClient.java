@@ -1,17 +1,26 @@
 package com.example.barangku.activity.model;
 
 public class ModelClient {
-    String nama, alamat, email,  catatan;
+    String id, nama, alamat, email,  catatan;
     String no_telp;
 
     public ModelClient() {}
 
-    public ModelClient(String nama, String alamat, String email, String no_telp, String catatan) {
+    public ModelClient(String id, String nama, String alamat, String no_telp, String email, String catatan) {
+        this.id = id;
         this.nama = nama;
         this.alamat = alamat;
         this.email = email;
         this.no_telp = no_telp;
         this.catatan = catatan;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNama() {
@@ -53,4 +62,6 @@ public class ModelClient {
     public void setCatatan(String catatan) {
         this.catatan = catatan;
     }
+
+
 }
