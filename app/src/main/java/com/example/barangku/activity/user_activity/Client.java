@@ -3,7 +3,6 @@ package com.example.barangku.activity.user_activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,7 +10,6 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -23,8 +21,8 @@ import com.example.barangku.R;
 import com.example.barangku.activity.adapter.AdapterClient;
 import com.example.barangku.activity.model.ModelClient;
 //import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.example.barangku.activity.user_activity.utils.ItemClickClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class Client extends AppCompatActivity implements ItemClickListener {
+public class Client extends AppCompatActivity implements ItemClickClient {
     private TextView tvToolbar;
     private Dialog dialog, dialogClient, dialogEdit;
     private FloatingActionButton fabTambah;
@@ -318,27 +316,18 @@ public class Client extends AppCompatActivity implements ItemClickListener {
 
                         if (namaKlien.trim().isEmpty()) {
                             etNamaKlien.setError("Required");
-                            return;
                         } else if (alamatKlien.trim().isEmpty()) {
                             etAlamatKlien.setError("Required");
-                            return;
                         } else if (noTelpKlien.trim().isEmpty()) {
                             etNoTelpKlien.setError("Required");
-                            return;
                         } else if (noTelpKlien.length() > 13) {
                             etNoTelpKlien.setError("Nomor Telpon Tidak Boleh Melebihi 13 digit");
-                            return;
                         } else if (emailKlien.trim().isEmpty()) {
                             etEmailKlien.setError("Required");
-                            return;
-                        }
-                        else if (!isValidEmail(emailKlien)){
+                        } else if (!isValidEmail(emailKlien)){
                             etEmailKlien.setError("Format Email Tidak Didukung");
-                            return;
-                        }
-                        else if (catatanKlien.trim().isEmpty()) {
+                        } else if (catatanKlien.trim().isEmpty()) {
                             etCatatanKlien.setError("Required");
-                            return;
                         } else {
                             updateClient(data.getId(), namaKlien, alamatKlien, noTelpKlien, emailKlien, catatanKlien);
                             dialogEdit.dismiss();

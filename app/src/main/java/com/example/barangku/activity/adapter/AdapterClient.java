@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.barangku.R;
 import com.example.barangku.activity.model.ModelClient;
-import com.example.barangku.activity.user_activity.ItemClickListener;
+import com.example.barangku.activity.user_activity.utils.ItemClickClient;
 
 import java.util.List;
 
 public class AdapterClient extends RecyclerView.Adapter<AdapterClient.ViewHolder> {
     private Context ctx;
-    private ItemClickListener itemClickListener;
+    private ItemClickClient itemClickClient;
     private List<ModelClient> list_client;
 
     public AdapterClient(Context ctx, List<ModelClient> list_client) {
@@ -25,8 +25,8 @@ public class AdapterClient extends RecyclerView.Adapter<AdapterClient.ViewHolder
         this.list_client = list_client;
     }
 
-    public void setItemClickListener(ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
+    public void setItemClickListener(ItemClickClient itemClickClient) {
+        this.itemClickClient = itemClickClient;
     }
 
     public void setFilter(List<ModelClient> filteredList){
@@ -52,7 +52,7 @@ public class AdapterClient extends RecyclerView.Adapter<AdapterClient.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                itemClickListener.onItemClickListener(mc, i);
+                itemClickClient.onItemClickListener(mc, i);
             }
         });
     }

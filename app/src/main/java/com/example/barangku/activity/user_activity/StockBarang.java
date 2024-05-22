@@ -27,10 +27,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.barangku.R;
 import com.example.barangku.activity.adapter.AdapterStock;
 import com.example.barangku.activity.model.ModelClient;
 import com.example.barangku.activity.model.ModelStock;
+import com.example.barangku.activity.user_activity.utils.ItemClickStock;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,12 +46,15 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
-public class StockBarang extends AppCompatActivity {
+public class StockBarang extends AppCompatActivity implements ItemClickStock {
 private TextView tvToolbar, tvNamaBarang, tvJumlahItem, tvSatuan;
-private Dialog dialog;
+private Dialog dialog, dialogStock, dialogEdit;
 private ImageView ivStockBarang;
 private String namabarang, jumlahbarang, satuan;
 private Uri  gambar ;
@@ -67,17 +72,15 @@ private AdapterStock adapterStock;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock_barang);
 
-        searchView = findViewById(R.id.search);
         tvToolbar =findViewById(R.id.tv_judul);
+        tvToolbar.setText("Stock Barang");
+        searchView = findViewById(R.id.search);
+
         tvNamaBarang = findViewById(R.id.tv_nama_barang);
         tvJumlahItem = findViewById(R.id.tv_jumlah_item);
         tvSatuan = findViewById(R.id.tv_satuan);
+
         ivback=findViewById(R.id.iv_back);
-
-        fabTambah = findViewById(R.id.fab_tambah_barang);
-
-
-        tvToolbar.setText("Stock Barang");
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,12 +110,11 @@ private AdapterStock adapterStock;
         });
 
         adapterStock = new AdapterStock(StockBarang.this, list_stock);
+        adapterStock.setItemCLickStock(this);
         LinearLayoutManager lmStock = new  LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvStock.setLayoutManager(lmStock);
         rvStock.setAdapter(adapterStock);//
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference("StockBarang");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -125,10 +127,10 @@ private AdapterStock adapterStock;
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(StockBarang.this, "Data Berhasil Disimpan1", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StockBarang.this, "Data Gagal Dimuat", Toast.LENGTH_SHORT).show();
             }
         });
-
+        fabTambah = findViewById(R.id.fab_tambah_barang);
         fabTambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,6 +141,7 @@ private AdapterStock adapterStock;
                 dialog.show();
                 EditText etNamaBarang = dialog.findViewById(R.id.et_nama_barang);
                 EditText etJumlahBarang = dialog.findViewById(R.id.et_jumlah_barang);
+
                 ivStockBarang = dialog.findViewById(R.id.iv_stock_barang);
 
                 Spinner sp = dialog.findViewById(R.id.sp_satuan);
@@ -179,8 +182,8 @@ private AdapterStock adapterStock;
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss();
-                    }
-                });
+                    }});
+
                 dialog.findViewById(R.id.btn_simpan).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -217,32 +220,24 @@ private AdapterStock adapterStock;
                 imagereference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        ModelStock ms = new ModelStock(namabarang, jumlahbarang, satuan, uri.toString());
-                        reference.child(namabarang).setValue(ms);
+//                        String uniqueId = reference.getKey();
+//                        ModelStock ms = new ModelStock(uniqueId,namabarang, jumlahbarang, satuan, uri.toString());
+//                        reference.child(uniqueId).setValue(ms);
+
+//                        Generate ID Barang secara otomatis di Firebaase
+//                        DatabaseReference newReference = reference.push();
+//                        String id = newReference.getKey();
+//                        ModelStock ms = new ModelStock(id, namabarang, jumlahbarang, satuan, uri.toString());
+//                        newReference.setValue(ms);
+
+                        String idBarang = generateIdBarang(namabarang);
+
+                        ModelStock ms = new ModelStock(idBarang, namabarang, jumlahbarang, satuan, uri.toString());
+                        reference.child(idBarang).setValue(ms);
+
                         Toast.makeText(StockBarang.this, "Stock Barang Berhasil Disimpan", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
-                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                // Clear the list again to ensure only new data is fetched
-                                list_stock.clear();
-
-                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                    ModelStock ms = snapshot.getValue(ModelStock.class);
-                                    list_stock.add(ms);
-
-                                }
-
-                                adapterStock.notifyDataSetChanged();
-                                pd.dismiss();
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                                // Handle database errors (optional)
-                                Toast.makeText(StockBarang.this, "Data Berhasil Disimpan2", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        refreshStockList();
                     }
 
                 }).addOnFailureListener(new OnFailureListener() {
@@ -254,6 +249,37 @@ private AdapterStock adapterStock;
             }
         });
 
+    }
+
+    private String generateIdBarang(String namabarang) {
+        String prefix = namabarang.length() >= 3 ? namabarang.substring(0, 3).toUpperCase() : "XXX";
+
+        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(new Date());
+        return prefix + timestamp;
+    }
+
+    private void refreshStockList() {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Clear the list again to ensure only new data is fetched
+                list_stock.clear();
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    ModelStock ms = snapshot.getValue(ModelStock.class);
+                    list_stock.add(ms);
+
+                }
+                adapterStock.notifyDataSetChanged();
+                pd.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle database errors (optional)
+                Toast.makeText(StockBarang.this, "Data Gagal Di Simpan", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void filterList(String query) {
@@ -269,14 +295,50 @@ private AdapterStock adapterStock;
         if (filteredList.isEmpty()) {
             Toast.makeText(this, "Tidak Ada Stock Yang Tersedia", Toast.LENGTH_SHORT).show();
         } else {
-            //adapterStokbarang
             adapterStock.setFilter(filteredList);
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         gambar = data.getData();
         ivStockBarang.setImageURI(gambar);
     }
+
+    @Override
+    public void onItemClickListener(ModelStock data, int position) {
+        dialogStock = new Dialog(StockBarang.this);
+        dialogStock.setContentView(R.layout.dialog_tampil_stock);
+        dialogStock.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialogStock.setCancelable(false);
+        dialogStock.show();
+
+        ImageView ivStockBarang = dialogStock.findViewById(R.id.iv_foto_barang);
+        Glide.with(StockBarang.this)
+                .load(data.getGambar())
+                .into(ivStockBarang);
+
+        TextView tvNamaBarang = dialogStock.findViewById(R.id.tv_nama_barang);
+        tvNamaBarang.setText(data.getNamaBarang());
+        TextView tvJumlahItem = dialogStock.findViewById(R.id.tv_jumlah_item);
+        tvJumlahItem.setText(data.getJumlahBarang());
+        TextView tvSatuan = dialogStock.findViewById(R.id.tv_satuan);
+        tvSatuan.setText(data.getSatuan());
+        dialogStock.findViewById(R.id.iv_close).setOnClickListener(view -> {dialogStock.dismiss();});
+
+        dialogStock.findViewById(R.id.btn_hapus_barang).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String idBarang = data.getId();
+                reference.child(idBarang).removeValue();
+                //perlu menghapus value gambar yang ada di storage! nanti saja -_-
+                Toast.makeText(StockBarang.this, "Data Barang Telah di Hapus", Toast.LENGTH_SHORT).show();
+                refreshStockList();
+                dialogStock.dismiss();
+            }
+        });
+    }
+
+
 }

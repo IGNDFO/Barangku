@@ -1,51 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="6dp"
-    android:elevation="32dp">
+    android:layout_margin="8dp"
+    android:elevation="8dp"
+    app:cardCornerRadius="12dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
         android:background="@color/Birulogo">
+
         <ImageView
             android:id="@+id/iv_foto"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:src="@drawable/ic_launcher_foreground"/>
+            android:src="@drawable/ic_launcher_foreground"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"/>
 
-            <TextView
-                android:id="@+id/tv_nama_barang"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:layout_marginLeft="8dp"
-                android:layout_toRightOf="@id/iv_foto"
-                android:layout_centerVertical="true"
-                android:text="Nama Barang"
-                android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/tv_nama_barang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nama Barang"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_toEndOf="@id/iv_foto"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="8dp"/>
 
-                <TextView
-                    android:id="@+id/tv_jumlah_item"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="40dp"
-                    android:layout_toRightOf="@id/tv_nama_barang"
-                    android:text="Jumlah item"
-                    android:textSize="16sp" />
-                <TextView
-                    android:id="@+id/tv_satuan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="14dp"
-                    android:textSize="14sp"
-                    android:text="Satuan"
-                    android:layout_toRightOf="@id/tv_jumlah_item"/>
+        <TextView
+            android:id="@+id/tv_jumlah_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jumlah item"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:layout_toEndOf="@id/tv_nama_barang"
+            android:layout_alignBottom="@id/tv_nama_barang"
+            android:layout_marginEnd="8dp"/>
 
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_satuan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Satuan"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:layout_toEndOf="@id/tv_jumlah_item"
+            android:layout_alignBottom="@id/tv_jumlah_item"/>
+
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
-

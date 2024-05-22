@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="350dp"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="12dp"
     android:elevation="10dp"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:layout_margin="16dp">
 
     <LinearLayout
-        android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="20dp">
+
         <ImageView
             android:id="@+id/iv_close"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_close"
-            android:layout_margin="8dp"/>
+            android:layout_gravity="end"
+            android:layout_marginBottom="16dp"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="DETAIL KLIEN"
             android:textAlignment="center"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="16dp"/>
 
         <TextView
             android:id="@+id/tv_nama_klien"
@@ -31,58 +38,80 @@
             android:layout_height="wrap_content"
             android:text="Nama Klien"
             android:textSize="20sp"
-            android:padding="5dp"
-            android:drawableStart="@drawable/ic_person"/>
+            android:padding="8dp"
+            android:drawableStart="@drawable/ic_person"
+            android:drawablePadding="8dp"
+            android:textColor="@color/black"/>
+
         <TextView
             android:id="@+id/tv_alamat_klien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Alamat Klien"
             android:textSize="20sp"
-            android:padding="5dp"
-            android:drawableStart="@drawable/ic_lokasi"/>
+            android:padding="8dp"
+            android:drawableStart="@drawable/ic_lokasi"
+            android:drawablePadding="8dp"
+            android:textColor="@color/black"/>
+
         <TextView
             android:id="@+id/tv_telp_klien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="No. Telp"
             android:textSize="20sp"
-            android:padding="5dp"
-            android:drawableStart="@drawable/ic_telephone"/>
+            android:padding="8dp"
+            android:drawableStart="@drawable/ic_telephone"
+            android:drawablePadding="8dp"
+            android:textColor="@color/black"/>
+
         <TextView
             android:id="@+id/tv_email_klien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Email Klien"
             android:textSize="20sp"
-            android:padding="5dp"
-            android:drawableStart="@drawable/ic_email_tag"/>
+            android:padding="8dp"
+            android:drawableStart="@drawable/ic_email_tag"
+            android:drawablePadding="8dp"
+            android:textColor="@color/black"/>
+
         <TextView
             android:id="@+id/tv_catatan_klien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Catatan Klien"
             android:textSize="20sp"
-            android:padding="5dp"
-            android:drawableStart="@drawable/ic_catatan"/>
+            android:padding="8dp"
+            android:drawableStart="@drawable/ic_catatan"
+            android:drawablePadding="8dp"
+            android:textColor="@color/black"/>
+
         <LinearLayout
-            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:layout_marginTop="16dp">
+
             <Button
                 android:id="@+id/btn_edit_klien"
-                android:layout_width="100dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:text="Edit"/>
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:text="Edit"
+                android:backgroundTint="@color/purple_500"
+                android:textColor="@android:color/white"/>
+
             <Button
                 android:id="@+id/btn_hapus_klien"
-                android:layout_width="100dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Hapus"/>
-
+                android:layout_weight="1"
+                android:text="Hapus"
+                android:backgroundTint="@color/red_500"
+                android:textColor="@android:color/white"/>
         </LinearLayout>
 
     </LinearLayout>

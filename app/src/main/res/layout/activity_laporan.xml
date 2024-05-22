@@ -9,8 +9,6 @@
 
     <include
         layout="@layout/toolbar"/>
-
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_laporan"
             android:layout_width="match_parent"

@@ -1,68 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools"
-    card_view:cardBackgroundColor="@android:color/transparent"
-    app:cardCornerRadius="8dp"
-    android:alpha="0.8"
     android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@android:color/white"
+    android:elevation="4dp"
+    android:layout_margin="8dp"
+    android:clipToPadding="false">
 
-    android:paddingTop="4dp"
-    >
-
-
+    <!-- Hidden ID TextView -->
     <TextView
-        android:paddingLeft="7dp"
         android:id="@+id/tv_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ID"
         android:background="@android:color/transparent"
         android:visibility="gone"
-        android:textSize="21sp" />
+        android:textSize="21sp"
+        android:paddingLeft="7dp"/>
+
+    <!-- Nama Client TextView -->
     <TextView
-        android:paddingLeft="7dp"
         android:id="@+id/tv_nama_client"
-        android:background="@android:color/transparent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nama Client"
         android:textSize="18sp"
-        android:textStyle="bold"/>
-    <TextView
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
         android:paddingLeft="7dp"
+        android:layout_marginBottom="4dp"/>
+
+    <!-- Alamat Client TextView -->
+    <TextView
         android:id="@+id/tv_alamat_client"
-        android:background="@android:color/transparent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Alamat Client"
         android:textSize="16sp"
-        android:layout_marginTop="4dp"/>
-    <TextView
+        android:textColor="@android:color/darker_gray"
         android:paddingLeft="7dp"
+        android:layout_marginBottom="4dp"/>
+
+    <!-- Nomor Client TextView -->
+    <TextView
         android:id="@+id/tv_telp_client"
-        android:background="@android:color/transparent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nomor Client"
         android:textSize="16sp"
-        android:layout_marginTop="4dp"/>
-    <TextView
+        android:textColor="@android:color/darker_gray"
         android:paddingLeft="7dp"
+        android:layout_marginBottom="4dp"/>
+
+    <!-- Email Client TextView -->
+    <TextView
         android:id="@+id/tv_email"
-        android:background="@android:color/transparent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email Client"
         android:textSize="16sp"
-        android:layout_marginTop="4dp"/>
+        android:textColor="@android:color/darker_gray"
+        android:paddingLeft="7dp"
+        android:layout_marginBottom="8dp"/>
 
+    <!-- Divider Line -->
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@android:color/black"
-        android:layout_marginTop="8dp"/>
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
 
 </LinearLayout>

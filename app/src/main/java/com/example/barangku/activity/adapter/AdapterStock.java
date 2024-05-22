@@ -1,7 +1,6 @@
 package com.example.barangku.activity.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.barangku.R;
-import com.example.barangku.activity.model.ModelClient;
 import com.example.barangku.activity.model.ModelStock;
+import com.example.barangku.activity.user_activity.utils.ItemClickClient;
+import com.example.barangku.activity.user_activity.utils.ItemClickStock;
 
 import java.util.List;
 
 public class AdapterStock extends RecyclerView.Adapter<AdapterStock.ViewHolder> {
     private Context ctx;
+    private ItemClickStock itemCLickStock;
+
+    public void setItemCLickStock(ItemClickStock itemCLickStock) {
+        this.itemCLickStock = itemCLickStock;
+    }
 
     private List<ModelStock> list_stock;
 
@@ -47,6 +52,12 @@ public class AdapterStock extends RecyclerView.Adapter<AdapterStock.ViewHolder> 
         holder.tvJumlahItem.setText(ms.getJumlahBarang());
         holder.tvSatuan.setText(ms.getSatuan());
         Glide.with(holder.ivFoto).load(ms.getGambar()).into(holder.ivFoto);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                itemCLickStock.onItemClickListener(ms, i);
+            }
+        });
 
     }
 

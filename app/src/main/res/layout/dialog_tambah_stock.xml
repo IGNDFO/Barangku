@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="350dp"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="12dp"
     android:elevation="10dp"
     android:background="@color/white">
@@ -10,59 +10,86 @@
     <LinearLayout
         android:padding="20dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <ImageView
             android:id="@+id/iv_close"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_close"
-            android:layout_margin="8dp"/>
+            android:layout_gravity="end"
+            android:layout_marginBottom="16dp"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Tambah Stock"
             android:textAlignment="center"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Tambah Gambar"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="8dp"/>
+
         <ImageView
             android:id="@+id/iv_stock_barang"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:background="@color/black"
+            android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_add"
-            android:layout_margin="8dp"/>
+            android:background="@color/black"
+            android:layout_marginBottom="16dp"/>
 
         <EditText
             android:id="@+id/et_nama_barang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nama Barang" />
+            android:hint="Nama Barang"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_edit_text_background"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
             <EditText
                 android:id="@+id/et_jumlah_barang"
-                android:inputType="number"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Jumlah barang"/>
+                android:layout_weight="1"
+                android:hint="Jumlah barang"
+                android:inputType="number"
+                android:padding="10dp"
+                android:background="@drawable/rounded_edit_text_background"/>
+
             <Spinner
                 android:id="@+id/sp_satuan"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:padding="10dp"
+                android:background="@drawable/rounded_edit_text_background"/>
         </LinearLayout>
+
         <Button
             android:id="@+id/btn_simpan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Simpan" />
+            android:text="Simpan"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/purple_500"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
