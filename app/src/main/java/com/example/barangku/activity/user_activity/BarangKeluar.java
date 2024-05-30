@@ -18,13 +18,14 @@ public class BarangKeluar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barang_keluar);
         tv_toolbar=findViewById(R.id.tv_judul);
-        tv_toolbar.setText("Register");
+        tv_toolbar.setText("Barang Keluar");
         ivback=findViewById(R.id.iv_back);
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(BarangKeluar.this, MainActivity.class);
                 startActivity(intent);
+
             }
         });
     }

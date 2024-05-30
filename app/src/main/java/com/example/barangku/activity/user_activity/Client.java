@@ -344,7 +344,7 @@ public class Client extends AppCompatActivity implements ItemClickClient {
         dialogClient.findViewById(R.id.btn_hapus_klien).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String clientId = data.getNama();
+                String clientId = data.getId();
                 reference.child(clientId).removeValue();
                 Toast.makeText(Client.this, "Data Klien Telah Dihapus", Toast.LENGTH_SHORT).show();
                 refreshClientList();

@@ -14,11 +14,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.barangku.R;
+import com.example.barangku.activity.model.ModelBarangMasuk;
 import com.example.barangku.activity.model.ModelStock;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.firebase.database.DataSnapshot;
@@ -38,10 +39,14 @@ public class BarangMasuk extends AppCompatActivity {
     private Button btnSimpan, btnCari;
     private ImageView ivback, ivKalender, ivGambar;
     private Uri gambarBarang;
-    private String simpan, nama, namaBarang, satuan, keterangan, jumlah, tanggal;
+    private String simpan, namaBarang, satuan, keterangan, tanggalMasuk;
+    private int jumlahMasuk = 0;
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("StockBarang");
+    DatabaseReference barangMasukref = FirebaseDatabase.getInstance().getReference("BarangMasuk");
     private List<String> namaBarangList = new ArrayList<>();
     private List<ModelStock> stockList = new ArrayList<>();
+
+    private ModelStock currentStockItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,15 +67,15 @@ public class BarangMasuk extends AppCompatActivity {
 
         tvTanggalMasuk = findViewById(R.id.tv_tanggal_masuk);
         ivKalender = findViewById(R.id.iv_kalender);
-        ivGambar = findViewById(R.id.iv_gambar);
+        ivGambar = findViewById(R.id.iv_gambar_barang);
 
         LocalDate localDate = LocalDate.now();
         int yearToday = localDate.getYear();
         int monthToday = localDate.getMonthValue();
         int dayOfMonthToday = localDate.getDayOfMonth();
 
-        tanggal = String.format("%04d-%02d-%02d", yearToday, monthToday, dayOfMonthToday);
-        tvTanggalMasuk.setText((tanggal));
+        tanggalMasuk = String.format("%04d-%02d-%02d", yearToday, monthToday, dayOfMonthToday);
+        tvTanggalMasuk.setText((tanggalMasuk));
 
         btnCari = findViewById(R.id.btn_cari_barang);
         btnSimpan = findViewById(R.id.btn_simpan);
@@ -96,31 +101,6 @@ public class BarangMasuk extends AppCompatActivity {
         datePickerDialog.show();
         }
         });**/
-
-
-
-
-//        Spinner sp = (Spinner) findViewById(R.id.sp_satuan);
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-//                this,
-//                R.array.Pilih,
-//                android.R.layout.simple_spinner_item
-//        );
-//
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        sp.setAdapter(adapter);
-//
-//        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
-//                simpan = adapterView.getItemAtPosition(pos).toString();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
 
 
         ivback.setOnClickListener(new View.OnClickListener() {
@@ -157,24 +137,73 @@ public class BarangMasuk extends AppCompatActivity {
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                nama = etNamaBarang.getText().toString();
                 namaBarang = tvNamaBarang.getText().toString();
                 keterangan = etKeterangan.getText().toString();
-                jumlah = etJumlah.getText().toString();
+                jumlahMasuk = Integer.parseInt(etJumlah.getText().toString());
                 satuan = tvSatuan.getText().toString();
+                gambarBarang = ivGambar.getDrawable() != null ? gambarBarang : Uri.EMPTY;
+                if (namaBarang.trim().isEmpty() || jumlahMasuk == 0) {
+                    Toast.makeText(BarangMasuk.this, "Pastikan semua data terisi dengan benar", Toast.LENGTH_SHORT).show();
+                } else {
+                    simpanBarangMasuk();
+//                    Intent intent = new Intent(BarangMasuk.this, MainActivity.class);
+                    etKeterangan.setText("");
+                    etNamaBarang.setText("");
+                    etJumlah.setText("");
+                    tvSatuan.setText("");
+                    tvJumlahItem.setText("");
+                    ivGambar.setImageDrawable(getResources().getDrawable(R.drawable.insert_image));
+                }
 
             }
         });
         retrieveStockData();
     }
 
+    private void simpanBarangMasuk() {
+        String id = barangMasukref.push().getKey();
+        if (id == null) {
+            Toast.makeText(this, "Gagal mendapatkan ID unik", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ModelBarangMasuk bm = new ModelBarangMasuk(id, namaBarang, satuan, keterangan,tanggalMasuk, jumlahMasuk );
+
+        barangMasukref.child(id).setValue(bm).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                updateStockBarang(currentStockItem, jumlahMasuk);
+                Toast.makeText(BarangMasuk.this, "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(BarangMasuk.this, "Gagal menyimpan data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateStockBarang(ModelStock stockItem, int jumlahMasuk) {
+        int jumlahBaru = Integer.parseInt(String.valueOf(Integer.parseInt(stockItem.getJumlahBarang()) + jumlahMasuk));
+        stockItem.setJumlahBarang(String.valueOf(jumlahBaru));
+
+        reference.child(stockItem.getId()).setValue(stockItem).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(BarangMasuk.this, "Stok barang berhasil diperbarui", Toast.LENGTH_SHORT).show();
+//                tvJumlahItem.setText(String.valueOf(jumlahBaru));
+            } else {
+                Toast.makeText(BarangMasuk.this, "Gagal memperbarui stok barang", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void cariBarang(String searchNamaBarang) {
         boolean found = false;
         for (ModelStock ms : stockList) {
             if (ms.getNamaBarang().equalsIgnoreCase(searchNamaBarang)) {
+                currentStockItem = ms;
                 tvNamaBarang.setText(ms.getNamaBarang());
                 tvSatuan.setText(ms.getSatuan());
                 tvJumlahItem.setText(String.valueOf(ms.getJumlahBarang()));
+                Glide.with(BarangMasuk.this)
+                        .load(ms.getGambar())
+                        .into(ivGambar);
                 found = true;
                 break;
             }
@@ -211,8 +240,12 @@ public class BarangMasuk extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        gambarBarang = data.getData();
-        ivGambar.setImageURI(gambarBarang);
+        if (data != null && data.getData() != null) {
+            gambarBarang = data.getData();
+            ivGambar.setImageURI(gambarBarang);
+        }
+//        gambarBarang = data.getData();
+//        ivGambar.setImageURI(gambarBarang);
     }
 
     private void setupAutoCompleteTextView() {
