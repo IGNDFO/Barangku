@@ -1,9 +1,5 @@
 package com.example.barangku.activity.user_activity;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +7,6 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -30,7 +25,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.barangku.R;
 import com.example.barangku.activity.adapter.AdapterStock;
-import com.example.barangku.activity.model.ModelClient;
 import com.example.barangku.activity.model.ModelStock;
 import com.example.barangku.activity.user_activity.utils.ItemClickStock;
 import com.github.dhaval2404.imagepicker.ImagePicker;
@@ -147,7 +141,7 @@ private AdapterStock adapterStock;
                 Spinner sp = dialog.findViewById(R.id.sp_satuan);
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                         StockBarang.this,
-                        R.array.Pilih,
+                        R.array.Satuan,
                         android.R.layout.simple_spinner_item
                 );
 

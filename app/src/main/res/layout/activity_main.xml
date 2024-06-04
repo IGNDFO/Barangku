@@ -1,101 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.user_activity.MainActivity"
     android:padding="24dp">
 
-
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:text="Barang Masuk"
-        android:id="@+id/btn_Barang_Masuk"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:layout_marginLeft="40dp"
-        android:layout_width="150dp"
-        android:layout_toRightOf="@id/btn_Barang_Masuk"
-        android:layout_height="150dp"
-        android:text="Barang Keluar"
-        android:id="@+id/btn_Barang_Keluar"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <Button
-    android:layout_width="150dp"
-    android:layout_height="150dp"
-    android:text="Client"
-    android:id="@+id/btn_Client"
-    android:textAlignment="center"
-    android:layout_marginTop="40dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:layout_below="@id/btn_Barang_Keluar"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:text="Laporan"
-        android:id="@+id/btn_Laporan"
-        android:textAlignment="center"
-        android:layout_marginTop="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_below="@id/btn_Barang_Keluar"
-        android:layout_toRightOf="@id/btn_Client"
-        android:layout_marginLeft="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:text="Stock Barang"
-        android:id="@+id/btn_Stok_Barang"
-        android:textAlignment="center"
-        android:layout_marginTop="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_below="@id/btn_Client"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:text="Admin"
-        android:id="@+id/btn_Admin"
-        android:textAlignment="center"
-        android:layout_marginTop="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_below="@id/btn_Laporan"
-        android:layout_toRightOf="@id/btn_Client"
-        android:layout_marginLeft="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_signout"
-        android:layout_width="wrap_content"
+    <GridLayout
+        android:id="@+id/menu_user"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn_Stok_Barang"
-        android:layout_marginLeft="-25dp"
-        android:layout_marginTop="53dp"
-        android:layout_toRightOf="@id/btn_Client"
-        android:text="Sign out"
+        android:rowCount="2"
+        android:columnCount="1"
+        android:visibility="gone">
+
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="120dp"
+        android:text="Barang Masuk"
+        android:id="@+id/btn_Barang_Masuk_User"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</RelativeLayout>
+        android:layout_marginTop="60dp"/>
+
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="120dp"
+        android:text="Barang Keluar"
+        android:id="@+id/btn_Barang_Keluar_User"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:textAlignment="center"
+        android:layout_marginTop="60dp"/>
+
+    </GridLayout>
+
+    <GridLayout
+        android:id="@+id/menu_admin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:rowCount="4"
+        android:columnCount="2">
+        <Button
+            android:layout_width="160dp"
+            android:layout_height="120dp"
+            android:text="Register Karyawan"
+            android:id="@+id/btn_register"
+            android:textAlignment="center"/>
+        <Button
+            android:layout_width="160dp"
+            android:layout_height="120dp"
+            android:text="Register Karyawan"
+            android:textAlignment="center"
+            android:layout_marginLeft="20dp"
+            android:visibility="invisible"/>
+
+
+        <Button
+            android:layout_width="160dp"
+            android:layout_height="120dp"
+            android:text="Barang Masuk"
+            android:id="@+id/btn_Barang_Masuk_admin"
+            android:textAlignment="center"/>
+
+        <Button
+            android:layout_width="160dp"
+            android:layout_height="120dp"
+            android:text="Barang Keluar"
+            android:id="@+id/btn_Barang_Keluar_Admin"
+            android:textAlignment="center"
+            android:layout_marginLeft="20dp"/>
+        <Button
+            android:layout_width="160dp"
+            android:layout_height="120dp"
+            android:text="Client"
+            android:id="@+id/btn_Client_Admin"
+            android:textAlignment="center"
+            android:layout_marginTop="20dp" />
+        <Button
+            android:layout_width="160dp"
+            android:layout_height="120dp"
+            android:text="Laporan"
+            android:id="@+id/btn_Laporan_Admin"
+            android:textAlignment="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp" />
+        <Button
+            android:layout_width="160dp"
+            android:layout_height="120dp"
+            android:text="Stock Barang"
+            android:id="@+id/btn_Stok_Barang_Admin"
+            android:textAlignment="center"
+            android:layout_marginTop="20dp"/>
+        <Button
+            android:layout_width="160dp"
+            android:layout_height="120dp"
+            android:text="Admin"
+            android:id="@+id/btn_Admin_Admin"
+            android:textAlignment="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp" />
+
+    </GridLayout>
+
+    <Button
+        android:id="@+id/btn_Signout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Sign out"
+        android:textAlignment="center" />
+
+</LinearLayout>

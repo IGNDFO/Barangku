@@ -9,26 +9,37 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.barangku.R;
+import com.example.barangku.activity.model.ModelUser;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class Register extends AppCompatActivity {
-    private TextInputEditText etregister_email,etregister_password;
+    private TextInputEditText etregister_nama,etregister_email,etregister_password;
     private Button btn_register;
     private TextView tv_login,tv_toolbar;
+    private Spinner spJabatan;
     private String email, password;
+    private String nama,jabatan, token;
     private FirebaseAuth mAuth;
     private ImageView ivback;
+    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User");
 
     @Override
     public void onStart() {
@@ -49,11 +60,37 @@ public class Register extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         // Initialize UI components
+        etregister_nama = findViewById(R.id.et_nama_register);
         etregister_email = findViewById(R.id.et_email_register);
         etregister_password = findViewById(R.id.et_password_register);
+
         tv_login=findViewById(R.id.tv_login);
         btn_register=findViewById(R.id.btn_register_button);
         ivback = findViewById(R.id.iv_back);
+
+        spJabatan = findViewById(R.id.sp_jabatan);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                Register.this,
+                R.array.Jabatan,
+                android.R.layout.simple_spinner_item
+        );
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spJabatan.setAdapter(adapter);
+
+        spJabatan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
+                 jabatan = adapterView.getItemAtPosition(pos).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         // Set up toolbar title
         tv_toolbar=findViewById(R.id.tv_judul);
         tv_toolbar.setText("Register");
@@ -81,9 +118,14 @@ public class Register extends AppCompatActivity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                email=etregister_email.getText().toString();
+                nama = etregister_nama.getText().toString();
+                email = etregister_email.getText().toString();
                 password=etregister_password.getText().toString();
 
+                if(nama.trim().isEmpty()){
+                    etregister_email.setError("Silakan Masukan Nama ");
+                    return;
+                }
                 if(email.trim().isEmpty()){
                     etregister_email.setError("Silakan Masukan Email ");
                     return;
@@ -96,45 +138,34 @@ public class Register extends AppCompatActivity {
                 // Check if email and password fields are not empty
                 if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
                     // Create a new user account with email and password
-                    mAuth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                                       @Override
-                                                       public void onComplete(@NonNull Task<AuthResult> task) {
-                                                           // If the registration is successful, send a verification email and close Register activity
-                                                           if (task.isSuccessful()) {
-                                                               FirebaseUser user = mAuth.getCurrentUser();
-                                                               user.sendEmailVerification()
-                                                                       .addOnCompleteListener(new OnCompleteListener<Void>(){
-                                                                           @Override
-                                                                           public void onComplete(@NonNull Task<Void> task) {
-                                                                               if (task.isSuccessful()) {
-                                                                                   Toast.makeText(Register.this, "Berhasil Daftar Akun, Silakan Verif email",
-                                                                                           Toast.LENGTH_SHORT).show();
-                                                                                   Intent intent= new Intent(Register.this,Login.class);
-                                                                                   startActivity(intent);
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
-                                                                               }
-                                                                               else {
-                                                                                   Log.w(TAG, "sendEmailVerification:failure", task.getException());
-                                                                                   Toast.makeText(Register.this, "Gagal Daftar akun",
-                                                                                           Toast.LENGTH_SHORT).show();
-                                                                               }
-                                                                           }
-                                                                       });
-                                                           }
-                                                           // If the registration is not successful, display a failure message
-                                                           else {
-                                                               Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                                               Toast.makeText(Register.this, "Gagal Daftar akun", Toast.LENGTH_SHORT).show();
-                                                           }
-                                                       }
-                                                   }
-                            );
+                           @Override
+                           public void onComplete(@NonNull Task<AuthResult> task) {
+                               FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                                   @Override
+                                   public void onComplete(@NonNull Task<String> task) {
+                                       token = task.getResult();
+                                       ModelUser mu = new ModelUser(email, nama, jabatan, token);
+                                       reference.child(mAuth.getCurrentUser().getUid()).setValue(mu);
+
+                                       Toast.makeText(Register.this, "Berhasil Daftar Akun ",Toast.LENGTH_SHORT).show();
+                                       Intent intent= new Intent(Register.this,Login.class);
+                                       startActivity(intent);
+                                   }
+                               }).addOnFailureListener(new OnFailureListener() {
+                                   @Override
+                                   public void onFailure(@NonNull Exception e) {
+                                       Toast.makeText(Register.this, "Gagal Melakukan Register", Toast.LENGTH_SHORT).show();
+                                   }
+                               });
+                           }
+                       }
+                    );
                 }
                 // If email or password field is empty, display an error message
                 else {
-                    Toast.makeText(Register.this, "Masukan Email dan Password",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this, "Masukan Email dan Password", Toast.LENGTH_SHORT).show();
                 }
             }
         });

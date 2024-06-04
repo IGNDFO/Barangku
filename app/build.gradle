@@ -58,6 +58,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.google.code.gson:gson:2.8.8'
     implementation 'com.cedarsoftware:json-io:4.10.1'
+    implementation 'com.google.firebase:firebase-messaging'
 
     // Testing dependencies
     testImplementation 'junit:junit:4.13.2'

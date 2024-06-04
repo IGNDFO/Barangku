@@ -35,6 +35,29 @@
             android:textStyle="bold"
             android:textSize="60dp"
             android:layout_marginLeft="60px"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nama"
+                android:layout_marginTop="15dp"
+                android:inputType="textCapWords"
+                android:id="@+id/et_nama_register"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/sp_jabatan"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginTop="14dp"
+            android:paddingVertical="10dp"/>
+
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -44,8 +67,7 @@
                 android:hint="Email"
                 android:layout_marginTop="15dp"
                 android:inputType="textEmailAddress"
-                android:id="@+id/et_email_register"
-                />
+                android:id="@+id/et_email_register" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
