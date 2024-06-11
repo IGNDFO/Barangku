@@ -37,6 +37,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-database'
+
 //    implementation 'com.google.firebase:firebase-ui-auth:8.0.2'
 //    implementation 'com.google.firebase:firebase-ui-database:8.0.2'
 //    implementation 'com.google.firebase:firebase-ui-firestore:8.0.2'

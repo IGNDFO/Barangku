@@ -7,39 +7,39 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="24dp"
-    android:background="@color/Birulogo">
-
+    android:background="@color/Birulogo"
+    tools:context=".activity.user_activity.Login">
 
     <ImageView
         android:id="@+id/logo_image"
         android:layout_width="300dp"
         android:layout_height="128dp"
         android:contentDescription="App Logo"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo"
+        android:layout_marginBottom="24dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/logo_image"
-        android:text="Login"
+        android:text="LOGIN"
         android:textStyle="bold"
-        android:textSize="60dp"
-        android:layout_marginLeft="60px"/>
+        android:textSize="32sp"
+        android:textColor="@color/white"
+        android:layout_marginBottom="24dp" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:boxBackgroundMode="outline"
         app:boxBackgroundColor="@color/white"
+        android:layout_marginBottom="16dp">
 
-        >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
-
             android:inputType="textEmailAddress"
-            android:id="@+id/et_email_login"
-            />
+            android:id="@+id/et_email_login" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -47,41 +47,41 @@
         android:layout_height="wrap_content"
         app:boxBackgroundMode="outline"
         app:endIconMode="password_toggle"
-        app:boxBackgroundColor="@color/white">
+        app:boxBackgroundColor="@color/white"
+        android:layout_marginBottom="24dp">
+
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            android:layout_marginTop="15dp"
             android:inputType="textPassword"
-            android:id="@+id/et_password_login"
-            />
+            android:id="@+id/et_password_login" />
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <Button
         android:id="@+id/btn_login_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/et_password_login"
-        android:layout_marginTop="31dp"
-        android:text="Login" />
+        android:text="Login"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/teal_700"
+        android:layout_marginBottom="16dp" />
 
     <TextView
         android:id="@+id/tv_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/et_password_login"
-     android:layout_marginTop="15px"
-        android:layout_toRightOf="@id/btn_login_button"
-        android:text="daftar sekarang" />
+        android:text="Daftar Sekarang"
+        android:textColor="@color/white"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="center" />
+
     <TextView
         android:id="@+id/tv_lupaPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/et_password_login"
-        android:layout_marginTop="15px"
-        android:layout_toRightOf="@id/btn_login_button"
-        android:text="lupa password" />
+        android:text="Lupa Password?"
+        android:textColor="@color/white"
+        android:layout_gravity="center" />
 
 </LinearLayout>

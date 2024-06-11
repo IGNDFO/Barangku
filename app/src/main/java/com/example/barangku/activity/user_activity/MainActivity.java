@@ -5,7 +5,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -42,11 +41,11 @@ public class MainActivity extends AppCompatActivity {
         btnBarangMasukUser = findViewById(R.id.btn_Barang_Masuk_User);
         btnBarangKeluarUser = findViewById(R.id.btn_Barang_Keluar_User);
 
-        btnBarangMasukAdmin = findViewById(R.id.btn_Barang_Masuk_admin);
-        btnBarangKeluarAdmin = findViewById(R.id.btn_Barang_Keluar_Admin);
-        btnClientAdmin = findViewById(R.id.btn_Client_Admin);
-        btnLaporanAdmin = findViewById(R.id.btn_Laporan_Admin);
-        btnStockAdmin = findViewById(R.id.btn_Stok_Barang_Admin);
+        btnBarangMasukAdmin = findViewById(R.id.btn_barang_masuk_admin);
+        btnBarangKeluarAdmin = findViewById(R.id.btn_barang_keluar_admin);
+        btnClientAdmin = findViewById(R.id.btn_client_admin);
+        btnLaporanAdmin = findViewById(R.id.btn_laporan_admin);
+        btnStockAdmin = findViewById(R.id.btn_stok_barang_admin);
 
         btnSignout = findViewById(R.id.btn_Signout);
 

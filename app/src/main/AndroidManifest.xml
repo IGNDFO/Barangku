@@ -14,13 +14,25 @@
         android:theme="@style/Theme.Barangku"
         tools:targetApi="31">
         <activity
-            android:name=".activity.user_activity.Pengajuan"
+            android:name=".activity.user_activity.LaporanKeluar"
             android:exported="false" />
+        <activity
+            android:name=".activity.user_activity.LaporanMasuk"
+            android:exported="false" />
+        <activity
+            android:name=".activity.user_activity.LaporanClient"
+            android:exported="false" />
+
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".activity.user_activity.TambahAdmin"
-            android:exported="false" />
-        <activity
-            android:name=".activity.adapter.TambahAdmin"
             android:exported="false" />
         <activity
             android:name=".activity.user_activity.LupaPassword"

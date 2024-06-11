@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:text="Hapus"
                 android:textColor="@android:color/white"
-                android:backgroundTint="@color/red_500"/>
+                android:backgroundTint="@color/warning"/>
         </LinearLayout>
 
     </LinearLayout>

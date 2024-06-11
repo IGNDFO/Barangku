@@ -46,7 +46,7 @@ public class Client extends AppCompatActivity implements ItemClickClient {
     private SearchView searchView;
     private ImageView ivback;
     private ProgressDialog pd;
-    RecyclerView rv_client;
+    RecyclerView rvClient;
     AdapterClient adapterClient;
     private List<ModelClient> list_client = new ArrayList<>();
 
@@ -61,7 +61,7 @@ public class Client extends AppCompatActivity implements ItemClickClient {
 
         fabTambah = findViewById(R.id.fab_tambah_klien);
         searchView = findViewById(R.id.search);
-        rv_client = findViewById(R.id.rv_client);
+        rvClient = findViewById(R.id.rv_client);
 
         ivback = findViewById(R.id.iv_back);
         ivback.setOnClickListener(new View.OnClickListener() {
@@ -96,8 +96,8 @@ public class Client extends AppCompatActivity implements ItemClickClient {
         adapterClient = new AdapterClient(Client.this, list_client);
         adapterClient.setItemClickListener(this);
         LinearLayoutManager lm_client = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        rv_client.setLayoutManager(lm_client);
-        rv_client.setAdapter(adapterClient);
+        rvClient.setLayoutManager(lm_client);
+        rvClient.setAdapter(adapterClient);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("Client");
