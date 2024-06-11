@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.user_activity.MainActivity"
-    android:padding="24dp">
+    android:padding="30dp">
 
     <GridLayout
         android:id="@+id/menu_user"
@@ -17,7 +17,7 @@
         android:visibility="gone">
 
     <Button
-        android:layout_width="160dp"
+        android:layout_width="0dp"
         android:layout_height="120dp"
         android:text="Barang Masuk"
         android:id="@+id/btn_Barang_Masuk_User"
@@ -27,7 +27,7 @@
         android:layout_marginTop="60dp"/>
 
     <Button
-        android:layout_width="160dp"
+        android:layout_width="0dp"
         android:layout_height="120dp"
         android:text="Barang Keluar"
         android:id="@+id/btn_Barang_Keluar_User"
@@ -45,63 +45,74 @@
         android:rowCount="4"
         android:columnCount="2">
         <Button
-            android:layout_width="160dp"
+            android:layout_width="0dp"
             android:layout_height="120dp"
-            android:text="Register Karyawan"
-            android:id="@+id/btn_register"
+            android:text="Pengajuan"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:id="@+id/btn_pengajuan"
             android:textAlignment="center"/>
         <Button
-            android:layout_width="160dp"
+            android:layout_width="0dp"
             android:layout_height="120dp"
-            android:text="Register Karyawan"
+            android:text="Riwayat Pengajuan"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:id="@+id/btn_riwayat_pengajuan"
             android:textAlignment="center"
-            android:layout_marginLeft="20dp"
-            android:visibility="invisible"/>
-
+            android:layout_marginLeft="20dp"/>
 
         <Button
-            android:layout_width="160dp"
+            android:layout_width="0dp"
             android:layout_height="120dp"
             android:text="Barang Masuk"
             android:id="@+id/btn_Barang_Masuk_admin"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
             android:textAlignment="center"/>
 
         <Button
-            android:layout_width="160dp"
+            android:layout_width="0dp"
             android:layout_height="120dp"
             android:text="Barang Keluar"
             android:id="@+id/btn_Barang_Keluar_Admin"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
             android:textAlignment="center"
             android:layout_marginLeft="20dp"/>
         <Button
-            android:layout_width="160dp"
+            android:layout_width="0dp"
             android:layout_height="120dp"
             android:text="Client"
             android:id="@+id/btn_Client_Admin"
             android:textAlignment="center"
-            android:layout_marginTop="20dp" />
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1" />
         <Button
-            android:layout_width="160dp"
+            android:layout_width="0dp"
             android:layout_height="120dp"
             android:text="Laporan"
             android:id="@+id/btn_Laporan_Admin"
             android:textAlignment="center"
-            android:layout_marginTop="20dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
             android:layout_marginLeft="20dp" />
         <Button
-            android:layout_width="160dp"
+            android:layout_width="0dp"
             android:layout_height="120dp"
             android:text="Stock Barang"
             android:id="@+id/btn_Stok_Barang_Admin"
             android:textAlignment="center"
-            android:layout_marginTop="20dp"/>
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"/>
         <Button
-            android:layout_width="160dp"
+            android:layout_width="0dp"
             android:layout_height="120dp"
             android:text="Admin"
             android:id="@+id/btn_Admin_Admin"
             android:textAlignment="center"
-            android:layout_marginTop="20dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
             android:layout_marginLeft="20dp" />
 
     </GridLayout>

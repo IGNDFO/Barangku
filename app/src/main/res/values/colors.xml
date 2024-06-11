@@ -13,4 +13,16 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="Birulogo">#9ADBF7</color>
+
+    <color name="background_color">#F5F5F5</color>
+
+    <!-- Primary text color used for main text -->
+    <color name="text_primary">#212121</color>
+
+    <!-- Secondary text color used for secondary text -->
+    <color name="text_secondary">#757575</color>
+
+    <!-- Color for primary buttons -->
+    <color name="button_primary">#FF6200EE</color>
+
 </resources>

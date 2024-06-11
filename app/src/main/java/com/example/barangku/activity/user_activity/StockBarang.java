@@ -165,7 +165,7 @@ private AdapterStock adapterStock;
                     public void onClick(View view) {
                         ImagePicker.with(StockBarang.this)
                                 .galleryMimeTypes(new String[]{"image/png", "image/jpg", "image/jpeg"})
-                                .crop()
+                                .crop(16f, 9f)
                                 .compress(256)
                                 .maxResultSize(1080, 1080)
                                 .start();
@@ -246,10 +246,12 @@ private AdapterStock adapterStock;
     }
 
     private String generateIdBarang(String namabarang) {
-        String prefix = namabarang.length() >= 3 ? namabarang.substring(0, 3).toUpperCase() : "XXX";
+        int maxLength = 3;
+        String prefix = namabarang.length() >= maxLength ? namabarang.substring(0, maxLength).toUpperCase() : namabarang.toUpperCase();
 
         String timestamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(new Date());
-        return prefix + timestamp;
+        String id = prefix.concat(timestamp.substring(timestamp.length() - (7 - maxLength)));
+        return id;
     }
 
     private void refreshStockList() {
@@ -306,6 +308,7 @@ private AdapterStock adapterStock;
         dialogStock.setContentView(R.layout.dialog_tampil_stock);
         dialogStock.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialogStock.setCancelable(false);
+
         dialogStock.show();
 
         ImageView ivStockBarang = dialogStock.findViewById(R.id.iv_foto_barang);

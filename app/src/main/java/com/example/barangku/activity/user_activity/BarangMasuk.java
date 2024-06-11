@@ -137,16 +137,22 @@ public class BarangMasuk extends AppCompatActivity {
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                namaBarang = tvNamaBarang.getText().toString();
-                keterangan = etKeterangan.getText().toString();
-                jumlahMasuk = Integer.parseInt(etJumlah.getText().toString());
-                satuan = tvSatuan.getText().toString();
+                try {
+                    namaBarang = tvNamaBarang.getText().toString();
+                    keterangan = etKeterangan.getText().toString();
+                    jumlahMasuk = Integer.parseInt(etJumlah.getText().toString());
+                    satuan = tvSatuan.getText().toString();
+                } catch (NumberFormatException e) {
+                    Toast.makeText(BarangMasuk.this, "Jumlah harus berupa angka", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 gambarBarang = ivGambar.getDrawable() != null ? gambarBarang : Uri.EMPTY;
                 if (namaBarang.trim().isEmpty() || jumlahMasuk == 0) {
                     Toast.makeText(BarangMasuk.this, "Pastikan semua data terisi dengan benar", Toast.LENGTH_SHORT).show();
                 } else {
                     simpanBarangMasuk();
-//                    Intent intent = new Intent(BarangMasuk.this, MainActivity.class);
+                    // Reset fields after saving
                     etKeterangan.setText("");
                     etNamaBarang.setText("");
                     etJumlah.setText("");
@@ -154,9 +160,9 @@ public class BarangMasuk extends AppCompatActivity {
                     tvJumlahItem.setText("");
                     ivGambar.setImageDrawable(getResources().getDrawable(R.drawable.insert_image));
                 }
-
             }
         });
+
         retrieveStockData();
     }
 
