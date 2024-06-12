@@ -22,10 +22,13 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/tv_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Admin"
-                android:textSize="50dp"/>
+                android:text="Daftar Sekarang"
+                android:textColor="@color/white"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center" />
 
         </LinearLayout>
     </FrameLayout>

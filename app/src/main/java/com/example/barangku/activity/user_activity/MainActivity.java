@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser mUser = mAuth.getCurrentUser();
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User");
 
-    private Button btnSignout, btnBarangMasukUser, btnBarangKeluarUser;
+    private Button btnSignout, btnBarangMasukUser, btnBarangKeluarUser,btnAdmin;
     private Button btnBarangMasukAdmin, btnBarangKeluarAdmin, btnLaporanAdmin, btnClientAdmin, btnStockAdmin;
 
     @Override
@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         btnClientAdmin = findViewById(R.id.btn_client_admin);
         btnLaporanAdmin = findViewById(R.id.btn_laporan_admin);
         btnStockAdmin = findViewById(R.id.btn_stok_barang_admin);
+        btnAdmin = findViewById(R.id.btn_admin);
 
         btnSignout = findViewById(R.id.btn_Signout);
 
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         btnClientAdmin.setOnClickListener(v -> pindahHalaman(MainActivity.this, Client.class));
         btnLaporanAdmin.setOnClickListener(v -> pindahHalaman(MainActivity.this, Laporan.class));
         btnStockAdmin.setOnClickListener(v -> pindahHalaman(MainActivity.this, StockBarang.class));
-
+        btnAdmin.setOnClickListener(v -> pindahHalaman(MainActivity.this, Admin.class));
         btnSignout.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(MainActivity.this, Login.class);
