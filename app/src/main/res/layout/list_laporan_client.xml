@@ -21,7 +21,7 @@
             android:text="ID Laporan"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="5dp"
             android:visibility="gone"/>
 
         <!-- Nama Client -->
@@ -32,7 +32,7 @@
             android:text="Nama Client"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:layout_marginBottom="4dp" />
+            android:layout_marginBottom="5dp" />
 
         <!-- Alamat Client -->
         <TextView
@@ -42,7 +42,7 @@
             android:text="Alamat Client"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:layout_marginBottom="4dp" />
+            android:layout_marginBottom="5dp" />
 
         <!-- No HP Client -->
         <TextView
@@ -52,10 +52,10 @@
             android:text="No HP Client"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:layout_marginBottom="4dp" />
+            android:layout_marginBottom="5dp" />
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="3dp"
             android:background="@android:color/darker_gray"/>
 
     </LinearLayout>

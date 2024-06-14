@@ -1,4 +1,4 @@
-package com.example.barangku.activity.user_activity;
+package com.example.barangku.activity.user_activity.laporan;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,8 +22,11 @@ public class LaporanMasuk extends AppCompatActivity {
         tvToolbar = findViewById(R.id.tv_judul);
         tvToolbar.setText("Laporan Barang Masuk");
 
-        ivBack = findViewById(R.id.iv_back);
+        findViewById(R.id.laporan_harian).setOnClickListener(view -> bukaLaporan("HARIAN"));
+        findViewById(R.id.laporan_mingguan).setOnClickListener(view -> bukaLaporan("MINGGUAN"));
+        findViewById(R.id.laporan_bulanan).setOnClickListener(view -> bukaLaporan("BULANAN"));
 
+        ivBack = findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -31,5 +34,11 @@ public class LaporanMasuk extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        
+
+    }
+
+    private void bukaLaporan(String laporanType) {
+        Intent intent = new Intent(LaporanMasuk.this, )
     }
 }

@@ -14,13 +14,13 @@
         android:theme="@style/Theme.Barangku"
         tools:targetApi="31">
         <activity
-            android:name=".activity.user_activity.LaporanKeluar"
+            android:name=".activity.user_activity.laporan.LaporanKeluar"
             android:exported="false" />
         <activity
-            android:name=".activity.user_activity.LaporanMasuk"
+            android:name=".activity.user_activity.laporan.LaporanMasuk"
             android:exported="false" />
         <activity
-            android:name=".activity.user_activity.LaporanClient"
+            android:name=".activity.user_activity.laporan.LaporanClient"
             android:exported="false" />
 
         <service
@@ -45,7 +45,7 @@
             android:exported="false"
             android:parentActivityName=".activity.user_activity.MainActivity" />
         <activity
-            android:name=".activity.user_activity.Laporan"
+            android:name=".activity.user_activity.laporan.Laporan"
             android:exported="false"
             android:parentActivityName=".activity.user_activity.MainActivity" />
         <activity
