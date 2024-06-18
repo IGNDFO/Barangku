@@ -64,5 +64,7 @@ public class ModelBarangMasuk {
     public void setJumlahBarang(int jumlahBarang) {
         this.jumlahBarang = jumlahBarang;
     }
+
+
 }
 
