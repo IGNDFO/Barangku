@@ -12,9 +12,7 @@ import android.widget.TextView;
 import com.example.barangku.R;
 
 public class LaporanMasuk extends AppCompatActivity {
-    private LinearLayout laporanHarian;
-    private LinearLayout laporanMingguan;
-    private LinearLayout laporanBulanan;
+    private LinearLayout laporanHarian, laporanMingguan, laporanBulanan;
     private TextView tvToolbar;
     private ImageView ivBack;
 

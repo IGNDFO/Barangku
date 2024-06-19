@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.barangku.R;
-import com.example.barangku.activity.model.ModelBarangMasuk;
+import com.example.barangku.activity.model.ModelBarangKeluar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,32 +27,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class LaporanMasukMingguan extends AppCompatActivity {
-
-private ListView lvLaporanMingguan;
-private ImageView ivBack;
-private TextView tvToolbar;
-private DatabaseReference barangmasukRef = FirebaseDatabase.getInstance().getReference("BarangMasuk");
-private List<String> listLaporanMingguan = new ArrayList<>();
-private ArrayAdapter<String> arrayAdapter;
+public class LaporanKeluarMingguan extends AppCompatActivity {
+    private ListView lvLaporanMingguan;
+    private DatabaseReference barangkeluarRef = FirebaseDatabase.getInstance().getReference("BarangKeluar");
+    private ImageView ivBack;
+    private TextView tvToolbar;
+    private List<String> listLaporanMingguan = new ArrayList<>();
+    private ArrayAdapter<String> arrayAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_laporan_masuk_mingguan);
-        tvToolbar = findViewById(R.id.tv_judul);
-        tvToolbar.setText("Barang Masuk Mingguan");
+        setContentView(R.layout.activity_laporan_keluar_mingguan);
 
+        tvToolbar = findViewById(R.id.tv_judul);
+        tvToolbar.setText("Barang Keluar Mingguan");
+
+        ivBack = findViewById(R.id.iv_back);
+        ivBack.setOnClickListener(v -> {
+            Intent intent = new Intent(LaporanKeluarMingguan.this, LaporanKeluar.class);
+            startActivity(intent);
+        });
 
         lvLaporanMingguan = findViewById(R.id.lv_laporan_mingguan);
 
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listLaporanMingguan);
         lvLaporanMingguan.setAdapter(arrayAdapter);
-
-        ivBack = findViewById(R.id.iv_back);
-        ivBack.setOnClickListener(v -> {
-            Intent intent = new Intent(LaporanMasukMingguan.this, LaporanMasuk.class);
-            startActivity(intent);
-        });
 
         retrieveLaporanMingguan();
     }
@@ -65,23 +64,24 @@ private ArrayAdapter<String> arrayAdapter;
         String tanggalAwal = startOfWeek.toString();
         String tanggalAkhir = endOfWeek.toString();
 
-        barangmasukRef.orderByChild("tanggalMasuk").startAt(tanggalAwal).endAt(tanggalAkhir).addListenerForSingleValueEvent(new ValueEventListener() {
+        barangkeluarRef.orderByChild("tanggalKeluar").startAt(tanggalAwal).endAt(tanggalAkhir).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listLaporanMingguan.clear();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("id", "ID"));
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    ModelBarangMasuk bm = dataSnapshot.getValue(ModelBarangMasuk.class);
-                    if (bm != null) {
-                        LocalDate tanggalMasuk = LocalDate.parse(bm.getTanggalMasuk());
-                        String formattedTanggalMasuk = tanggalMasuk.format(formatter);
+                    ModelBarangKeluar bk = dataSnapshot.getValue(ModelBarangKeluar.class);
+                    if (bk != null) {
+                        LocalDate tanggalKeluar = LocalDate.parse(bk.getTanggalKeluar());
+                        String formattedTanggalKeluar = tanggalKeluar.format(formatter);
 
-                        String namaHari = getNamaHari(bm.getTanggalMasuk());
-                        String laporan = namaHari + ", " + formattedTanggalMasuk + "\n"
-                                + "Nama Barang: " + bm.getNamaBarang() + "\n"
-                                + "Jumlah Masuk: " + bm.getJumlahBarang() + "\n"
-                                + "Keterangan: " + bm.getKeterangan();
+                        String namaHari = getNamaHari(bk.getTanggalKeluar());
+                        String laporan = namaHari + ", " + formattedTanggalKeluar + "\n"
+                                + "Client: " + bk.getNamaKlien() + "\n"
+                                + "Alamat Client: " + bk.getAlamatKlien() + "\n"
+                                + "Nama Barang: " + bk.getNamaBarang() + "\n"
+                                + "Jumlah Keluar: " + bk.getJumlahBarang();
                         listLaporanMingguan.add(laporan);
                     }
                 }
@@ -90,14 +90,12 @@ private ArrayAdapter<String> arrayAdapter;
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(LaporanMasukMingguan.this, "Gagal memuat data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LaporanKeluarMingguan.this, "Gagal memuat data", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
     private String getNamaHari(String tanggal) {
         LocalDate date = LocalDate.parse(tanggal);
         return date.getDayOfWeek().getDisplayName(TextStyle.FULL, new Locale("id", "ID"));
     }
-
 }

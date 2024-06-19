@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Laporan extends AppCompatActivity {
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Laporan");
 private TextView tvToolbar;
-private Button btnLaporanClient, btnLaporanMasuk, btnLaporanKeluar;
+private Button btnLaporanMasuk, btnLaporanKeluar;
 
 private ImageView ivback;
     @Override
@@ -29,7 +29,6 @@ private ImageView ivback;
         tvToolbar=findViewById(R.id.tv_judul);
         tvToolbar.setText("Laporan");
 
-        btnLaporanClient = findViewById(R.id.btn_laporan_client);
         btnLaporanKeluar = findViewById(R.id.btn_laporan_barang_keluar);
         btnLaporanMasuk = findViewById(R.id.btn_laporan_barang_masuk);
 
@@ -42,7 +41,6 @@ private ImageView ivback;
                 startActivity(intent);
             }
         });
-        btnLaporanClient.setOnClickListener(v -> pindahHalaman(Laporan.this, LaporanClient.class));
         btnLaporanKeluar.setOnClickListener(v -> pindahHalaman(Laporan.this, LaporanKeluar.class));
         btnLaporanMasuk.setOnClickListener(v -> pindahHalaman(Laporan.this, LaporanMasuk.class));
     }
