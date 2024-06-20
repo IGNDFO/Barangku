@@ -38,7 +38,7 @@
             android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
             android:padding="8dp"
-            android:src="@drawable/ic_folder"
+            android:src="@drawable/view_image"
             android:layout_marginBottom="16dp"/>
 
         <TextView
@@ -49,8 +49,7 @@
             android:textSize="20sp"
             android:textColor="@android:color/black"
             android:padding="5dp"
-            android:layout_marginBottom="8dp"/> 
-
+            android:layout_marginBottom="8dp"/>
 
         <TextView
             android:id="@+id/tv_jumlah_item"
@@ -76,14 +75,22 @@
             android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal">
+            android:orientation="vertical"
+            android:gravity="center">
 
             <Button
-                android:id="@+id/btn_hapus_barang"
-                android:layout_width="100dp"
+                android:id="@+id/btn_enable"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="Hapus"
+                android:text="ENABLE"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/teal_700" />
+
+            <Button
+                android:id="@+id/btn_disable"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="DISABLE"
                 android:textColor="@android:color/white"
                 android:backgroundTint="@color/warning"/>
         </LinearLayout>

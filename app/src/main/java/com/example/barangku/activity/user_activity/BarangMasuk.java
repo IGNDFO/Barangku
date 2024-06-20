@@ -220,8 +220,7 @@ public class BarangMasuk extends AppCompatActivity {
     }
 
     private void retrieveStockData() {
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
+        reference.orderByChild("enable").equalTo(true).addValueEventListener(new ValueEventListener() {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 namaBarangList.clear();
                 stockList.clear();
@@ -241,6 +240,27 @@ public class BarangMasuk extends AppCompatActivity {
                 Toast.makeText(BarangMasuk.this, "Failed to load data", Toast.LENGTH_SHORT).show();
             }
         });
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                namaBarangList.clear();
+//                stockList.clear();
+//
+//                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                    ModelStock ms = dataSnapshot.getValue(ModelStock.class);
+//                    if (ms != null) {
+//                        namaBarangList.add(ms.getNamaBarang());
+//                        stockList.add(ms);
+//                    }
+//                }
+//                setupAutoCompleteTextView();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Toast.makeText(BarangMasuk.this, "Failed to load data", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     @Override

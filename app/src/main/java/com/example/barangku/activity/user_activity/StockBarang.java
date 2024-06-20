@@ -324,17 +324,6 @@ private AdapterStock adapterStock;
         tvSatuan.setText(data.getSatuan());
         dialogStock.findViewById(R.id.iv_close).setOnClickListener(view -> {dialogStock.dismiss();});
 
-        dialogStock.findViewById(R.id.btn_hapus_barang).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String idBarang = data.getId();
-                reference.child(idBarang).removeValue();
-                //perlu menghapus value gambar yang ada di storage! nanti saja -_-
-                Toast.makeText(StockBarang.this, "Data Barang Telah di Hapus", Toast.LENGTH_SHORT).show();
-                refreshStockList();
-                dialogStock.dismiss();
-            }
-        });
     }
 
 

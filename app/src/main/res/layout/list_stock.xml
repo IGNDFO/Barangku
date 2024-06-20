@@ -15,16 +15,12 @@
 
         <ImageView
             android:id="@+id/iv_foto"
-            android:layout_width="45dp"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/ic_launcher_foreground"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/view_image"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:scaleType="centerInside"
             android:layout_marginEnd="8dp"/>
-
         <TextView
             android:id="@+id/tv_nama_barang"
             android:layout_width="wrap_content"
@@ -33,7 +29,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@android:color/white"
-            android:layout_toEndOf="@id/iv_foto"
+            android:layout_toRightOf="@id/iv_foto"
             android:layout_alignParentTop="true"
             android:layout_marginEnd="8dp"/>
 
@@ -44,19 +40,28 @@
             android:text="Jumlah item"
             android:textSize="16sp"
             android:textColor="@android:color/white"
-            android:layout_toEndOf="@id/tv_nama_barang"
-            android:layout_alignBottom="@id/tv_nama_barang"
-            android:layout_marginEnd="8dp"/>
+            android:layout_toEndOf="@id/iv_foto"
+            android:layout_below="@id/tv_nama_barang" />
 
         <TextView
             android:id="@+id/tv_satuan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Satuan"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textColor="@android:color/white"
-            android:layout_toEndOf="@id/tv_jumlah_item"
-            android:layout_alignBottom="@id/tv_jumlah_item"/>
+            android:layout_toEndOf="@id/iv_foto"
+            android:layout_below="@id/tv_jumlah_item"/>
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:layout_toEndOf="@id/iv_foto"
+            android:layout_below="@id/tv_satuan"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"/>
 
     </RelativeLayout>
 
