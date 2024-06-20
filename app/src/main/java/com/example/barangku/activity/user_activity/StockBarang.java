@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -28,8 +29,10 @@ import com.example.barangku.activity.adapter.AdapterStock;
 import com.example.barangku.activity.model.ModelStock;
 import com.example.barangku.activity.user_activity.utils.ItemClickStock;
 import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,6 +46,7 @@ import com.google.firebase.storage.UploadTask;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -112,6 +116,7 @@ private AdapterStock adapterStock;
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list_stock.clear();
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()){
                     ModelStock ms = snapshot.getValue(ModelStock.class);
                     list_stock.add(ms);
@@ -226,7 +231,7 @@ private AdapterStock adapterStock;
 
                         String idBarang = generateIdBarang(namabarang);
 
-                        ModelStock ms = new ModelStock(idBarang, namabarang, jumlahbarang, satuan, uri.toString());
+                        ModelStock ms = new ModelStock(idBarang, namabarang, jumlahbarang, satuan, uri.toString(), true);
                         reference.child(idBarang).setValue(ms);
 
                         Toast.makeText(StockBarang.this, "Stock Barang Berhasil Disimpan", Toast.LENGTH_SHORT).show();
@@ -322,7 +327,51 @@ private AdapterStock adapterStock;
         tvJumlahItem.setText(data.getJumlahBarang());
         TextView tvSatuan = dialogStock.findViewById(R.id.tv_satuan);
         tvSatuan.setText(data.getSatuan());
+
+        Button btnEnable = dialogStock.findViewById(R.id.btn_enable);
+        Button btnDisable = dialogStock.findViewById(R.id.btn_disable);
+
+        btnEnable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HashMap<String,Object> updateData = new HashMap<>();
+                updateData.put("enable", true);
+                reference.child(data.getId()).updateChildren(updateData)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(StockBarang.this, "Status Berhasil Diubah Ke Enable", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Toast.makeText(StockBarang.this, "Gagal Mengubah Status", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+            }
+        });
+        btnDisable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HashMap<String,Object> updateData = new HashMap<>();
+                updateData.put("enable", false);
+                reference.child(data.getId()).updateChildren(updateData)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(StockBarang.this, "Status Berhasil Diubah Ke Disable", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Toast.makeText(StockBarang.this, "Gagal Mengubah Status", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            }
+        });
         dialogStock.findViewById(R.id.iv_close).setOnClickListener(view -> {dialogStock.dismiss();});
+
 
     }
 

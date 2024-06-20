@@ -2,13 +2,20 @@ package com.example.barangku.activity.model;
 
 public class ModelStock {
     private String id, namaBarang, jumlahBarang, satuan, gambar;
+    private  Boolean enable;
     public ModelStock(){}
-    public ModelStock(String id, String namaBarang, String jumlahBarang, String satuan, String gambar) {
+
+    public ModelStock(String id, String namaBarang, String jumlahBarang, String satuan, String gambar, Boolean enable) {
         this.id = id;
         this.namaBarang = namaBarang;
         this.jumlahBarang = jumlahBarang;
         this.satuan = satuan;
         this.gambar = gambar;
+        this.enable = enable;
+    }
+
+    public Boolean getEnable() {
+        return enable;
     }
 
     public String getId() {

@@ -1,6 +1,7 @@
 package com.example.barangku.activity.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,12 +53,21 @@ public class AdapterStock extends RecyclerView.Adapter<AdapterStock.ViewHolder> 
         holder.tvJumlahItem.setText(ms.getJumlahBarang());
         holder.tvSatuan.setText(ms.getSatuan());
         Glide.with(holder.ivFoto).load(ms.getGambar()).into(holder.ivFoto);
+        if (ms.getEnable())
+        {
+            holder.tvStatus.setText("Enable");
+            holder.tvStatus.setTextColor(Color.GREEN);
+        }else {
+            holder.tvStatus.setText("Disable");
+            holder.tvStatus.setTextColor(Color.RED);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 itemCLickStock.onItemClickListener(ms, i);
             }
         });
+
 
     }
 
@@ -68,7 +78,7 @@ public class AdapterStock extends RecyclerView.Adapter<AdapterStock.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFoto;
-        TextView tvNamaBarang, tvJumlahItem, tvSatuan;
+        TextView tvNamaBarang, tvJumlahItem, tvSatuan, tvStatus;
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -76,6 +86,7 @@ public class AdapterStock extends RecyclerView.Adapter<AdapterStock.ViewHolder> 
             tvJumlahItem = (TextView)itemView.findViewById(R.id.tv_jumlah_item);
             ivFoto = (ImageView)itemView.findViewById(R.id.iv_foto);
             tvSatuan = (TextView) itemView.findViewById(R.id.tv_satuan);
+            tvStatus =(TextView) itemView.findViewById(R.id.tv_status);
 
 
         }
