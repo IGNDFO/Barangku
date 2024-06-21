@@ -97,51 +97,59 @@ public class PengajuanBarangMasukFragment extends Fragment implements ItemClickP
 
 
     private void approvePengajuan(ModelPengajuanBarangMasuk pengajuan, int position) {
-
-        barangMasukRef.setValue(pengajuan).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                stokBarangRef.orderByChild("namaBarang").equalTo(pengajuan.getNamaBarang()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        boolean stokDitemukan = false;
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            ModelStock stockItem = dataSnapshot.getValue(ModelStock.class);
-                            if (stockItem != null) {
-                                stokDitemukan = true;
-                                int currentStok = Integer.parseInt(stockItem.getJumlahBarang());
-                                int updatedStok = currentStok + pengajuan.getJumlahBarang();
-                                stockItem.setJumlahBarang(String.valueOf(updatedStok));
-
-                                dataSnapshot.getRef().setValue(stockItem).addOnCompleteListener(updateTask -> {
-                                    if (updateTask.isSuccessful()) {
-                                        Toast.makeText(requireActivity(), "Pengajuan disetujui dan stok diperbarui", Toast.LENGTH_SHORT).show();
-//                                        removePengajuanFromList(pengajuan, position);
-
-                                        // Hapus pengajuan dari NotifikasiAdmin setelah disetujui
-                                        pengajuanRef.child(pengajuan.getId()).removeValue().addOnCompleteListener(removeTask -> {
-                                            if (!removeTask.isSuccessful()) {
-                                                Toast.makeText(requireActivity(), "Gagal menghapus pengajuan setelah disetujui", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                                    } else {
-                                        Toast.makeText(requireActivity(), "Gagal memperbarui stok barang", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                                break;
-                            }
-                        }
-                        if (!stokDitemukan) {
-                            Toast.makeText(requireActivity(), "Stok barang tidak ditemukan", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(requireActivity(), "Gagal memperbarui stok barang", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        // Tambahkan data baru ke tabel BarangMasuk
+        String barangMasukId = barangMasukRef.push().getKey();
+        ModelBarangMasuk barangMasukBaru = new ModelBarangMasuk(barangMasukId, pengajuan.getNamaBarang(), pengajuan.getSatuan(), pengajuan.getKeterangan(), pengajuan.getTanggalMasuk(), pengajuan.getJumlahBarang());
+        barangMasukRef.child(barangMasukId).setValue(barangMasukBaru).addOnCompleteListener(addTask -> {
+            if (addTask.isSuccessful()) {
+                perbaruiStokBarang(pengajuan);
+                hapusPengajuanSetelahDisetujui(pengajuan, position);
             } else {
-                Toast.makeText(requireActivity(), "Gagal menyetujui pengajuan", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireActivity(), "Gagal menambahkan data baru ke BarangMasuk", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void perbaruiStokBarang(ModelPengajuanBarangMasuk pengajuan) {
+        stokBarangRef.orderByChild("namaBarang").equalTo(pengajuan.getNamaBarang()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean stokDitemukan = false;
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    ModelStock stockItem = dataSnapshot.getValue(ModelStock.class);
+                    if (stockItem != null) {
+                        stokDitemukan = true;
+                        int currentStok = Integer.parseInt(stockItem.getJumlahBarang());
+                        int updatedStok = currentStok + pengajuan.getJumlahBarang();
+                        stockItem.setJumlahBarang(String.valueOf(updatedStok));
+
+                        dataSnapshot.getRef().setValue(stockItem).addOnCompleteListener(updateTask -> {
+                            if (updateTask.isSuccessful()) {
+                                Toast.makeText(requireActivity(), "Pengajuan disetujui dan Jumlah stok diperbarui", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(requireActivity(), "Gagal memperbarui stok barang", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        break;
+                    }
+                }
+                if (!stokDitemukan) {
+                    Toast.makeText(requireActivity(), "Stok barang tidak ditemukan", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(requireActivity(), "Gagal memperbarui stok barang", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void hapusPengajuanSetelahDisetujui(ModelPengajuanBarangMasuk pengajuan, int position) {
+        pengajuanRef.child(pengajuan.getId()).removeValue().addOnCompleteListener(removeTask -> {
+            if (!removeTask.isSuccessful()) {
+                Toast.makeText(requireActivity(), "Gagal menghapus pengajuan setelah disetujui", Toast.LENGTH_SHORT).show();
+            } else {
+                pengajuanList.remove(position);
+                adapter.notifyItemRemoved(position);
             }
         });
     }
