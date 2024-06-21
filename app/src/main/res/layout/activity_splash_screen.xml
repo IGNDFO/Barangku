@@ -5,14 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.user_activity.SplashScreen"
-    android:background="@color/Birulogo">
+    android:background="@color/darker_blue">
     <ImageView
         android:layout_width="800px"
         android:layout_height="700px"
-        android:src="@drawable/logo"
+        android:src="@drawable/inventoryku"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

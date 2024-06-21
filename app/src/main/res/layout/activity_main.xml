@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.user_activity.MainActivity"
-    android:padding="30dp">
+    android:padding="30dp"
+    android:background="@color/darker_blue">
 
     <GridLayout
         android:id="@+id/menu_user"
