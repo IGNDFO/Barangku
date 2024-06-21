@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:id="@+id/nav_barang_masuk"
+    android:title="Barang Masuk"
+    android:icon="@drawable/ic_lokasi"/>
+    <item
+        android:id="@+id/nav_barang_keluar"
+        android:title="Barang Keluar"
+        android:icon="@drawable/ic_lokasi"/>
+</menu>

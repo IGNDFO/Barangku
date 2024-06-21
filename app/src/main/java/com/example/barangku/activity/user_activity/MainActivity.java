@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser mUser = mAuth.getCurrentUser();
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User");
 
-    private Button btnSignout, btnBarangMasukUser, btnBarangKeluarUser,btnAdmin;
+    private Button btnSignout, btnBarangMasukUser, btnBarangKeluarUser,btnAdmin, btnPengajuan;
     private Button btnBarangMasukAdmin, btnBarangKeluarAdmin, btnLaporanAdmin, btnClientAdmin, btnStockAdmin;
 
     @Override
@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         menuUser = findViewById(R.id.menu_user);
         menuAdmin = findViewById(R.id.menu_admin);
+
+        btnPengajuan = findViewById(R.id.btn_pengajuan);
 
         btnBarangMasukUser = findViewById(R.id.btn_Barang_Masuk_User);
         btnBarangKeluarUser = findViewById(R.id.btn_Barang_Keluar_User);
@@ -88,9 +90,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupButtonListeners() {
+        btnPengajuan.setOnClickListener(v -> pindahHalaman(MainActivity.this, Pengajuan.class));
         btnBarangMasukUser.setOnClickListener(v -> pindahHalaman(MainActivity.this, BarangMasuk.class));
         btnBarangKeluarUser.setOnClickListener(v -> pindahHalaman(MainActivity.this, BarangKeluar.class));
-
         btnBarangMasukAdmin.setOnClickListener(v -> pindahHalaman(MainActivity.this, BarangMasuk.class));
         btnBarangKeluarAdmin.setOnClickListener(v -> pindahHalaman(MainActivity.this, BarangKeluar.class));
         btnClientAdmin.setOnClickListener(v -> pindahHalaman(MainActivity.this, Client.class));

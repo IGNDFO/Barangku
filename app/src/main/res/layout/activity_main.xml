@@ -45,12 +45,12 @@
         android:rowCount="4"
         android:columnCount="2">
         <Button
+            android:id="@+id/btn_pengajuan"
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:text="Pengajuan"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:id="@+id/btn_pengajuan"
             android:textAlignment="center"/>
         <Button
             android:layout_width="0dp"

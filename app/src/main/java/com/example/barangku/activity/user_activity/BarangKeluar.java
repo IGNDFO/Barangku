@@ -245,7 +245,8 @@ public class BarangKeluar extends AppCompatActivity {
     }
 
     private void retrieveStockData() {
-        stockReference.addValueEventListener(new ValueEventListener() {
+
+        stockReference.orderByChild("enable").equalTo(true).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 namaBarangList.clear();
