@@ -32,6 +32,8 @@ public class PengajuanBarangMasukFragment extends Fragment implements ItemClickP
     private AdapterPengajuanBarangMasuk adapter;
     private List<ModelPengajuanBarangMasuk> pengajuanList = new ArrayList<>();
     private DatabaseReference pengajuanRef = FirebaseDatabase.getInstance().getReference("PengajuanBarangMasuk");
+    DatabaseReference barangMasukRef = FirebaseDatabase.getInstance().getReference("BarangMasuk");
+    DatabaseReference stokBarangRef = FirebaseDatabase.getInstance().getReference("StockBarang");
 
     public PengajuanBarangMasukFragment() {
         // Required empty public constructor
@@ -70,7 +72,15 @@ public class PengajuanBarangMasukFragment extends Fragment implements ItemClickP
                 pengajuanList.clear();
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    ModelPengajuanBarangMasuk mpbm = dataSnapshot.getValue(ModelPengajuanBarangMasuk.class);
+                    String id = dataSnapshot.getKey();
+                    String namaBarang = dataSnapshot.child("namaBarang").getValue(String.class);
+                    String satuan = dataSnapshot.child("satuan").getValue(String.class);
+                    String keterangan = dataSnapshot.child("keterangan").getValue(String.class);
+                    String tanggalMasuk = dataSnapshot.child("tanggalMasuk").getValue(String.class);
+                    int jumlahBarang = dataSnapshot.child("jumlahBarang").getValue(Integer.class);
+
+                    ModelPengajuanBarangMasuk mpbm = new ModelPengajuanBarangMasuk(id, namaBarang, satuan, keterangan, tanggalMasuk, jumlahBarang);
+
                     if (mpbm != null) {
                         pengajuanList.add(mpbm);
                     }
@@ -87,8 +97,6 @@ public class PengajuanBarangMasukFragment extends Fragment implements ItemClickP
 
 
     private void approvePengajuan(ModelPengajuanBarangMasuk pengajuan, int position) {
-        DatabaseReference barangMasukRef = FirebaseDatabase.getInstance().getReference("BarangMasuk").child(pengajuan.getId());
-        DatabaseReference stokBarangRef = FirebaseDatabase.getInstance().getReference("StockBarang");
 
         barangMasukRef.setValue(pengajuan).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -146,7 +154,7 @@ public class PengajuanBarangMasukFragment extends Fragment implements ItemClickP
     @Override
     public void onItemClickListener(ModelPengajuanBarangMasuk data, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-        builder.setTitle("Pengajuan Barang" + data.getId())
+        builder.setTitle("Pengajuan Barang" + data.getId() + data.getJumlahBarang() + data.getNamaBarang())
                 .setMessage("Apakah Anda ingin menerima atau menolak pengajuan ini?")
                 .setPositiveButton("Terima", new DialogInterface.OnClickListener() {
                     @Override
