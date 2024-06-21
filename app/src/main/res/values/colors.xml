@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="black">#000000</color>
+    <color name="mid_black">#070709</color>
+
+    <color name="gray">#575757</color>
+    <color name="light_gray">#4C4F54</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="cream">#EFDFC5</color>
+
+
+    <color name="maroon_red">#7D1416</color>
+    <color name="light_red">#F42C1D</color>
+    <color name="red">#AE1918</color>
+    <color name="dark_red">#701C1A</color>
+
+
+    <color name="blue">#003662</color>
+    <color name="mid_blue">#00668E</color>
+    <color name="dark_blue">#0A2138</color>
+    <color name="light_blue">#00C8DF</color>
+
+    <color name="orange">#A63E1B</color>
+    <color name="light_orange">#E95D2C</color>
+
+
+
+
     <color name="primary_color">#FF03DAC5</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
@@ -9,9 +36,8 @@
 
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="gray">#575757</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+
     <color name="Birulogo">#9ADBF7</color>
 
     <color name="background_color">#F5F5F5</color>
