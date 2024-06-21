@@ -22,6 +22,7 @@ import com.example.barangku.R;
 import com.example.barangku.activity.model.ModelBarangMasuk;
 import com.example.barangku.activity.model.ModelStock;
 import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BarangMasuk extends AppCompatActivity {
-    private TextView tv_toolbar, tvTanggalMasuk, tvNamaBarang, tvSatuan, tvJumlahItem;
+    private TextView tvToolbar, tvTanggalMasuk, tvNamaBarang, tvSatuan, tvJumlahItem;
     private AutoCompleteTextView etNamaBarang;
     private EditText etJumlah, etKeterangan;
     private Button btnSimpan, btnCari;
@@ -41,20 +42,23 @@ public class BarangMasuk extends AppCompatActivity {
     private Uri gambarBarang;
     private String simpan, namaBarang, satuan, keterangan, tanggalMasuk;
     private int jumlahMasuk = 0;
-    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("StockBarang");
-    DatabaseReference barangMasukref = FirebaseDatabase.getInstance().getReference("BarangMasuk");
+    private String userRole;
+    private DatabaseReference reference = FirebaseDatabase.getInstance().getReference("StockBarang");
+    private DatabaseReference barangMasukref = FirebaseDatabase.getInstance().getReference("BarangMasuk");
+    private DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("User");
     private List<String> namaBarangList = new ArrayList<>();
     private List<ModelStock> stockList = new ArrayList<>();
 
     private ModelStock currentStockItem;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barang_masuk);
 
-        tv_toolbar = findViewById(R.id.tv_judul);
-        tv_toolbar.setText("Barang Masuk");
+        tvToolbar = findViewById(R.id.tv_judul);
+        tvToolbar.setText("Barang Masuk");
 
         ivback = findViewById(R.id.iv_back);
         etNamaBarang = findViewById(R.id.et_nama_barang);
@@ -68,6 +72,9 @@ public class BarangMasuk extends AppCompatActivity {
         tvTanggalMasuk = findViewById(R.id.tv_tanggal_masuk);
         ivKalender = findViewById(R.id.iv_kalender);
         ivGambar = findViewById(R.id.iv_gambar_barang);
+
+        mAuth = FirebaseAuth.getInstance();
+        String currentUserId = mAuth.getCurrentUser().getUid();
 
         LocalDate localDate = LocalDate.now();
         int yearToday = localDate.getYear();
@@ -153,17 +160,48 @@ public class BarangMasuk extends AppCompatActivity {
                 } else {
                     simpanBarangMasuk();
                     // Reset fields after saving
-                    etKeterangan.setText("");
-                    etNamaBarang.setText("");
-                    etJumlah.setText("");
-                    tvSatuan.setText("");
-                    tvJumlahItem.setText("");
-                    ivGambar.setImageDrawable(getResources().getDrawable(R.drawable.insert_image));
+                    resetFields();
                 }
             }
         });
 
         retrieveStockData();
+        checkUserRole(currentUserId);
+    } // Akhir On Create
+    private void resetFields() {
+        etKeterangan.setText("");
+        etNamaBarang.setText("");
+        etJumlah.setText("");
+        tvSatuan.setText("");
+        tvJumlahItem.setText("");
+        ivGambar.setImageDrawable(getResources().getDrawable(R.drawable.insert_image));
+    }
+    private void checkUserRole(String userId) {
+        userRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    userRole = snapshot.child("jabatan").getValue(String.class);
+                    updateUIBasedOnRole();
+                } else {
+                    Toast.makeText(BarangMasuk.this, "Gagal memuat data pengguna", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(BarangMasuk.this, "Gagal memuat data pengguna", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateUIBasedOnRole() {
+        if ("Admin".equals(userRole)) {
+            // Admin can see all functionalities
+        } else {
+            // User (non-admin) has limited functionalities
+            ivKalender.setVisibility(View.GONE); // Hide the calendar icon for users
+        }
     }
 
     private void simpanBarangMasuk() {
@@ -173,18 +211,40 @@ public class BarangMasuk extends AppCompatActivity {
             return;
         }
 
-        ModelBarangMasuk bm = new ModelBarangMasuk(id, namaBarang, satuan, keterangan,tanggalMasuk, jumlahMasuk );
+        ModelBarangMasuk bm = new ModelBarangMasuk(id, namaBarang, satuan, keterangan, tanggalMasuk, jumlahMasuk);
 
-        barangMasukref.child(id).setValue(bm).addOnCompleteListener(task -> {
+        if ("Admin".equals(userRole)) {
+            // Admin saves directly
+            barangMasukref.child(id).setValue(bm).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    updateStockBarang(currentStockItem, jumlahMasuk);
+                    Toast.makeText(BarangMasuk.this, "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
+                    resetFields();
+                } else {
+                    Toast.makeText(BarangMasuk.this, "Gagal menyimpan data", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            // User sends a request for approval
+            kirimPengajuanKeAdmin(bm);
+        }
+    }
+    private void kirimPengajuanKeAdmin(ModelBarangMasuk bm) {
+        DatabaseReference notifRef = FirebaseDatabase.getInstance().getReference("PengajuanBarangMasuk");
+        String notifId = notifRef.push().getKey();
+        if (notifId == null) {
+            Toast.makeText(this, "Gagal mengirim pengajuan", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        notifRef.child(notifId).setValue(bm).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                updateStockBarang(currentStockItem, jumlahMasuk);
-                Toast.makeText(BarangMasuk.this, "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BarangMasuk.this, "Pengajuan dikirim ke admin", Toast.LENGTH_SHORT).show();
+                resetFields();
             } else {
-                Toast.makeText(BarangMasuk.this, "Gagal menyimpan data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BarangMasuk.this, "Gagal mengirim pengajuan ke admin", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
     private void updateStockBarang(ModelStock stockItem, int jumlahMasuk) {
         int jumlahBaru = Integer.parseInt(String.valueOf(Integer.parseInt(stockItem.getJumlahBarang()) + jumlahMasuk));
         stockItem.setJumlahBarang(String.valueOf(jumlahBaru));
@@ -240,29 +300,8 @@ public class BarangMasuk extends AppCompatActivity {
                 Toast.makeText(BarangMasuk.this, "Failed to load data", Toast.LENGTH_SHORT).show();
             }
         });
-//        reference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                namaBarangList.clear();
-//                stockList.clear();
-//
-//                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//                    ModelStock ms = dataSnapshot.getValue(ModelStock.class);
-//                    if (ms != null) {
-//                        namaBarangList.add(ms.getNamaBarang());
-//                        stockList.add(ms);
-//                    }
-//                }
-//                setupAutoCompleteTextView();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Toast.makeText(BarangMasuk.this, "Failed to load data", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-    }
 
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -270,8 +309,6 @@ public class BarangMasuk extends AppCompatActivity {
             gambarBarang = data.getData();
             ivGambar.setImageURI(gambarBarang);
         }
-//        gambarBarang = data.getData();
-//        ivGambar.setImageURI(gambarBarang);
     }
 
     private void setupAutoCompleteTextView() {
