@@ -7,8 +7,8 @@
     tools:context=".activity.user_activity.SplashScreen"
     android:background="@color/darker_blue">
     <ImageView
-        android:layout_width="800px"
-        android:layout_height="700px"
+        android:layout_width="900px"
+        android:layout_height="800px"
         android:src="@drawable/inventoryku"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

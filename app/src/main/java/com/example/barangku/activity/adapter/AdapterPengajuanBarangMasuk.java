@@ -41,6 +41,8 @@ public class AdapterPengajuanBarangMasuk extends RecyclerView.Adapter<AdapterPen
         ModelPengajuanBarangMasuk pengajuan = pengajuanList.get(position);
         holder.tvNamaBarang.setText(pengajuan.getNamaBarang());
         holder.tvJumlahBarang.setText(String.valueOf(pengajuan.getJumlahBarang()));
+        holder.tvSatuan.setText(String.valueOf(pengajuan.getSatuan()));
+        holder.tvTanggalMasuk.setText(String.valueOf(pengajuan.getTanggalMasuk()));
         holder.tvKeterangan.setText(pengajuan.getKeterangan());
 
         holder.itemView.setOnClickListener(v -> itemClickPengajuanBarangMasuk.onItemClickListener(pengajuan,position));
@@ -52,13 +54,15 @@ public class AdapterPengajuanBarangMasuk extends RecyclerView.Adapter<AdapterPen
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvNamaBarang, tvJumlahBarang, tvKeterangan;
+        public TextView tvNamaBarang, tvJumlahBarang, tvSatuan, tvTanggalMasuk, tvKeterangan;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvNamaBarang = itemView.findViewById(R.id.tvNamaBarang);
-            tvJumlahBarang = itemView.findViewById(R.id.tvJumlahBarang);
-            tvKeterangan = itemView.findViewById(R.id.tvKeterangan);
+            tvNamaBarang = itemView.findViewById(R.id.tv_nama_barang);
+            tvJumlahBarang = itemView.findViewById(R.id.tv_jumlah_barang);
+            tvSatuan = itemView.findViewById(R.id.tv_satuan);
+            tvTanggalMasuk = itemView.findViewById(R.id.tv_tanggal_masuk);
+            tvKeterangan = itemView.findViewById(R.id.tv_keterangan);
         }
     }
 }

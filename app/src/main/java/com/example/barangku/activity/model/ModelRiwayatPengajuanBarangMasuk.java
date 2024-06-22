@@ -1,11 +1,12 @@
 package com.example.barangku.activity.model;
 
-public class ModelPengajuanBarangMasuk {
+public class ModelRiwayatPengajuanBarangMasuk {
     private String id, namaBarang, satuan, keterangan, tanggalMasuk, status;
     private int jumlahBarang;
-    public ModelPengajuanBarangMasuk (){}
 
-    public ModelPengajuanBarangMasuk(String id, String namaBarang, String satuan, String keterangan, String tanggalMasuk, String status, int jumlahBarang) {
+    public ModelRiwayatPengajuanBarangMasuk (){}
+
+    public ModelRiwayatPengajuanBarangMasuk(String id, String namaBarang, String satuan, String keterangan, String tanggalMasuk, String status, int jumlahBarang) {
         this.id = id;
         this.namaBarang = namaBarang;
         this.satuan = satuan;
@@ -13,6 +14,14 @@ public class ModelPengajuanBarangMasuk {
         this.tanggalMasuk = tanggalMasuk;
         this.status = status;
         this.jumlahBarang = jumlahBarang;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getId() {
@@ -53,14 +62,6 @@ public class ModelPengajuanBarangMasuk {
 
     public void setTanggalMasuk(String tanggalMasuk) {
         this.tanggalMasuk = tanggalMasuk;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public int getJumlahBarang() {

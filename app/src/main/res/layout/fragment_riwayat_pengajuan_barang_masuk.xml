@@ -11,7 +11,7 @@
         android:layout_marginLeft="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pengajuan Barang Masuk"
+        android:text="Riwayat Pengajuan Barang Masuk"
         android:textSize="24sp"
         android:textStyle="bold"
         android:paddingBottom="16dp"

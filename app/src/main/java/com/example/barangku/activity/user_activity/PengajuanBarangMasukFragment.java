@@ -41,8 +41,6 @@ public class PengajuanBarangMasukFragment extends Fragment implements ItemClickP
     DatabaseReference barangMasukRef = FirebaseDatabase.getInstance().getReference("BarangMasuk");
     DatabaseReference stokBarangRef = FirebaseDatabase.getInstance().getReference("StockBarang");
 
-
-
     public PengajuanBarangMasukFragment() {
         // Required empty public constructor
     }
@@ -50,32 +48,17 @@ public class PengajuanBarangMasukFragment extends Fragment implements ItemClickP
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pengajuan_barang_masuk, container, false);
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        tvToolbar = view.findViewById(R.id.tv_judul);
-//        tvToolbar.setText("Pengajuan Barang Masuk");
-//
-//        ivBack = view.findViewById(R.id.iv_back);
-//        ivBack.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(Pengajuan.this, Pengajuan.class);
-//                startActivity(intent);
-//            }
-//        });
-
 
         rvPengajuanBarangMasuk = view.findViewById(R.id.rv_pengajuan);
 
@@ -100,9 +83,10 @@ public class PengajuanBarangMasukFragment extends Fragment implements ItemClickP
                     String satuan = dataSnapshot.child("satuan").getValue(String.class);
                     String keterangan = dataSnapshot.child("keterangan").getValue(String.class);
                     String tanggalMasuk = dataSnapshot.child("tanggalMasuk").getValue(String.class);
+                    String status = dataSnapshot.child("status").getValue(String.class);
                     int jumlahBarang = dataSnapshot.child("jumlahBarang").getValue(Integer.class);
 
-                    ModelPengajuanBarangMasuk mpbm = new ModelPengajuanBarangMasuk(id, namaBarang, satuan, keterangan, tanggalMasuk, jumlahBarang);
+                    ModelPengajuanBarangMasuk mpbm = new ModelPengajuanBarangMasuk(id, namaBarang, satuan, keterangan, tanggalMasuk, status, jumlahBarang);
 
                     if (mpbm != null) {
                         pengajuanList.add(mpbm);
@@ -118,14 +102,13 @@ public class PengajuanBarangMasukFragment extends Fragment implements ItemClickP
         });
     }
 
-
     private void approvePengajuan(ModelPengajuanBarangMasuk pengajuan, int position) {
-        // Tambahkan data baru ke tabel BarangMasuk
         String barangMasukId = barangMasukRef.push().getKey();
         ModelBarangMasuk barangMasukBaru = new ModelBarangMasuk(barangMasukId, pengajuan.getNamaBarang(), pengajuan.getSatuan(), pengajuan.getKeterangan(), pengajuan.getTanggalMasuk(), pengajuan.getJumlahBarang());
         barangMasukRef.child(barangMasukId).setValue(barangMasukBaru).addOnCompleteListener(addTask -> {
             if (addTask.isSuccessful()) {
                 perbaruiStokBarang(pengajuan);
+                pengajuan.setStatus("Diterima");
                 simpanRiwayatPengajuan(pengajuan);
                 hapusPengajuanSetelahDisetujui(pengajuan, position);
             } else {
@@ -133,6 +116,18 @@ public class PengajuanBarangMasukFragment extends Fragment implements ItemClickP
             }
         });
     }
+    private void rejectPengajuan(ModelPengajuanBarangMasuk pengajuan) {
+        pengajuan.setStatus("Ditolak");
+        simpanRiwayatPengajuan(pengajuan);
+        pengajuanRef.child(pengajuan.getId()).removeValue().addOnCompleteListener(removeTask -> {
+            if (removeTask.isSuccessful()) {
+                Toast.makeText(requireActivity(), "Pengajuan berhasil ditolak dan disimpan dalam riwayat", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(requireActivity(), "Gagal menghapus pengajuan", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void perbaruiStokBarang(ModelPengajuanBarangMasuk pengajuan) {
         stokBarangRef.orderByChild("namaBarang").equalTo(pengajuan.getNamaBarang()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -167,31 +162,30 @@ public class PengajuanBarangMasukFragment extends Fragment implements ItemClickP
             }
         });
     }
+
     private void simpanRiwayatPengajuan(ModelPengajuanBarangMasuk pengajuan) {
         String riwayatId = riwayatPengajuanRef.push().getKey();
         riwayatPengajuanRef.child(riwayatId).setValue(pengajuan).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Toast.makeText(requireActivity(), "Pengajuan disetujui dan disimpan dalam riwayat", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireActivity(), "Pengajuan " + pengajuan.getStatus() + " dan disimpan dalam riwayat", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(requireActivity(), "Gagal menyimpan pengajuan ke dalam riwayat", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
     private void hapusPengajuanSetelahDisetujui(ModelPengajuanBarangMasuk pengajuan, int position) {
         pengajuanRef.child(pengajuan.getId()).removeValue().addOnCompleteListener(removeTask -> {
             if (!removeTask.isSuccessful()) {
                 Toast.makeText(requireActivity(), "Gagal menghapus pengajuan setelah disetujui", Toast.LENGTH_SHORT).show();
             } else {
-                pengajuanList.remove(position);
-                adapter.notifyItemRemoved(position);
+                if (position >= 0 && position < pengajuanList.size()) {
+                    pengajuanList.remove(position);
+                    adapter.notifyItemRemoved(position);
+                }
             }
         });
     }
-
-//    private void removePengajuanFromList(ModelBarangMasuk pengajuan, int position) {
-//        pengajuanList.remove(position);
-//        adapter.notifyDataSetChanged();
-//    }
 
     @Override
     public void onItemClickListener(ModelPengajuanBarangMasuk data, int position) {
@@ -208,8 +202,7 @@ public class PengajuanBarangMasukFragment extends Fragment implements ItemClickP
                     .setNegativeButton("Tolak", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            pengajuanRef.child(data.getId()).removeValue();
-                            Toast.makeText(requireActivity(), "Data Berhasil di Tolak", Toast.LENGTH_SHORT).show();
+                            rejectPengajuan(data);
                         }
                     })
                     .setNeutralButton("Batal", null)
