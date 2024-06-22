@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="8dp"
-    android:background="@android:color/white"
+    android:background="@color/light_blue"
     android:elevation="4dp"
     android:layout_margin="8dp"
     android:clipToPadding="false">
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:text="Alamat Client"
         android:textSize="16sp"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@color/mid_black"
         android:paddingLeft="7dp"
         android:layout_marginBottom="4dp"/>
 
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:text="Nomor Client"
         android:textSize="16sp"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@color/mid_black"
         android:paddingLeft="7dp"
         android:layout_marginBottom="4dp"/>
 
@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:text="Email Client"
         android:textSize="16sp"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@color/mid_black"
         android:paddingLeft="7dp"
         android:layout_marginBottom="8dp"/>
 

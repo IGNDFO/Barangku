@@ -16,22 +16,28 @@
     <color name="dark_red">#701C1A</color>
 
 
+    <color name="light_green">#1CE644</color>
+    <color name="dark_green">#08652C</color>
+    <color name="green">#058E3F</color>
+
+
     <color name="blue">#003662</color>
     <color name="mid_blue">#00668E</color>
     <color name="dark_blue">#0A2138</color>
     <color name="darker_blue">#02031F</color>
-    <color name="light_blue">#00C8DF</color>
+    <color name="light_blue">#1EDCD8</color>
 
     <color name="orange">#A63E1B</color>
     <color name="light_orange">#E95D2C</color>
+    <color name="yellow">#FFC145</color>
 
 
 
 
-    <color name="primary_color">#FF03DAC5</color>
+    <color name="primary_color">#02031F</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
+    <color name="button_bg">#1EDCD8</color>
 
     <color name="warning">#F44336</color>
 

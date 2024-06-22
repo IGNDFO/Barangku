@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/darker_blue">
 
     <include
         layout="@layout/toolbar"/>
@@ -19,7 +20,8 @@
                android:layout_height="wrap_content"
                android:layout_margin="6dp"
                app:iconifiedByDefault="false"
-               app:queryHint="Search here..." />
+               app:queryHint="Search here..."
+               android:background="@color/orange"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_below="@id/search"
                 android:id="@+id/rv_stock"
@@ -28,15 +30,20 @@
                 android:alpha="1"
                 tools:listitem="@layout/list_stock" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_tambah_barang"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_margin="32dp"
-                android:src="@drawable/ic_add"
-                app:tint="@null"/>
+           <com.google.android.material.floatingactionbutton.FloatingActionButton
+               android:id="@+id/fab_tambah_barang"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentRight="true"
+               android:layout_alignParentBottom="true"
+               android:layout_marginStart="32dp"
+               android:layout_marginTop="32dp"
+               android:layout_marginEnd="32dp"
+               android:layout_marginBottom="32dp"
+               android:src="@drawable/ic_add"
+               android:contentDescription="Tambah Display Barang"
+               app:tint="@null"
+               android:backgroundTint="@color/blue"/>
 
 
             <ProgressBar
