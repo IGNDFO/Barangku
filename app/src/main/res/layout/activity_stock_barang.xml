@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/darker_blue">
+    android:background="#483360">
 
     <include
         layout="@layout/toolbar"/>
@@ -21,7 +21,7 @@
                android:layout_margin="6dp"
                app:iconifiedByDefault="false"
                app:queryHint="Search here..."
-               android:background="@color/orange"/>
+               android:background="@color/background_color"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_below="@id/search"
                 android:id="@+id/rv_stock"

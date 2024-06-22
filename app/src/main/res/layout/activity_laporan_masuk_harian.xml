@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:background="#A974E8">
 
     <include layout="@layout/toolbar"/>
 
@@ -17,6 +17,7 @@
 
     <ListView
         android:id="@+id/lv_laporan_harian"
+        android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

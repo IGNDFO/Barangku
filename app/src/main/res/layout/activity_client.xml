@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.user_activity.Client"
-    android:background="@color/darker_blue">
+    android:background="#A974E8">
 
     <!-- Include Toolbar Layout -->
     <include
@@ -21,12 +21,13 @@
         android:layout_margin="6dp"
         app:iconifiedByDefault="false"
         app:queryHint="Cari Nama Client"
-        android:background="@color/orange"
+        android:background="@color/background_color"
         android:padding="8dp"
+
         android:layout_marginBottom="16dp"
         android:iconifiedByDefault="false"
         android:queryHint="Search..."
-        app:queryBackground="@color/light_orange"
+        app:queryBackground="@color/background_color"
         android:elevation="4dp"/>
 
     <FrameLayout

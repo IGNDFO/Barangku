@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="#4A148C">
+    android:background="#A974E8">
     <include layout="@layout/toolbar"/>
 
     <LinearLayout
@@ -47,7 +47,7 @@
             android:layout_height="100dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:background="#FFFFFF"
+            android:background="#FFCDD2"
             android:orientation="horizontal"
             android:padding="16dp">
 

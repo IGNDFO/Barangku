@@ -17,7 +17,7 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="24dp"
-        android:background="@color/Birulogo"
+        android:background="@color/darker_blue"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
@@ -25,7 +25,7 @@
             android:layout_width="300dp"
             android:layout_height="128dp"
             android:contentDescription="App Logo"
-            android:src="@drawable/logo" />
+            android:src="@drawable/inventoryku" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,6 +33,7 @@
             android:layout_below="@id/logo_image"
             android:text="Register"
             android:textStyle="bold"
+            android:textColor="#D5CDCD"
             android:textSize="60dp"
             android:layout_marginLeft="60px"/>
 

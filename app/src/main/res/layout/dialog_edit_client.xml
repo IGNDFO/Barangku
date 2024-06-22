@@ -5,14 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="12dp"
     android:elevation="10dp"
-    android:background="@color/white">
+    android:background="#A974E8">
 
     <LinearLayout
         android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/light_blue">
+        android:background="#944A148C">
         <ImageView
             android:id="@+id/iv_close"
             android:layout_width="30dp"

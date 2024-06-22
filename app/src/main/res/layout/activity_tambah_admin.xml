@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="24dp"
-    android:background="@color/Birulogo">
+    android:background="@color/darker_blue">
 
 
 
@@ -16,7 +16,7 @@
         android:layout_height="128dp"
         android:layout_gravity="center_horizontal"
         android:contentDescription="App Logo"
-        android:src="@drawable/logo" />
+        android:src="@drawable/inventoryku" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,11 +24,13 @@
         android:text="Tambah Admin"
         android:layout_margin="10dp"
         android:textStyle="bold"
+        android:textColor="@color/white"
         android:textSize="28sp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:textColor="@color/white"
         android:text="Akses untuk mendaftarkan seseorang menjadi admin"/>
 
     <com.google.android.material.textfield.TextInputLayout

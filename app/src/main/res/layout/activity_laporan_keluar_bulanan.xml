@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:background="#A974E8"
+>
 
     <include layout="@layout/toolbar"/>
 
@@ -20,11 +21,13 @@
         android:id="@+id/btn_pilih_bulan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pilih Bulan dan Tahun" />
-
+        android:text="Pilih Bulan dan Tahun"
+        android:layout_marginLeft="16dp"/>
     <ListView
         android:id="@+id/lv_laporan_bulanan"
+        android:padding="6dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
 
 </LinearLayout>
