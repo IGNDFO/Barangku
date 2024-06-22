@@ -87,29 +87,6 @@ public class BarangMasuk extends AppCompatActivity {
         btnCari = findViewById(R.id.btn_cari_barang);
         btnSimpan = findViewById(R.id.btn_simpan);
 
-        /**   ivKalender.setOnClickListener(new View.OnClickListener() {
-        @Override public void onClick(View view) {
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(Barang_Masuk.this,
-        new DatePickerDialog.OnDateSetListener() {
-        @Override public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar selectedCalendar = Calendar.getInstance();
-        selectedCalendar.set(year, month, dayOfMonth);
-
-        String formatTanggal = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(selectedCalendar.getTime());
-        tvTanggalMasuk.setText(formatTanggal);
-
-        }
-        }, year, month, dayOfMonth);
-        datePickerDialog.show();
-        }
-        });**/
-
-
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,23 +121,25 @@ public class BarangMasuk extends AppCompatActivity {
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    namaBarang = tvNamaBarang.getText().toString();
-                    keterangan = etKeterangan.getText().toString();
-                    jumlahMasuk = Integer.parseInt(etJumlah.getText().toString());
-                    satuan = tvSatuan.getText().toString();
-                } catch (NumberFormatException e) {
-                    Toast.makeText(BarangMasuk.this, "Jumlah harus berupa angka", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                if (validateFields()) {
+                    try {
+                        namaBarang = tvNamaBarang.getText().toString();
+                        keterangan = etKeterangan.getText().toString();
+                        jumlahMasuk = Integer.parseInt(etJumlah.getText().toString());
+                        satuan = tvSatuan.getText().toString();
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(BarangMasuk.this, "Jumlah harus berupa angka", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
-                gambarBarang = ivGambar.getDrawable() != null ? gambarBarang : Uri.EMPTY;
-                if (namaBarang.trim().isEmpty() || jumlahMasuk == 0) {
-                    Toast.makeText(BarangMasuk.this, "Pastikan semua data terisi dengan benar", Toast.LENGTH_SHORT).show();
-                } else {
-                    simpanBarangMasuk();
-                    // Reset fields after saving
-                    resetFields();
+                    gambarBarang = ivGambar.getDrawable() != null ? gambarBarang : Uri.EMPTY;
+                    if (namaBarang.trim().isEmpty() || jumlahMasuk == 0) {
+                        Toast.makeText(BarangMasuk.this, "Pastikan semua data terisi dengan benar", Toast.LENGTH_SHORT).show();
+                    } else {
+                        simpanBarangMasuk();
+                        // Reset fields after saving
+                        resetFields();
+                    }
                 }
             }
         });
@@ -168,6 +147,31 @@ public class BarangMasuk extends AppCompatActivity {
         retrieveStockData();
         checkUserRole(currentUserId);
     } // Akhir On Create
+
+    private boolean validateFields() {
+        if (etNamaBarang.getText().toString().trim().isEmpty()) {
+            etNamaBarang.setError("Nama barang harus diisi");
+            return false;
+        }
+        if (etJumlah.getText().toString().trim().isEmpty()) {
+            etJumlah.setError("Jumlah barang harus diisi");
+            return false;
+        }
+        if (tvNamaBarang.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "Nama barang tidak boleh kosong", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (tvSatuan.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "Satuan barang tidak boleh kosong", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (gambarBarang == null) {
+            Toast.makeText(this, "Gambar barang harus dipilih", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
     private void resetFields() {
         etKeterangan.setText("");
         etNamaBarang.setText("");
@@ -176,6 +180,7 @@ public class BarangMasuk extends AppCompatActivity {
         tvJumlahItem.setText("");
         ivGambar.setImageDrawable(getResources().getDrawable(R.drawable.insert_image));
     }
+
     private void checkUserRole(String userId) {
         userRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -229,6 +234,7 @@ public class BarangMasuk extends AppCompatActivity {
             kirimPengajuanKeAdmin(bm);
         }
     }
+
     private void kirimPengajuanKeAdmin(ModelBarangMasuk bm) {
         DatabaseReference notifRef = FirebaseDatabase.getInstance().getReference("PengajuanBarangMasuk");
         String notifId = notifRef.push().getKey();
@@ -245,6 +251,7 @@ public class BarangMasuk extends AppCompatActivity {
             }
         });
     }
+
     private void updateStockBarang(ModelStock stockItem, int jumlahMasuk) {
         int jumlahBaru = Integer.parseInt(String.valueOf(Integer.parseInt(stockItem.getJumlahBarang()) + jumlahMasuk));
         stockItem.setJumlahBarang(String.valueOf(jumlahBaru));
@@ -252,7 +259,6 @@ public class BarangMasuk extends AppCompatActivity {
         reference.child(stockItem.getId()).setValue(stockItem).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(BarangMasuk.this, "Stok barang berhasil diperbarui", Toast.LENGTH_SHORT).show();
-//                tvJumlahItem.setText(String.valueOf(jumlahBaru));
             } else {
                 Toast.makeText(BarangMasuk.this, "Gagal memperbarui stok barang", Toast.LENGTH_SHORT).show();
             }
@@ -300,8 +306,8 @@ public class BarangMasuk extends AppCompatActivity {
                 Toast.makeText(BarangMasuk.this, "Failed to load data", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -321,5 +327,6 @@ public class BarangMasuk extends AppCompatActivity {
             }
         });
     }
+
 
 }

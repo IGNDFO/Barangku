@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:background="A974E8">
+    android:padding="8dp">
     <TextView
         android:id="@+id/tv_tanggal_masuk"
         android:layout_width="wrap_content"
@@ -43,12 +42,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Keterangan"
-        android:textSize="14sp" />
-    <TextView
-        android:id="@+id/tv_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Status Pengajuan"
         android:textSize="14sp" />
 
 
