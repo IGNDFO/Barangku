@@ -4,23 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-android:background="#A974E8"
+    android:background="#A974E8"
     tools:context=".activity.user_activity.PengajuanBarangMasukFragment">
+
 <include layout="@layout/toolbar"/>
+
     <TextView
-        android:layout_marginLeft="16dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Pengajuan Barang Masuk"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:paddingBottom="16dp"
+        android:textColor="@color/white"
+        android:padding="10dp"
         android:gravity="center" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_pengajuan"
         android:layout_width="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:padding="8dp"
         tools:listitem="@layout/item_pengajuan_barang_masuk"/>
-</LinearLayout>
+    </LinearLayout>

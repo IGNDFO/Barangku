@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:text="Simpan"
             android:textColor="@android:color/white"
-            android:backgroundTint="@color/purple_500"/>
+            android:backgroundTint="@color/green"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

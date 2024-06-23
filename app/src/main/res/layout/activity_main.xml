@@ -25,7 +25,8 @@
         android:layout_rowWeight="1"
         android:layout_columnWeight="1"
         android:textAlignment="center"
-        android:layout_marginTop="60dp"/>
+        android:layout_marginTop="60dp"
+        android:drawableTop="@drawable/gudang"/>
 
     <Button
         android:layout_width="0dp"
@@ -35,7 +36,8 @@
         android:layout_rowWeight="1"
         android:layout_columnWeight="1"
         android:textAlignment="center"
-        android:layout_marginTop="60dp"/>
+        android:layout_marginTop="60dp"
+        android:drawableTop="@drawable/gudang"/>
 
     </GridLayout>
 
@@ -52,7 +54,8 @@
             android:text="Pengajuan"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:drawableTop="@drawable/gudang"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="120dp"
@@ -61,7 +64,8 @@
             android:layout_columnWeight="1"
             android:id="@+id/btn_riwayat_pengajuan"
             android:textAlignment="center"
-            android:layout_marginLeft="20dp"/>
+            android:layout_marginLeft="20dp"
+            android:drawableTop="@drawable/gudang"/>
 
         <Button
             android:layout_width="0dp"
@@ -70,7 +74,8 @@
             android:id="@+id/btn_barang_masuk_admin"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:drawableTop="@drawable/gudang"/>
 
         <Button
             android:layout_width="0dp"
@@ -80,7 +85,8 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:textAlignment="center"
-            android:layout_marginLeft="20dp"/>
+            android:layout_marginLeft="20dp"
+            android:drawableTop="@drawable/gudang"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="120dp"
@@ -88,7 +94,8 @@
             android:id="@+id/btn_client_admin"
             android:textAlignment="center"
             android:layout_rowWeight="1"
-            android:layout_columnWeight="1" />
+            android:layout_columnWeight="1"
+            android:drawableTop="@drawable/client"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="120dp"
@@ -97,7 +104,8 @@
             android:textAlignment="center"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:drawableTop="@drawable/laporan"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="120dp"
@@ -105,7 +113,8 @@
             android:id="@+id/btn_stok_barang_admin"
             android:textAlignment="center"
             android:layout_rowWeight="1"
-            android:layout_columnWeight="1"/>
+            android:layout_columnWeight="1"
+            android:drawableTop="@drawable/stock" />
         <Button
             android:layout_width="0dp"
             android:layout_height="120dp"
@@ -114,7 +123,8 @@
             android:textAlignment="center"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:drawableTop="@drawable/admin"/>
 
     </GridLayout>
 
@@ -125,6 +135,7 @@
         android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
         android:text="Sign out"
+        android:backgroundTint="@color/maroon_red"
         android:textAlignment="center" />
 
 </LinearLayout>

@@ -9,11 +9,8 @@
     tools:context=".activity.user_activity.Client"
     android:background="#A974E8">
 
-    <!-- Include Toolbar Layout -->
     <include
         layout="@layout/toolbar"/>
-
-    <!-- SearchView with Margin and Hint -->
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search"
         android:layout_width="match_parent"

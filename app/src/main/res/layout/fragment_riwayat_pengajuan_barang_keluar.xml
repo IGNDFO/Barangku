@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#A974E8"
     tools:context=".activity.user_activity.RiwayatPengajuanBarangKeluarFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    <include layout="@layout/toolbar"/>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginLeft="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Riwayat Pengajuan Barang Keluar"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:gravity="center" />
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_riwayat_pengajuan"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        tools:listitem="@layout/item_riwayat_pengajuan_barang_keluar"/>
+</LinearLayout>

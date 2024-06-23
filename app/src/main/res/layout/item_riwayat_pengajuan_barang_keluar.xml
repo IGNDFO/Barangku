@@ -32,7 +32,7 @@
             android:id="@+id/tv_nama_klien"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nama Klien"
+            android:text="Nama Klien, "
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/text_primary"
@@ -90,6 +90,14 @@
         android:textSize="14sp"
         android:textColor="@color/text_secondary"
         android:layout_marginBottom="4dp" />
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status Pengajuan"
+        android:textSize="14sp"
+        android:textColor="@color/warning" />
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"

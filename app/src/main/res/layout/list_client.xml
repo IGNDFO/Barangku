@@ -10,7 +10,6 @@
     android:layout_margin="8dp"
     android:clipToPadding="false">
 
-    <!-- Hidden ID TextView -->
     <TextView
         android:id="@+id/tv_id"
         android:layout_width="wrap_content"
@@ -32,7 +31,6 @@
         android:paddingLeft="7dp"
         android:layout_marginBottom="4dp"/>
 
-    <!-- Alamat Client TextView -->
     <TextView
         android:id="@+id/tv_alamat_client"
         android:layout_width="wrap_content"
@@ -43,7 +41,6 @@
         android:paddingLeft="7dp"
         android:layout_marginBottom="4dp"/>
 
-    <!-- Nomor Client TextView -->
     <TextView
         android:id="@+id/tv_telp_client"
         android:layout_width="wrap_content"
@@ -54,7 +51,6 @@
         android:paddingLeft="7dp"
         android:layout_marginBottom="4dp"/>
 
-    <!-- Email Client TextView -->
     <TextView
         android:id="@+id/tv_email"
         android:layout_width="wrap_content"
@@ -65,10 +61,9 @@
         android:paddingLeft="7dp"
         android:layout_marginBottom="8dp"/>
 
-    <!-- Divider Line -->
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
         android:background="@android:color/darker_gray"/>
 
 </LinearLayout>
