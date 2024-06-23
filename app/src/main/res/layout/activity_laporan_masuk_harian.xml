@@ -7,18 +7,32 @@
 
     <include layout="@layout/toolbar"/>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Laporan Barang Masuk Harian"
-        android:textSize="24sp"
-        android:gravity="center"
-        android:layout_marginBottom="16dp"/>
+        android:orientation="vertical"
+        android:padding="10dp">
 
-    <ListView
-        android:id="@+id/lv_laporan_harian"
-        android:padding="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Laporan Barang Masuk Harian"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"/>
+
+
+        <ListView
+            android:id="@+id/lv_laporan_harian"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="#CCCCCC"
+            android:dividerHeight="1dp"
+            android:background="#FFFFFF"/>
+    </LinearLayout>
 
 </LinearLayout>

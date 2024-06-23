@@ -106,17 +106,6 @@ public class BarangMasuk extends AppCompatActivity {
             }
         });
 
-        ivGambar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ImagePicker.with(BarangMasuk.this)
-                        .galleryMimeTypes(new String[]{"image/png", "image/jpg", "image/jpeg"})
-                        .crop()
-                        .compress(256)
-                        .maxResultSize(1080, 1080)
-                        .start();
-            }
-        });
 
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,10 +152,6 @@ public class BarangMasuk extends AppCompatActivity {
         }
         if (tvSatuan.getText().toString().trim().isEmpty()) {
             Toast.makeText(this, "Satuan barang tidak boleh kosong", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if (gambarBarang == null) {
-            Toast.makeText(this, "Gambar barang harus dipilih", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

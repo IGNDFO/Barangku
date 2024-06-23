@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                             menuAdmin.setVisibility(View.VISIBLE);
                             menuUser.setVisibility(View.GONE);
                             Toast.makeText(MainActivity.this, "Anda Login Sebagai Admin", Toast.LENGTH_SHORT).show();
+                            btnSignout.setVisibility(View.VISIBLE);
                         }
 //                        else if (jabatan.equals("Karyawan")) {
 ////                            menuUser.setVisibility(View.VISIBLE);
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                             menuUser.setVisibility(View.VISIBLE);
                             menuAdmin.setVisibility(View.GONE);
                             Toast.makeText(MainActivity.this, "Anda Login Sebagai Karyawan", Toast.LENGTH_SHORT).show();
+                            btnSignout.setVisibility(View.VISIBLE);
                         }
                         break; // Exit the loop once the user is found
                     }

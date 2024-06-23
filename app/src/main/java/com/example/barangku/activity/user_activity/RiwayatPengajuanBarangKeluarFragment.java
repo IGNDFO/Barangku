@@ -24,8 +24,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class RiwayatPengajuanBarangKeluarFragment extends Fragment {
@@ -74,6 +78,7 @@ public class RiwayatPengajuanBarangKeluarFragment extends Fragment {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     ModelRiwayatPengajuanBarangKeluar riwayat = dataSnapshot.getValue(ModelRiwayatPengajuanBarangKeluar.class);
                     if (riwayat != null) {
+                        riwayat.setTanggalKeluar(formatTanggal(riwayat.getTanggalKeluar()));
                         riwayatList.add(riwayat);
                     }
                 }
@@ -85,5 +90,16 @@ public class RiwayatPengajuanBarangKeluarFragment extends Fragment {
                 Toast.makeText(requireActivity(), "Gagal memuat data riwayat pengajuan", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private String formatTanggal(String tanggal) {
+        SimpleDateFormat sdfSource = new SimpleDateFormat("yyyy-MM-dd", new Locale("id", "ID"));
+        SimpleDateFormat sdfDestination = new SimpleDateFormat("EEEE, dd MMMM yyyy",new Locale("id", "ID"));
+        try {
+            Date date = sdfSource.parse(tanggal);
+            return sdfDestination.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return tanggal;
+        }
     }
 }

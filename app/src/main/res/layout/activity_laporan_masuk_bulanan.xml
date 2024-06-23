@@ -3,32 +3,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#944A148C"
-  >
+    android:background="#944A148C">
 
     <include layout="@layout/toolbar"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Laporan Barang Masuk Bulanan"
         android:textSize="24sp"
+        android:textColor="#FFFFFF"
         android:gravity="center"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:padding="8dp"/>
 
     <Button
         android:id="@+id/btn_pilih_bulan"
-        android:layout_marginLeft="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pilih Bulan dan Tahun" />
-
+        android:text="Pilih Bulan dan Tahun"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:background="?attr/selectableItemBackground"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="8dp"/>
     <ListView
         android:id="@+id/lv_laporan_bulanan"
         android:layout_width="match_parent"
-        android:padding="16dp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="#CCCCCC"
+        android:dividerHeight="1dp"
+        android:background="#FFFFFF"/>
+    </LinearLayout>
 
 </LinearLayout>
-

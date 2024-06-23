@@ -9,13 +9,13 @@
               <type value="RUNNING_DEVICE_TARGET" />
               <deviceKey>
                 <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\ideapad gaming\.android\avd\Pixel_6a_API_30.avd" />
+                  <type value="SERIAL_NUMBER" />
+                  <value value="c7f7c180" />
                 </Key>
               </deviceKey>
             </Target>
           </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-06-23T19:02:14.851177900Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-06-23T20:05:34.110617500Z" />
         </State>
       </entry>
     </value>

@@ -25,8 +25,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class PengajuanBarangKeluarFragment extends Fragment implements ItemClickPengajuanBarangKeluar {
     private TextView tvToolbar;
@@ -83,12 +88,13 @@ public class PengajuanBarangKeluarFragment extends Fragment implements ItemClick
                     String satuan = dataSnapshot.child("satuan").getValue(String.class);
                     String keterangan = dataSnapshot.child("keterangan").getValue(String.class);
                     String tanggalKeluar = dataSnapshot.child("tanggalKeluar").getValue(String.class);
+                    String formattedTanggalKeluar = formatTanggal(tanggalKeluar);
                     String namaKlien = dataSnapshot.child("namaKlien").getValue(String.class);
                     String alamatKlien = dataSnapshot.child("alamatKlien").getValue(String.class);
                     String status = dataSnapshot.child("status").getValue(String.class);
                     Long jumlahBarang = dataSnapshot.child("jumlahBarang").getValue(Long.class);
 
-                    ModelPengajuanBarangKeluar mpbk = new ModelPengajuanBarangKeluar(id, namaBarang, satuan, keterangan, tanggalKeluar, namaKlien, alamatKlien, status,jumlahBarang);
+                    ModelPengajuanBarangKeluar mpbk = new ModelPengajuanBarangKeluar(id, namaBarang, satuan, keterangan, formattedTanggalKeluar, namaKlien, alamatKlien, status,jumlahBarang);
 
                     if (mpbk != null) {
                         listPengajuan.add(mpbk);
@@ -103,7 +109,17 @@ public class PengajuanBarangKeluarFragment extends Fragment implements ItemClick
             }
         });
     }
-
+    private String formatTanggal(String tanggal) {
+        SimpleDateFormat sdfSource = new SimpleDateFormat("yyyy-MM-dd", new Locale("id", "ID"));
+        SimpleDateFormat sdfDestination = new SimpleDateFormat("EEEE, dd MMMM yyyy",new Locale("id", "ID"));
+        try {
+            Date date = sdfSource.parse(tanggal);
+            return sdfDestination.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return tanggal;
+        }
+    }
     private void approvePengajuan(ModelPengajuanBarangKeluar pengajuan, int position) {
         String barangKeluarId = barangKeluarRef.push().getKey();
         ModelBarangKeluar barangKeluarBaru = new ModelBarangKeluar(barangKeluarId, pengajuan.getNamaBarang(), pengajuan.getSatuan(), pengajuan.getKeterangan(), pengajuan.getTanggalKeluar() , pengajuan.getNamaKlien(), pengajuan.getAlamatKlien(), pengajuan.getJumlahBarang());
@@ -194,7 +210,7 @@ public class PengajuanBarangKeluarFragment extends Fragment implements ItemClick
     public void onItemClickListener(ModelPengajuanBarangKeluar data, int position) {
         if (position >= 0 && position < listPengajuan.size()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-            builder.setTitle("Pengajuan Barang" + data.getId() + data.getJumlahBarang() + data.getNamaBarang())
+            builder.setTitle("Pengajuan Barang Keluar")
                     .setMessage("Apakah Anda ingin menerima atau menolak pengajuan ini?")
                     .setPositiveButton("Terima", new DialogInterface.OnClickListener() {
                         @Override

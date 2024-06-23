@@ -27,8 +27,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class PengajuanBarangMasukFragment extends Fragment implements ItemClickPengajuanBarangMasuk {
     private TextView tvToolbar;
@@ -83,10 +88,11 @@ public class PengajuanBarangMasukFragment extends Fragment implements ItemClickP
                     String satuan = dataSnapshot.child("satuan").getValue(String.class);
                     String keterangan = dataSnapshot.child("keterangan").getValue(String.class);
                     String tanggalMasuk = dataSnapshot.child("tanggalMasuk").getValue(String.class);
+                    String formattedTanggalMasuk = formatTanggal(tanggalMasuk);
                     String status = dataSnapshot.child("status").getValue(String.class);
                     int jumlahBarang = dataSnapshot.child("jumlahBarang").getValue(Integer.class);
 
-                    ModelPengajuanBarangMasuk mpbm = new ModelPengajuanBarangMasuk(id, namaBarang, satuan, keterangan, tanggalMasuk, status, jumlahBarang);
+                    ModelPengajuanBarangMasuk mpbm = new ModelPengajuanBarangMasuk(id, namaBarang, satuan, keterangan, formattedTanggalMasuk, status, jumlahBarang);
 
                     if (mpbm != null) {
                         pengajuanList.add(mpbm);
@@ -101,7 +107,17 @@ public class PengajuanBarangMasukFragment extends Fragment implements ItemClickP
             }
         });
     }
-
+    private String formatTanggal(String tanggal) {
+        SimpleDateFormat sdfSource = new SimpleDateFormat("yyyy-MM-dd", new Locale("id", "ID"));
+        SimpleDateFormat sdfDestination = new SimpleDateFormat("EEEE, dd MMMM yyyy",new Locale("id", "ID"));
+        try {
+            Date date = sdfSource.parse(tanggal);
+            return sdfDestination.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return tanggal;
+        }
+    }
     private void approvePengajuan(ModelPengajuanBarangMasuk pengajuan, int position) {
         String barangMasukId = barangMasukRef.push().getKey();
         ModelBarangMasuk barangMasukBaru = new ModelBarangMasuk(barangMasukId, pengajuan.getNamaBarang(), pengajuan.getSatuan(), pengajuan.getKeterangan(), pengajuan.getTanggalMasuk(), pengajuan.getJumlahBarang());
@@ -191,7 +207,7 @@ public class PengajuanBarangMasukFragment extends Fragment implements ItemClickP
     public void onItemClickListener(ModelPengajuanBarangMasuk data, int position) {
         if (position >= 0 && position < pengajuanList.size()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-            builder.setTitle("Pengajuan Barang" + data.getId() + data.getJumlahBarang() + data.getNamaBarang())
+            builder.setTitle("Pengajuan Barang Masuk")
                     .setMessage("Apakah Anda ingin menerima atau menolak pengajuan ini?")
                     .setPositiveButton("Terima", new DialogInterface.OnClickListener() {
                         @Override
