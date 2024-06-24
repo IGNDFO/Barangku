@@ -85,7 +85,6 @@ tv_lupapassword.setOnClickListener(new View.OnClickListener() {
                                    startActivity(intent);
                                    finish();
                                } else {
-
                                    Toast.makeText(Login.this, "login Gagal.",
                                            Toast.LENGTH_SHORT).show();
                                }

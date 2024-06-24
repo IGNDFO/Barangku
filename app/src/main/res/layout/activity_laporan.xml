@@ -28,7 +28,7 @@
                 android:layout_columnWeight="2"
                 android:id="@+id/btn_laporan_barang_masuk"
                 android:textAlignment="center"
-                android:drawableTop="@drawable/gudang"/>
+                android:drawableTop="@drawable/laporan_masuk"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="120dp"
@@ -38,7 +38,7 @@
                 android:layout_marginTop="20dp"
                 android:id="@+id/btn_laporan_barang_keluar"
                 android:textAlignment="center"
-                android:drawableTop="@drawable/gudang"/>
+                android:drawableTop="@drawable/laporan_keluar"/>
 
 
 
