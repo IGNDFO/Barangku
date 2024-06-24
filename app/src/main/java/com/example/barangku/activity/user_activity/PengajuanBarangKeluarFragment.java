@@ -2,6 +2,7 @@ package com.example.barangku.activity.user_activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -65,6 +66,17 @@ public class PengajuanBarangKeluarFragment extends Fragment implements ItemClick
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        tvToolbar = view.findViewById(R.id.tv_judul);
+        tvToolbar.setText("Pengajuan");
+
+        ivBack = view.findViewById(R.id.iv_back);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MainActivity.class ) ;
+                startActivity(intent);
+            }
+        });
         rvPengajuanBarangKeluar = view.findViewById(R.id.rv_pengajuan);
 
         adapter = new AdapterPengajuanBarangKeluar(listPengajuan, getView().getContext());

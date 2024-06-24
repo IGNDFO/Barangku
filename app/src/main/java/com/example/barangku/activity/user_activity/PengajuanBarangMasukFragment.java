@@ -65,6 +65,18 @@ public class PengajuanBarangMasukFragment extends Fragment implements ItemClickP
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        tvToolbar = view.findViewById(R.id.tv_judul);
+        tvToolbar.setText("Pengajuan");
+
+        ivBack = view.findViewById(R.id.iv_back);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MainActivity.class ) ;
+                startActivity(intent);
+            }
+        });
+
         rvPengajuanBarangMasuk = view.findViewById(R.id.rv_pengajuan);
 
         adapter = new AdapterPengajuanBarangMasuk(pengajuanList, getView().getContext());

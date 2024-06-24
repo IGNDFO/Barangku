@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     GridLayout menuUser, menuAdmin;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser mUser = mAuth.getCurrentUser();
+    private boolean toastShown = false;
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User");
 
     private Button btnSignout, btnBarangMasukUser, btnBarangKeluarUser,btnAdmin, btnPengajuan, btnRiwayatPengajuan;
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (toastShown) return;
                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                     if (userSnapshot.getKey().equals(mAuth.getCurrentUser().getUid())) {
                         String jabatan = userSnapshot.child("jabatan").getValue(String.class);
@@ -65,18 +67,13 @@ public class MainActivity extends AppCompatActivity {
                             menuUser.setVisibility(View.GONE);
                             Toast.makeText(MainActivity.this, "Anda Login Sebagai Admin", Toast.LENGTH_SHORT).show();
                             btnSignout.setVisibility(View.VISIBLE);
-                        }
-//                        else if (jabatan.equals("Karyawan")) {
-////                            menuUser.setVisibility(View.VISIBLE);
-////                            menuAdmin.setVisibility(View.GONE);
-////                            Toast.makeText(MainActivity.this, "Anda Login Sebagai User", Toast.LENGTH_SHORT).show();
-//                        }
-                        else {
+                        } else {
                             menuUser.setVisibility(View.VISIBLE);
                             menuAdmin.setVisibility(View.GONE);
                             Toast.makeText(MainActivity.this, "Anda Login Sebagai Karyawan", Toast.LENGTH_SHORT).show();
                             btnSignout.setVisibility(View.VISIBLE);
                         }
+                        toastShown = true;
                         break; // Exit the loop once the user is found
                     }
                 }

@@ -1,5 +1,6 @@
 package com.example.barangku.activity.user_activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.barangku.R;
 import com.example.barangku.activity.adapter.AdapterRiwayatPengajuanBarangMasuk;
@@ -28,6 +31,8 @@ import java.util.Locale;
 
 public class RiwayatPengajuanBarangMasukFragment extends Fragment {
 
+    private TextView tvToolbar;
+    private ImageView ivBack;
     private RecyclerView rvRiwayatPengajuan;
     private AdapterRiwayatPengajuanBarangMasuk adapter;
     private List<ModelRiwayatPengajuanBarangMasuk> riwayatList = new ArrayList<>();
@@ -46,6 +51,17 @@ public class RiwayatPengajuanBarangMasukFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        tvToolbar = view.findViewById(R.id.tv_judul);
+        tvToolbar.setText("Riwayat Pengajuan");
+
+        ivBack = view.findViewById(R.id.iv_back);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MainActivity.class ) ;
+                startActivity(intent);
+            }
+        });
 
         rvRiwayatPengajuan = view.findViewById(R.id.rv_riwayat_pengajuan);
 
