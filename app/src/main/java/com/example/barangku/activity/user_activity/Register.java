@@ -44,10 +44,8 @@ public class Register extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-//            reload();
         }
     }
 
@@ -56,10 +54,8 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Initialize Firebase Authentication
         mAuth = FirebaseAuth.getInstance();
 
-        // Initialize UI components
         etregister_nama = findViewById(R.id.et_nama_register);
         etregister_email = findViewById(R.id.et_email_register);
         etregister_password = findViewById(R.id.et_password_register);
@@ -91,7 +87,6 @@ public class Register extends AppCompatActivity {
             }
         });
 
-        // Set up toolbar title
         tv_toolbar=findViewById(R.id.tv_judul);
         tv_toolbar.setText("Register");
 

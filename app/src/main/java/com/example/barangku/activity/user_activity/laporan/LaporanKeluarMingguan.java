@@ -58,8 +58,8 @@ public class LaporanKeluarMingguan extends AppCompatActivity {
 
     private void retrieveLaporanMingguan() {
         LocalDate today = LocalDate.now();
-        LocalDate startOfWeek = today.with(DayOfWeek.MONDAY);
-        LocalDate endOfWeek = today.with(DayOfWeek.SUNDAY);
+        LocalDate startOfWeek = today.minusWeeks(1).with(DayOfWeek.MONDAY);
+        LocalDate endOfWeek = today.minusWeeks(1).with(DayOfWeek.SUNDAY);
 
         String tanggalAwal = startOfWeek.toString();
         String tanggalAkhir = endOfWeek.toString();

@@ -29,7 +29,6 @@ public class Login extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null ){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -61,7 +60,7 @@ tv_lupapassword.setOnClickListener(new View.OnClickListener() {
    btn_login.setOnClickListener(new View.OnClickListener() {
        @Override
        public void onClick(View v) {
-           email= etEmail_login.getText().toString();
+           email = etEmail_login.getText().toString();
            password= etPassword_login.getText().toString();
 
            if(email.trim().isEmpty()){
@@ -70,38 +69,29 @@ tv_lupapassword.setOnClickListener(new View.OnClickListener() {
            if(password.trim().isEmpty()){
                etPassword_login.setError("Silakan Masukan Password ");
            }
-           // Get the email and password from the EditText fields
            String email = etEmail_login.getText().toString().trim();
            String password = etPassword_login.getText().toString().trim();
 
-// Check if the email and password fields are not empty
            if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-               // Proceed with Firebase sign in
+
                mAuth.signInWithEmailAndPassword(email, password)
                        .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                            @Override
                            public void onComplete(@NonNull Task<AuthResult> task) {
                                if (task.isSuccessful()) {
-                                   // Sign in success, update UI with the signed-in user's information
                                    Toast.makeText(Login.this, "Login berhasil", Toast.LENGTH_SHORT).show();
                                    FirebaseUser user = mAuth.getCurrentUser();
                                    Intent intent = new Intent(Login.this, MainActivity.class);
                                    startActivity(intent);
                                    finish();
-//                                   updateUI(user);
                                } else {
-                                   // If sign in fails, display a message to the user.
-//                                   Log.w(TAG, "signInWithEmail:failure", task.getException());
+
                                    Toast.makeText(Login.this, "login Gagal.",
                                            Toast.LENGTH_SHORT).show();
-//                                   updateUI(null);
                                }
                            }
                        });
            }
-
-
-
        }
    });
         tv_register.setOnClickListener(new View.OnClickListener() {

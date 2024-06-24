@@ -20,7 +20,6 @@ import android.widget.Toast;
 import com.example.barangku.R;
 import com.example.barangku.activity.adapter.AdapterClient;
 import com.example.barangku.activity.model.ModelClient;
-//import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.example.barangku.activity.user_activity.utils.ItemClickClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;

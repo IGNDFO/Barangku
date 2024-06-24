@@ -203,7 +203,6 @@ public class BarangKeluar extends AppCompatActivity {
         ModelBarangKeluar bk = new ModelBarangKeluar(id, namaBarang, satuan, keterangan, tanggalKeluar, namaKlien, alamatKlien, jumlahKeluar);
 
         if ("Admin".equals(userRole)) {
-            // Admin saves directly
             barangKeluarRef.child(id).setValue(bk).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     updateStockBarang(currentStockItem, jumlahKeluar);
