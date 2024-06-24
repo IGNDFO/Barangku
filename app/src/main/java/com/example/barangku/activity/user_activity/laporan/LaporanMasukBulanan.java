@@ -35,9 +35,12 @@ private ImageView ivBack;
 private TextView tvToolbar;
 private ListView lvLaporanBulanan;
 private DatabaseReference barangmasukRef = FirebaseDatabase.getInstance().getReference("BarangMasuk");
+
 private List<String> listLaporanBulanan = new ArrayList<>();
+private Button btnPilihTanggalMulai, btnPilihTanggalAkhir,btnTampilkanLaporan;
+private String tanggalMulai, tanggalAkhir;
 private ArrayAdapter<String> arrayAdapter;
-private Button btnPilihBulan;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +49,11 @@ private Button btnPilihBulan;
         tvToolbar = findViewById(R.id.tv_judul);
         tvToolbar.setText("Barang Masuk Bulanan");
 
-
+        btnPilihTanggalMulai = findViewById(R.id.btn_pilih_tanggal_mulai);
+        btnPilihTanggalAkhir = findViewById(R.id.btn_pilih_tanggal_akhir);
+        btnTampilkanLaporan = findViewById(R.id.btn_tampilkan_laporan);
 
         lvLaporanBulanan = findViewById(R.id.lv_laporan_bulanan);
-        btnPilihBulan = findViewById(R.id.btn_pilih_bulan);
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listLaporanBulanan);
         lvLaporanBulanan.setAdapter(arrayAdapter);
 
@@ -59,9 +63,17 @@ private Button btnPilihBulan;
             startActivity(intent);
         });
 
-        btnPilihBulan.setOnClickListener(v -> showDatePickerDialog());
+        btnPilihTanggalMulai.setOnClickListener(v -> showDatePickerDialog(true));
+        btnPilihTanggalAkhir.setOnClickListener(v -> showDatePickerDialog(false));
+        btnTampilkanLaporan.setOnClickListener(v -> {
+            if (tanggalMulai != null && tanggalAkhir != null) {
+                retrieveLaporanBulanan(tanggalMulai, tanggalAkhir);
+            } else {
+                Toast.makeText(this, "Pilih tanggal mulai dan akhir", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-    private void showDatePickerDialog() {
+    private void showDatePickerDialog(boolean isStartDate) {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -69,19 +81,23 @@ private Button btnPilihBulan;
         DatePickerDialog datePickerDialog = new DatePickerDialog(LaporanMasukBulanan.this,
                 (view, selectedYear, selectedMonth, dayOfMonth) -> {
                     // +1 because month index is 0-based
-                    String bulanTahun = String.format("%04d-%02d", selectedYear, selectedMonth + 1);
-                    retrieveLaporanBulanan(bulanTahun);
+                    String selectedDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, dayOfMonth);
+                    if (isStartDate) {
+                        tanggalMulai = selectedDate;
+                        btnPilihTanggalMulai.setText("Mulai: " + selectedDate);
+                    } else {
+                        tanggalAkhir = selectedDate;
+                        btnPilihTanggalAkhir.setText("Akhir: " + selectedDate);
+                    }
                 }, year, month, calendar.get(Calendar.DAY_OF_MONTH));
 
-        // Show only month and year
-        datePickerDialog.getDatePicker().findViewById(getResources().getIdentifier("day", "id", "android"));
         datePickerDialog.show();
     }
 
-    private void retrieveLaporanBulanan(String bulanTahun) {
-        barangmasukRef.orderByChild("tanggalMasuk").startAt(bulanTahun + "-01").endAt(bulanTahun + "-31").addListenerForSingleValueEvent(new ValueEventListener() {
+    private void retrieveLaporanBulanan(String tanggalMulai, String tanggalAkhir) {
+        barangmasukRef.orderByChild("tanggalMasuk").startAt(tanggalMulai).endAt(tanggalAkhir).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot){
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listLaporanBulanan.clear();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("id", "ID"));
 

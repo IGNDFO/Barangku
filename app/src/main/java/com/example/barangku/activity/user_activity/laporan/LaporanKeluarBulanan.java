@@ -35,6 +35,8 @@ public class LaporanKeluarBulanan extends AppCompatActivity {
     private DatabaseReference barangkeluarRef = FirebaseDatabase.getInstance().getReference("BarangKeluar");
     private ImageView ivBack;
     private TextView tvToolbar;
+    private Button btnPilihTanggalMulai, btnPilihTanggalAkhir,btnTampilkanLaporan;
+    private String tanggalMulai, tanggalAkhir;
     private List<String> listLaporanBulanan = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapter;
     private Button btnPilihBulan;
@@ -45,8 +47,6 @@ public class LaporanKeluarBulanan extends AppCompatActivity {
 
         tvToolbar = findViewById(R.id.tv_judul);
         tvToolbar.setText("Barang Keluar Bulanan");
-
-        btnPilihBulan = findViewById(R.id.btn_pilih_bulan);
 
         ivBack = findViewById(R.id.iv_back);
         ivBack.setOnClickListener(v -> {
@@ -59,10 +59,23 @@ public class LaporanKeluarBulanan extends AppCompatActivity {
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listLaporanBulanan);
         lvLaporanBulanan.setAdapter(arrayAdapter);
 
-        btnPilihBulan.setOnClickListener(v -> showDatePickerDialog());
+        btnPilihTanggalMulai = findViewById(R.id.btn_pilih_tanggal_mulai);
+        btnPilihTanggalAkhir = findViewById(R.id.btn_pilih_tanggal_akhir);
+        btnTampilkanLaporan = findViewById(R.id.btn_tampilkan_laporan);
+
+
+        btnPilihTanggalMulai.setOnClickListener(v -> showDatePickerDialog(true));
+        btnPilihTanggalAkhir.setOnClickListener(v -> showDatePickerDialog(false));
+        btnTampilkanLaporan.setOnClickListener(v -> {
+            if (tanggalMulai != null && tanggalAkhir != null) {
+                retrieveLaporanBulanan(tanggalMulai, tanggalAkhir);
+            } else {
+                Toast.makeText(this, "Pilih tanggal mulai dan akhir", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private void showDatePickerDialog() {
+    private void showDatePickerDialog(boolean isStartDate) {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -70,17 +83,21 @@ public class LaporanKeluarBulanan extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(LaporanKeluarBulanan.this,
                 (view, selectedYear, selectedMonth, dayOfMonth) -> {
                     // +1 because month index is 0-based
-                    String bulanTahun = String.format("%04d-%02d", selectedYear, selectedMonth + 1);
-                    retrieveLaporanBulanan(bulanTahun);
+                    String selectedDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, dayOfMonth);
+                    if (isStartDate) {
+                        tanggalMulai = selectedDate;
+                        btnPilihTanggalMulai.setText("Mulai: " + selectedDate);
+                    } else {
+                        tanggalAkhir = selectedDate;
+                        btnPilihTanggalAkhir.setText("Akhir: " + selectedDate);
+                    }
                 }, year, month, calendar.get(Calendar.DAY_OF_MONTH));
 
-        // Show only month and year
-        datePickerDialog.getDatePicker().findViewById(getResources().getIdentifier("day", "id", "android"));
         datePickerDialog.show();
     }
 
-    private void retrieveLaporanBulanan(String bulanTahun) {
-        barangkeluarRef.orderByChild("tanggalKeluar").startAt(bulanTahun + "-01").endAt(bulanTahun + "-31").addListenerForSingleValueEvent(new ValueEventListener() {
+    private void retrieveLaporanBulanan(String tanggalMulai, String tanggalAkhir) {
+        barangkeluarRef.orderByChild("tanggalKeluar").startAt(tanggalMulai).endAt(tanggalAkhir).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot){
                 listLaporanBulanan.clear();

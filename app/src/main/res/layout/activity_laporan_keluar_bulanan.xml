@@ -20,20 +20,44 @@
             android:textSize="24sp"
             android:gravity="center"
             android:textColor="#FFFFFF"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
             android:layout_marginTop="8dp"
             android:padding="8dp"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_pilih_tanggal_mulai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pilih Tanggal Mulai"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:background="?attr/selectableItemBackground"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="4dp"/>
+            <Button
+                android:id="@+id/btn_pilih_tanggal_akhir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pilih Tanggal Akhir"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:background="?attr/selectableItemBackground"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="4dp"/>
+        </LinearLayout>
         <Button
-            android:id="@+id/btn_pilih_bulan"
+            android:id="@+id/btn_tampilkan_laporan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pilih Bulan dan Tahun"
+            android:text="Tampilkan Laporan"
             android:layout_gravity="center"
             android:padding="10dp"
             android:background="?attr/selectableItemBackground"
             android:textColor="#FFFFFF"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="4dp"/>
 
         <ListView
             android:id="@+id/lv_laporan_bulanan"
@@ -41,9 +65,9 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:divider="#CCCCCC"
-            android:dividerHeight="1dp"
-            android:background="#FFFFFF"
-            android:padding="6dp"/>
+            android:dividerHeight="3dp"
+            android:padding="5dp"
+            android:background="#FFFFFF"/>
     </LinearLayout>
 
 </LinearLayout>

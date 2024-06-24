@@ -43,7 +43,7 @@
                         android:layout_gravity="center"
                         android:src="@drawable/tambah_user"
                         android:contentDescription="Tambah User"
-                        android:layout_marginBottom="8dp" />
+                        android:layout_marginBottom="4dp" />
 
                     <TextView
                         android:id="@+id/tv_register"
@@ -78,7 +78,7 @@
                         android:layout_gravity="center"
                         android:src="@drawable/gudang"
                         android:contentDescription="LIST KARYAWAN"
-                        android:layout_marginBottom="8dp" />
+                        android:layout_marginBottom="4dp" />
 
                     <TextView
                         android:id="@+id/tv_karyawan"
