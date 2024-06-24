@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp"
-    android:background="#947E3ECC"
-    android:elevation="4dp"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_margin="8dp"
-    android:clipToPadding="false">
-
+    card_view:cardCornerRadius="8dp"
+    card_view:cardElevation="4dp"
+    card_view:cardBackgroundColor="@color/background_color">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
     <TextView
         android:id="@+id/tv_id"
         android:layout_width="wrap_content"
@@ -65,5 +68,5 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@android:color/darker_gray"/>
-
-</LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
