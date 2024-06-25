@@ -60,8 +60,8 @@ public class Register extends AppCompatActivity {
         etregister_email = findViewById(R.id.et_email_register);
         etregister_password = findViewById(R.id.et_password_register);
 
-        tv_login=findViewById(R.id.tv_login);
-        btn_register=findViewById(R.id.btn_register_button);
+        tv_login = findViewById(R.id.tv_login);
+        btn_register = findViewById(R.id.btn_register_button);
         ivback = findViewById(R.id.iv_back);
 
         spJabatan = findViewById(R.id.sp_jabatan);
@@ -78,7 +78,7 @@ public class Register extends AppCompatActivity {
         spJabatan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
-                 jabatan = adapterView.getItemAtPosition(pos).toString();
+                jabatan = adapterView.getItemAtPosition(pos).toString();
             }
 
             @Override
@@ -87,7 +87,7 @@ public class Register extends AppCompatActivity {
             }
         });
 
-        tv_toolbar=findViewById(R.id.tv_judul);
+        tv_toolbar = findViewById(R.id.tv_judul);
         tv_toolbar.setText("Register");
 
         // Set up login button click listener
@@ -115,18 +115,18 @@ public class Register extends AppCompatActivity {
             public void onClick(View v) {
                 nama = etregister_nama.getText().toString();
                 email = etregister_email.getText().toString();
-                password=etregister_password.getText().toString();
+                password = etregister_password.getText().toString();
 
-                if(nama.trim().isEmpty()){
-                    etregister_email.setError("Silakan Masukan Nama ");
+                if (nama.trim().isEmpty()) {
+                    etregister_nama.setError("Silakan Masukan Nama");
                     return;
                 }
-                if(email.trim().isEmpty()){
-                    etregister_email.setError("Silakan Masukan Email ");
+                if (email.trim().isEmpty()) {
+                    etregister_email.setError("Silakan Masukan Email");
                     return;
                 }
-                if(password.trim().isEmpty()){
-                    etregister_password .setError("Silakan Masukan Password ");
+                if (password.trim().isEmpty()) {
+                    etregister_password.setError("Silakan Masukan Password");
                     return;
                 }
 
@@ -134,46 +134,50 @@ public class Register extends AppCompatActivity {
                 if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
                     // Create a new user account with email and password
                     mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<String> task) {
+                                        token = task.getResult();
+                                        String userId = user.getUid();
+                                        ModelUser mu = new ModelUser(userId, email, nama, jabatan, token);
+                                        reference.child(userId).setValue(mu);
 
-                           @Override
-                           public void onComplete(@NonNull Task<AuthResult> task) {
-                               FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-                                   @Override
-                                   public void onComplete(@NonNull Task<String> task) {
-                                       token = task.getResult();
-                                       ModelUser mu = new ModelUser(email, nama, jabatan, token);
-                                       reference.child(mAuth.getCurrentUser().getUid()).setValue(mu);
-
-                                       Toast.makeText(Register.this, "Berhasil Daftar Akun ",Toast.LENGTH_SHORT).show();
-                                       Intent intent= new Intent(Register.this,Login.class);
-                                       startActivity(intent);
-                                   }
-                               }).addOnFailureListener(new OnFailureListener() {
-                                   @Override
-                                   public void onFailure(@NonNull Exception e) {
-                                       Toast.makeText(Register.this, "Gagal Melakukan Register", Toast.LENGTH_SHORT).show();
-                                   }
-                               });
-                           }
-                       }
-                    );
-                }
-                // If email or password field is empty, display an error message
-                else {
+                                        Toast.makeText(Register.this, "Berhasil Daftar Akun", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(Register.this, Login.class);
+                                        startActivity(intent);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(Register.this, "Gagal Mendapatkan Token FCM: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else {
+                                // Tambahkan lebih banyak detail tentang kesalahan yang terjadi
+                                String errorMessage = task.getException() != null ? task.getException().getMessage() : "Unknown error";
+                                Toast.makeText(Register.this, "Gagal Membuat Akun: " + errorMessage, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                } else {
                     Toast.makeText(Register.this, "Masukan Email dan Password", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-    }
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(this, Login.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
-    }
 
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        Intent intent = new Intent(this, Login.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intent);
+//        finish();
+//    }
+    }
 
 }

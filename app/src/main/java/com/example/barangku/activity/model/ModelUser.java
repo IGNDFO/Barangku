@@ -1,14 +1,24 @@
 package com.example.barangku.activity.model;
 
 public class ModelUser {
-    private String email, nama, jabatan, token;
+    private String id, email, nama, jabatan, token;
 
     public ModelUser(){}
-    public ModelUser(String email, String nama, String jabatan, String token) {
+
+    public ModelUser(String id, String email, String nama, String jabatan, String token) {
+        this.id = id;
         this.email = email;
         this.nama = nama;
         this.jabatan = jabatan;
         this.token = token;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -26,4 +36,5 @@ public class ModelUser {
     public String getToken() {
         return token;
     }
+
 }
