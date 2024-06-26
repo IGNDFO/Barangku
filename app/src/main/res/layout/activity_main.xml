@@ -139,6 +139,6 @@
         android:text="Sign out"
         android:backgroundTint="@color/maroon_red"
         android:textAlignment="center"
-        android:visibility="gone"/>
+        />
 </LinearLayout>
 </LinearLayout>

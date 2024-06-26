@@ -37,7 +37,7 @@ public class BarangMasuk extends AppCompatActivity {
     private TextView tvToolbar, tvTanggalMasuk, tvNamaBarang, tvSatuan, tvJumlahItem;
     private AutoCompleteTextView etNamaBarang;
     private EditText etJumlah, etKeterangan;
-    private Button btnSimpan, btnCari;
+    private Button btnSimpan;
     private ImageView ivback, ivKalender, ivGambar;
     private Uri gambarBarang;
     private String simpan, namaBarang, satuan, keterangan, tanggalMasuk;
@@ -84,7 +84,6 @@ public class BarangMasuk extends AppCompatActivity {
         tanggalMasuk = String.format("%04d-%02d-%02d", yearToday, monthToday, dayOfMonthToday);
         tvTanggalMasuk.setText((tanggalMasuk));
 
-        btnCari = findViewById(R.id.btn_cari_barang);
         btnSimpan = findViewById(R.id.btn_simpan);
 
         ivback.setOnClickListener(new View.OnClickListener() {
@@ -94,18 +93,6 @@ public class BarangMasuk extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        btnCari.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String searchNamaBarang = etNamaBarang.getText().toString();
-                if (!searchNamaBarang.isEmpty()) {
-                    cariBarang(searchNamaBarang);
-                } else {
-                    Toast.makeText(BarangMasuk.this, "Masukkan nama barang", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
 
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +117,14 @@ public class BarangMasuk extends AppCompatActivity {
                         resetFields();
                     }
                 }
+            }
+        });
+
+        etNamaBarang.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String searchNamaBarang = parent.getItemAtPosition(position).toString();
+                cariBarang(searchNamaBarang);
             }
         });
 
@@ -309,9 +304,9 @@ public class BarangMasuk extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(BarangMasuk.this, parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                cariBarang(parent.getItemAtPosition(position).toString());
             }
         });
     }
-
 
 }

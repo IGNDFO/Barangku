@@ -41,7 +41,7 @@ public class Karyawan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_karyawan);
         tvToolbar = findViewById(R.id.tv_judul);
-        tvToolbar.setText("List Karyawan");
+        tvToolbar.setText("Kelola User");
 
         ivBack =findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
