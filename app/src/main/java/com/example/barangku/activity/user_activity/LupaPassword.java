@@ -15,12 +15,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.barangku.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.SignInMethodQueryResult;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,11 +47,11 @@ public class LupaPassword extends AppCompatActivity {
         btnResetPassword = findViewById(R.id.btn_resetpassword);
         etEmail = findViewById(R.id.et_email);
         ilEmail = findViewById(R.id.il_email);
-        ivback=findViewById(R.id.iv_back);
+        ivback = findViewById(R.id.iv_back);
         progressBar = findViewById(R.id.progressBar);
         mAuth = FirebaseAuth.getInstance();
 
-        tv_toolbar=findViewById(R.id.tv_judul);
+        tv_toolbar = findViewById(R.id.tv_judul);
         tv_toolbar.setText("Lupa Password");
 
         ivback.setOnClickListener(new View.OnClickListener() {
@@ -71,10 +74,9 @@ public class LupaPassword extends AppCompatActivity {
                 Pattern pattern = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
                 Matcher matcher = pattern.matcher(email);
                 boolean isValid = matcher.matches();
-                if (isValid){
+                if (isValid) {
                     ilEmail.setError("");
-                }
-                else{
+                } else {
                     ilEmail.setError("Alamat email tidak valid");
                 }
             }
@@ -82,7 +84,7 @@ public class LupaPassword extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String email = s.toString();
-                if (email.isEmpty()){
+                if (email.isEmpty()) {
                     ilEmail.setError("");
                 }
             }
@@ -94,30 +96,47 @@ public class LupaPassword extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
 
                 email = String.valueOf(etEmail.getText());
-                if (TextUtils.isEmpty(email)){
+                if (TextUtils.isEmpty(email)) {
                     Toast.makeText(LupaPassword.this, "Masukkan Email Anda", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                     return;
                 }
 
-                mAuth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                Toast.makeText(LupaPassword.this, "Reset password sudah terkirim ke email anda", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(), Login.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(LupaPassword.this, "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                        if (task.isSuccessful()) {
+                            boolean isRegistered = !task.getResult().getSignInMethods().isEmpty();
+                            if (isRegistered) {
+                                mAuth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(LupaPassword.this, "Reset password sudah terkirim ke email anda", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(getApplicationContext(), Login.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(LupaPassword.this, "Error : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        progressBar.setVisibility(View.GONE);
+                                    }
+                                });
+                            } else {
+                                Toast.makeText(LupaPassword.this, "Email tidak terdaftar", Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
                             }
-                        });
+                        } else {
+                            Toast.makeText(LupaPassword.this, "Error : " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+                });
             }
         });
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
