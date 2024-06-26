@@ -105,9 +105,9 @@ public class Karyawan extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(Karyawan.this, "Data karyawan berhasil dihapus", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Karyawan.this, "User berhasil dihapus", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(Karyawan.this, "Gagal menghapus data karyawan", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Karyawan.this, "Gagal menghapus user", Toast.LENGTH_SHORT).show();
                 }
             }
         });
