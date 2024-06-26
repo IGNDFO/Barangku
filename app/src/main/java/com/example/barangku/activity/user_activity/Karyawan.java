@@ -41,7 +41,7 @@ public class Karyawan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_karyawan);
         tvToolbar = findViewById(R.id.tv_judul);
-        tvToolbar.setText("Kelola User");
+        tvToolbar.setText("List Karyawan");
 
         ivBack =findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +107,7 @@ public class Karyawan extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(Karyawan.this, "User berhasil dihapus", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(Karyawan.this, "Gagal menghapus user", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Karyawan.this, "Gagal menghapus data user", Toast.LENGTH_SHORT).show();
                 }
             }
         });

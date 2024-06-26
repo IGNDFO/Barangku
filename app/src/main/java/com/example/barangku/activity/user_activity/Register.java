@@ -88,7 +88,7 @@ public class Register extends AppCompatActivity {
         });
 
         tv_toolbar = findViewById(R.id.tv_judul);
-        tv_toolbar.setText("Register");
+        tv_toolbar.setText("Tambah User");
 
         // Set up login button click listener
         tv_login.setOnClickListener(new View.OnClickListener() {

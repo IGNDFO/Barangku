@@ -31,11 +31,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/logo_image"
-            android:text="Register"
+            android:text="Tambah User"
             android:textStyle="bold"
             android:textColor="#D5CDCD"
-            android:textSize="60dp"
-            android:layout_marginLeft="60px"/>
+            android:textSize="30dp"
+            android:layout_gravity="center"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
