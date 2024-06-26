@@ -87,7 +87,7 @@ public class Karyawan extends AppCompatActivity {
     private void showDeleteConfirmationDialog(int position) {
         new AlertDialog.Builder(this)
                 .setTitle("Konfirmasi Hapus")
-                .setMessage("Apakah Anda yakin ingin menghapus data karyawan ini?")
+                .setMessage("Apakah Anda yakin ingin menghapus data User ini?")
                 .setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
