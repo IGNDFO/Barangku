@@ -29,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Karyawan extends AppCompatActivity {
+public class KelolaUser extends AppCompatActivity {
     private TextView tvToolbar;
     private ImageView ivBack;
     private RecyclerView rvKaryawan;
@@ -47,7 +47,7 @@ public class Karyawan extends AppCompatActivity {
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Karyawan.this, Admin.class);
+                Intent intent = new Intent(KelolaUser.this, Admin.class);
                 startActivity(intent);
             }
         });
@@ -73,7 +73,7 @@ public class Karyawan extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Karyawan.this, "Failed to load employees", Toast.LENGTH_SHORT).show();
+                Toast.makeText(KelolaUser.this, "Failed to load employees", Toast.LENGTH_SHORT).show();
             }
         });
         adapter.setOnItemDeleteListener(new AdapterKaryawan.OnItemDeleteListener() {
@@ -105,9 +105,9 @@ public class Karyawan extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(Karyawan.this, "User berhasil dihapus", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(KelolaUser.this, "User berhasil dihapus", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(Karyawan.this, "Gagal menghapus data user", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(KelolaUser.this, "Gagal menghapus data user", Toast.LENGTH_SHORT).show();
                 }
             }
         });

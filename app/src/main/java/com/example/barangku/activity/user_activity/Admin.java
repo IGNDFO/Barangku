@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import com.example.barangku.R;
 
-import org.checkerframework.checker.units.qual.A;
-
 public class Admin extends AppCompatActivity {
     private TextView tvToolbar;
     private ImageView ivBack;
@@ -48,7 +46,7 @@ public class Admin extends AppCompatActivity {
         listKaryawan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Admin.this, Karyawan.class);
+                Intent intent = new Intent(Admin.this, KelolaUser.class);
                 startActivity(intent);
             }
         });

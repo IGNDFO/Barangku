@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Barangku"
         tools:targetApi="31">
         <activity
-            android:name=".activity.user_activity.Karyawan"
+            android:name=".activity.user_activity.KelolaUser"
             android:exported="false" />
         <activity
             android:name=".activity.user_activity.RiwayatPengajuan"
