@@ -60,7 +60,7 @@ public class Register extends AppCompatActivity {
         etregister_email = findViewById(R.id.et_email_register);
         etregister_password = findViewById(R.id.et_password_register);
 
-        tv_login = findViewById(R.id.tv_login);
+
         btn_register = findViewById(R.id.btn_register_button);
         ivback = findViewById(R.id.iv_back);
 
@@ -91,20 +91,20 @@ public class Register extends AppCompatActivity {
         tv_toolbar.setText("Tambah User");
 
         // Set up login button click listener
-        tv_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Register.this, Login.class);
-                startActivity(intent);
-                // Close Register activity when login button is clicked
-                finish();
-            }
-        });
+//        tv_login.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Register.this, Login.class);
+//                startActivity(intent);
+//                // Close Register activity when login button is clicked
+//                finish();
+//            }
+//        });
 
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Register.this, Login.class);
+                Intent intent = new Intent(Register.this, Admin.class);
                 startActivity(intent);
             }
         });
@@ -147,8 +147,9 @@ public class Register extends AppCompatActivity {
                                         reference.child(userId).setValue(mu);
 
                                         Toast.makeText(Register.this, "Berhasil Daftar Akun", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(Register.this, Admin.class);
-                                        startActivity(intent);
+                                        etregister_nama.setText("");
+                                        etregister_email.setText("");
+                                        etregister_password.setText("");
 //
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
