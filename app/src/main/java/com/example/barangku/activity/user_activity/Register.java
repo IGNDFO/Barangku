@@ -147,6 +147,8 @@ public class Register extends AppCompatActivity {
                                         reference.child(userId).setValue(mu);
 
                                         Toast.makeText(Register.this, "Berhasil Daftar Akun", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(Register.this, Admin.class);
+                                        startActivity(intent);
 //
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {

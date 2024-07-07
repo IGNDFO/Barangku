@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/et_password_login"
             android:layout_marginTop="31dp"
-            android:text="Login" />
+            android:text="Tambah" />
 
         <TextView
             android:id="@+id/tv_login"
