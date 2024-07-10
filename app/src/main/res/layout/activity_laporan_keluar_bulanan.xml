@@ -48,6 +48,7 @@
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="4dp"/>
         </LinearLayout>
+
         <Button
             android:id="@+id/btn_tampilkan_laporan"
             android:layout_width="wrap_content"
@@ -59,13 +60,36 @@
             android:textColor="#FFFFFF"
             android:layout_marginBottom="4dp"/>
 
+        <Spinner
+            android:id="@+id/spinner_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"/>
+
+        <Spinner
+            android:id="@+id/spinner_sort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_jumlah_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jumlah Data: 0"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"/>
+
         <ListView
             android:id="@+id/lv_laporan_bulanan"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:divider="#CCCCCC"
-            android:dividerHeight="3dp"
+            android:dividerHeight="1dp"
             android:padding="5dp"
             android:background="#FFFFFF"/>
     </LinearLayout>

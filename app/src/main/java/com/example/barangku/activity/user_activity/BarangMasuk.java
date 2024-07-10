@@ -102,7 +102,12 @@ public class BarangMasuk extends AppCompatActivity {
                         namaBarang = tvNamaBarang.getText().toString();
                         keterangan = etKeterangan.getText().toString();
                         jumlahMasuk = Integer.parseInt(etJumlah.getText().toString());
+                        if (jumlahMasuk > 1000) {
+                            Toast.makeText(BarangMasuk.this, "Jumlah Yang Di Input Harus Kurang Dari 1000", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         satuan = tvSatuan.getText().toString();
+
                     } catch (NumberFormatException e) {
                         Toast.makeText(BarangMasuk.this, "Jumlah harus berupa angka", Toast.LENGTH_SHORT).show();
                         return;

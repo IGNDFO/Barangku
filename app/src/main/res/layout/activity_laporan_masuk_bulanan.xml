@@ -3,28 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#944A148C">
+    android:background="#A974E8">
 
     <include layout="@layout/toolbar"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Laporan Barang Masuk Bulanan"
-        android:textSize="24sp"
-        android:textColor="#FFFFFF"
-        android:gravity="center"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="8dp"
-        android:padding="8dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Laporan Barang Masuk Bulanan"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:textColor="@color/background_color"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"/>
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
         <Button
             android:id="@+id/btn_pilih_tanggal_mulai"
             android:layout_width="wrap_content"
@@ -35,6 +37,7 @@
             android:background="?attr/selectableItemBackground"
             android:textColor="#FFFFFF"
             android:layout_marginBottom="4dp"/>
+
         <Button
             android:id="@+id/btn_pilih_tanggal_akhir"
             android:layout_width="wrap_content"
@@ -46,6 +49,17 @@
             android:textColor="#FFFFFF"
             android:layout_marginBottom="4dp"/>
 </LinearLayout>
+        <Spinner
+            android:id="@+id/spinner_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"/>
+
+        <Spinner
+            android:id="@+id/spinner_sort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"/>
         <Button
             android:id="@+id/btn_tampilkan_laporan"
             android:layout_width="wrap_content"
@@ -56,15 +70,28 @@
             android:background="?attr/selectableItemBackground"
             android:textColor="#FFFFFF"
             android:layout_marginBottom="4dp"/>
-    <ListView
-        android:id="@+id/lv_laporan_bulanan"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:divider="#CCCCCC"
-        android:dividerHeight="3dp"
-        android:padding="5dp"
-        android:background="#FFFFFF"/>
+
+
+
+        <TextView
+            android:id="@+id/tv_jumlah_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jumlah Data: 0"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"/>
+
+        <ListView
+            android:id="@+id/lv_laporan_bulanan"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="#CCCCCC"
+            android:dividerHeight="1dp"
+            android:background="#FFFFFF"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -12,14 +12,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.barangku.R;
 import com.example.barangku.activity.adapter.AdapterClient;
 import com.example.barangku.activity.model.ModelClient;
+import com.example.barangku.activity.model.ModelStock;
 import com.example.barangku.activity.user_activity.utils.ItemClickClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -31,11 +34,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Pattern;
 
 public class Client extends AppCompatActivity implements ItemClickClient {
-    private TextView tvToolbar;
+    private TextView tvToolbar, tvTotalClients;
+    private Spinner spinnerSort;
     private Dialog dialog, dialogClient, dialogEdit;
     private FloatingActionButton fabTambah;
     private String namaKlien, alamatKlien, noTelpKlien, emailKlien, catatanKlien;
@@ -58,9 +64,12 @@ public class Client extends AppCompatActivity implements ItemClickClient {
         tvToolbar = findViewById(R.id.tv_judul);
         tvToolbar.setText("Client");
 
+        tvTotalClients = findViewById(R.id.tv_total_clients);
+
         fabTambah = findViewById(R.id.fab_tambah_klien);
         searchView = findViewById(R.id.search);
         rvClient = findViewById(R.id.rv_client);
+        spinnerSort = findViewById(R.id.spinner_sort);
 
         ivback = findViewById(R.id.iv_back);
         ivback.setOnClickListener(new View.OnClickListener() {
@@ -108,11 +117,28 @@ public class Client extends AppCompatActivity implements ItemClickClient {
                     list_client.add(mc);
                 }
                 adapterClient.notifyDataSetChanged();
+                tvTotalClients.setText("Total Clients: " + list_client.size());
                 pd.dismiss();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+        spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                if (selectedItem.equals("A-Z")) {
+                    sortListAZ();
+                } else if (selectedItem.equals("Z-A")) {
+                    sortListZA();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing
             }
         });
 
@@ -183,6 +209,26 @@ public class Client extends AppCompatActivity implements ItemClickClient {
         });
     }
 
+    private void sortListZA() {
+        Collections.sort(list_client, new Comparator<ModelClient>() {
+            @Override
+            public int compare(ModelClient o1, ModelClient o2) {
+                return o2.getNama().compareToIgnoreCase(o1.getNama());
+            }
+        });
+        adapterClient.notifyDataSetChanged();
+    }
+
+    private void sortListAZ() {
+        Collections.sort(list_client, new Comparator<ModelClient>() {
+            @Override
+            public int compare(ModelClient o1, ModelClient o2) {
+                return o1.getNama().compareToIgnoreCase(o2.getNama());
+            }
+        });
+        adapterClient.notifyDataSetChanged();
+    }
+
     private void TambahClient(String namaKlien, String alamatKlien, String noTelpKlien, String emailKlien, String catatanKlien) {
         counterRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -218,6 +264,7 @@ public class Client extends AppCompatActivity implements ItemClickClient {
                 }
                 adapterClient.notifyDataSetChanged();
                 pd.dismiss();
+
             }
 
             @Override

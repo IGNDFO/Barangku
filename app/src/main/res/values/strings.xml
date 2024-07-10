@@ -11,12 +11,38 @@
         <item>Kardus</item>
         <item>Lusin</item>
         <item>Buah</item>
-
     </string-array>
+
     <string-array name="Jabatan">
         <item>Admin</item>
         <item>Karyawan</item>
     </string-array>
+
+    <string-array name="filter_options">
+        <item>Semua</item>
+        <item>Jumlah Barang > 50</item>
+    </string-array>
+
+    <string-array name="sort_options_keluar">
+        <item>Nama Klien (Naik)</item>
+        <item>Nama Klien (Turun)</item>
+        <item>Jumlah Barang (Naik)</item>
+        <item>Jumlah Barang (Turun)</item>
+    </string-array>
+
+    <string-array name="sort_options_masuk">
+        <item>Nama Barang (Naik)</item>
+        <item>Nama Barang (Turun)</item>
+        <item>Jumlah Barang (Naik)</item>
+        <item>Jumlah Barang (Turun)</item>
+    </string-array>
+    <string-array name="sort_options_az">
+        <item>A-Z</item>
+        <item>Z-A</item>
+    </string-array>
+
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

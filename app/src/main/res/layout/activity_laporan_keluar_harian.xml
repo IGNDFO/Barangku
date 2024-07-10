@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,6 +23,40 @@
             android:padding="8dp"/>
 
 
+
+        <Button
+            android:id="@+id/btn_pilih_tanggal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pilih Tanggal"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:background="?attr/selectableItemBackground"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="4dp"/>
+
+        <Spinner
+            android:id="@+id/spinner_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"/>
+
+        <Spinner
+            android:id="@+id/spinner_sort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"/>
+        <TextView
+            android:id="@+id/tv_jumlah_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jumlah Data: 0"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"/>
+
         <ListView
             android:id="@+id/lv_laporan_harian"
             android:layout_width="match_parent"
@@ -34,5 +67,4 @@
             android:background="#FFFFFF"
             android:padding="6dp"/>
     </LinearLayout>
-
 </LinearLayout>

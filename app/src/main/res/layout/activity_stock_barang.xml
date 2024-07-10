@@ -14,16 +14,48 @@
        <RelativeLayout
            android:layout_width="match_parent"
            android:layout_height="match_parent">
+
            <androidx.appcompat.widget.SearchView
                android:id="@+id/search"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:layout_margin="6dp"
+               android:layout_marginStart="6dp"
+               android:layout_marginTop="6dp"
+               android:layout_marginEnd="6dp"
+               android:layout_marginBottom="6dp"
+               android:background="@color/background_color"
                app:iconifiedByDefault="false"
-               app:queryHint="Search here..."
-               android:background="@color/background_color"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_below="@id/search"
+               app:queryHint="Search here..." />
+
+           <TextView
+               android:id="@+id/tv_total_items"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/search"
+               android:layout_marginStart="8dp"
+               android:layout_marginTop="8dp"
+               android:layout_marginEnd="8dp"
+               android:layout_marginBottom="8dp"
+               android:text="Jumlah Data: "
+               android:textColor="@android:color/white"
+               android:textSize="16sp" />
+
+
+           <Spinner
+               android:id="@+id/spinner_sort"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/search"
+               android:layout_marginStart="205dp"
+               android:layout_marginTop="11dp"
+               android:layout_marginEnd="10dp"
+               android:layout_marginBottom="8dp"
+               android:background="@color/white"
+               android:layout_toRightOf="@id/tv_total_items"
+               android:entries="@array/sort_options_az"/>
+
+           <androidx.recyclerview.widget.RecyclerView
+                android:layout_below="@id/tv_total_items"
                 android:id="@+id/rv_stock"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -44,7 +76,6 @@
                android:contentDescription="Tambah Display Barang"
                app:tint="@null"
                android:backgroundTint="@color/blue"/>
-
 
             <ProgressBar
                 android:layout_width="wrap_content"

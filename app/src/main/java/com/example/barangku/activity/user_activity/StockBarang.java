@@ -45,6 +45,8 @@ import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -52,6 +54,8 @@ import java.util.Locale;
 
 public class StockBarang extends AppCompatActivity implements ItemClickStock {
 private TextView tvToolbar, tvNamaBarang, tvJumlahItem, tvSatuan;
+private TextView tvTotalItems;
+private Spinner spinnerSort;
 private Dialog dialog, dialogStock, dialogEdit;
 private ImageView ivStockBarang;
 private String namabarang, jumlahbarang, satuan;
@@ -77,6 +81,9 @@ private AdapterStock adapterStock;
         tvNamaBarang = findViewById(R.id.tv_nama_barang);
         tvJumlahItem = findViewById(R.id.tv_jumlah_item);
         tvSatuan = findViewById(R.id.tv_satuan);
+        tvTotalItems = findViewById(R.id.tv_total_items);
+
+        spinnerSort = findViewById(R.id.spinner_sort);
 
         ivback=findViewById(R.id.iv_back);
         ivback.setOnClickListener(new View.OnClickListener() {
@@ -122,13 +129,32 @@ private AdapterStock adapterStock;
                     list_stock.add(ms);
                 }
                 pd.dismiss();
-                adapterStock.notifyDataSetChanged();//
+                adapterStock.notifyDataSetChanged();
+                tvTotalItems.setText("Total Items: " + list_stock.size()); // Set total items
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(StockBarang.this, "Data Gagal Dimuat", Toast.LENGTH_SHORT).show();
             }
         });
+        spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                if (selectedItem.equals("A-Z")) {
+                    sortListAZ();
+                } else if (selectedItem.equals("Z-A")) {
+                    sortListZA();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing
+            }
+        });
+        
         fabTambah = findViewById(R.id.fab_tambah_barang);
         fabTambah.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,6 +164,7 @@ private AdapterStock adapterStock;
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 dialog.setCancelable(false);
                 dialog.show();
+
                 EditText etNamaBarang = dialog.findViewById(R.id.et_nama_barang);
                 EditText etJumlahBarang = dialog.findViewById(R.id.et_jumlah_barang);
 
@@ -181,7 +208,8 @@ private AdapterStock adapterStock;
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss();
-                    }});
+                    }
+                });
 
                 dialog.findViewById(R.id.btn_simpan).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -197,19 +225,53 @@ private AdapterStock adapterStock;
                             etJumlahBarang.setError("Required");
                             return;
                         }
+
+                        int jumlahBarangInt;
+                        try {
+                            jumlahBarangInt = Integer.parseInt(jumlahbarang);
+                        } catch (NumberFormatException e) {
+                            etJumlahBarang.setError("Jumlah Barang harus berupa angka");
+                            return;
+                        }
+
+                        if (jumlahBarangInt > 1000) {
+                            etJumlahBarang.setError("Jumlah Barang tidak boleh lebih dari 1000");
+                            return;
+                        }
+
                         if (gambar == null) {
                             Toast.makeText(StockBarang.this, "Pilih Gambar", Toast.LENGTH_SHORT).show();
                             return;
-                        }//
-                        else {
-                        saveFirebase();
                         }
+
+                        saveFirebase();
                     }
                 });
-
             }
         });
+
     }
+
+    private void sortListZA() {
+        Collections.sort(list_stock, new Comparator<ModelStock>() {
+            @Override
+            public int compare(ModelStock o1, ModelStock o2) {
+                return o2.getNamaBarang().compareToIgnoreCase(o1.getNamaBarang());
+            }
+        });
+        adapterStock.notifyDataSetChanged();
+    }
+
+    private void sortListAZ() {
+        Collections.sort(list_stock, new Comparator<ModelStock>() {
+            @Override
+            public int compare(ModelStock o1, ModelStock o2) {
+                return o1.getNamaBarang().compareToIgnoreCase(o2.getNamaBarang());
+            }
+        });
+        adapterStock.notifyDataSetChanged();
+    }
+
 
     private void saveFirebase() {
         StorageReference imagereference = storageReference.child("StockBarang").child(String.valueOf(System.currentTimeMillis()));
@@ -219,15 +281,6 @@ private AdapterStock adapterStock;
                 imagereference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-//                        String uniqueId = reference.getKey();
-//                        ModelStock ms = new ModelStock(uniqueId,namabarang, jumlahbarang, satuan, uri.toString());
-//                        reference.child(uniqueId).setValue(ms);
-
-//                        Generate ID Barang secara otomatis di Firebaase
-//                        DatabaseReference newReference = reference.push();
-//                        String id = newReference.getKey();
-//                        ModelStock ms = new ModelStock(id, namabarang, jumlahbarang, satuan, uri.toString());
-//                        newReference.setValue(ms);
 
                         String idBarang = generateIdBarang(namabarang);
 
