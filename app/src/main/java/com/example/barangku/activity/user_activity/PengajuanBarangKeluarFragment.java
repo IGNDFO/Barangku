@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class PengajuanBarangKeluarFragment extends Fragment implements ItemClickPengajuanBarangKeluar {
-    private TextView tvToolbar;
+    private TextView tvToolbar, tvTotalPengajuan;
     private ImageView ivBack;
 
     private RecyclerView rvPengajuanBarangKeluar;
@@ -68,6 +68,7 @@ public class PengajuanBarangKeluarFragment extends Fragment implements ItemClick
 
         tvToolbar = view.findViewById(R.id.tv_judul);
         tvToolbar.setText("Pengajuan");
+        tvTotalPengajuan = view.findViewById(R.id.tv_total_pengajuan_keluar);
 
         ivBack = view.findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +114,7 @@ public class PengajuanBarangKeluarFragment extends Fragment implements ItemClick
                     }
                 }
                 adapter.notifyDataSetChanged();
+                tvTotalPengajuan.setText("Total Pengajuan: " + listPengajuan.size());
             }
 
             @Override

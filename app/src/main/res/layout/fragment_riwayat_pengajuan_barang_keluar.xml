@@ -15,8 +15,36 @@
         android:textSize="24sp"
         android:textStyle="bold"
         android:padding="10dp"
-        android:gravity="center" />
-
+        android:gravity="center_horizontal" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp">
+        <Spinner
+            android:id="@+id/spinner_filters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:spinnerMode="dropdown"
+            android:entries="@array/filter_date_options" />
+        <Spinner
+            android:id="@+id/spinner_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="140dp"
+            android:spinnerMode="dropdown"
+            android:entries="@array/filter_options_riwayat" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_total_riwayat_keluar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="16dp"
+        android:text="Total Riwayat: 0"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_riwayat_pengajuan"
         android:padding="8dp"

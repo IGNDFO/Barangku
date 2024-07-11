@@ -22,6 +22,15 @@
         <item>Semua</item>
         <item>Jumlah Barang > 50</item>
     </string-array>
+    <string-array name="filter_options_riwayat">
+        <item>Semua</item>
+        <item>Diterima</item>
+        <item>Ditolak</item>
+    </string-array>
+    <string-array name="filter_date_options">
+        <item>Tanggal Naik</item>
+        <item>Tanggal Turun</item>
+    </string-array>
 
     <string-array name="sort_options_keluar">
         <item>Nama Klien (Naik)</item>

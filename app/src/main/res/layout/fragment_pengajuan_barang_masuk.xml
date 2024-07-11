@@ -18,6 +18,15 @@
         android:textColor="@color/white"
         android:padding="10dp"
         android:gravity="center" />
+    <TextView
+        android:id="@+id/tv_total_pengajuan_masuk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Total Pengajuan: 0"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_pengajuan"

@@ -10,11 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.barangku.R;
 import com.example.barangku.activity.adapter.AdapterRiwayatPengajuanBarangMasuk;
+import com.example.barangku.activity.model.ModelPengajuanBarangMasuk;
+import com.example.barangku.activity.model.ModelRiwayatPengajuanBarangKeluar;
 import com.example.barangku.activity.model.ModelRiwayatPengajuanBarangMasuk;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,19 +30,23 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 public class RiwayatPengajuanBarangMasukFragment extends Fragment {
 
-    private TextView tvToolbar;
+    private TextView tvToolbar, tvTotalRiwayat;
     private ImageView ivBack;
     private RecyclerView rvRiwayatPengajuan;
     private AdapterRiwayatPengajuanBarangMasuk adapter;
     private List<ModelRiwayatPengajuanBarangMasuk> riwayatList = new ArrayList<>();
     private DatabaseReference riwayatPengajuanRef = FirebaseDatabase.getInstance().getReference("RiwayatPengajuanBarangMasuk");
-
+    private Spinner spinnerFilterStatus, spinnerFilterTanggal;
+    private String filterStatus = "Semua";
+    private String filterTanggal = "Tanggal Naik";
     public RiwayatPengajuanBarangMasukFragment() {
         // Required empty public constructor
     }
@@ -53,6 +62,11 @@ public class RiwayatPengajuanBarangMasukFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         tvToolbar = view.findViewById(R.id.tv_judul);
         tvToolbar.setText("Riwayat Pengajuan");
+
+        tvTotalRiwayat = view.findViewById(R.id.tv_total_riwayat_masuk);
+
+        spinnerFilterStatus = view.findViewById(R.id.spinner_filter);
+        spinnerFilterTanggal = view.findViewById(R.id.spinner_filters);
 
         ivBack = view.findViewById(R.id.iv_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +84,40 @@ public class RiwayatPengajuanBarangMasukFragment extends Fragment {
         rvRiwayatPengajuan.setLayoutManager(lmRiwayat);
         rvRiwayatPengajuan.setAdapter(adapter);
 
+        ArrayAdapter<CharSequence> adapterSpinnerStatus = ArrayAdapter.createFromResource(getContext(),
+                R.array.filter_options_riwayat, android.R.layout.simple_spinner_item);
+        adapterSpinnerStatus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFilterStatus.setAdapter(adapterSpinnerStatus);
+
+        ArrayAdapter<CharSequence> adapterSpinnerTanggal = ArrayAdapter.createFromResource(getContext(),
+                R.array.filter_date_options, android.R.layout.simple_spinner_item);
+        adapterSpinnerTanggal.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFilterTanggal.setAdapter(adapterSpinnerTanggal);
+
+        spinnerFilterStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                filterStatus = parentView.getItemAtPosition(position).toString();
+                loadRiwayatData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Do nothing here
+            }
+        });
+        spinnerFilterTanggal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                filterTanggal = parentView.getItemAtPosition(position).toString();
+                loadRiwayatData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Do nothing here
+            }
+        });
         loadRiwayatData();
     }
 
@@ -80,12 +128,29 @@ public class RiwayatPengajuanBarangMasukFragment extends Fragment {
                 riwayatList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     ModelRiwayatPengajuanBarangMasuk riwayat = dataSnapshot.getValue(ModelRiwayatPengajuanBarangMasuk.class);
-                    if (riwayat != null) {
+                    if (riwayat != null && (filterStatus.equals("Semua") || filterStatus.equals(riwayat.getStatus()))) {
                         riwayat.setTanggalMasuk(formatTanggal(riwayat.getTanggalMasuk()));
                         riwayatList.add(riwayat);
                     }
                 }
-                adapter.notifyDataSetChanged();
+                // Sort by date
+                if (filterTanggal.equals("Tanggal Naik")) {
+                    Collections.sort(riwayatList, new Comparator<ModelRiwayatPengajuanBarangMasuk>() {
+                        @Override
+                        public int compare(ModelRiwayatPengajuanBarangMasuk o1, ModelRiwayatPengajuanBarangMasuk o2) {
+                            return o1.getTanggalMasuk().compareTo(o2.getTanggalMasuk());
+                        }
+                    });
+                } else if (filterTanggal.equals("Tanggal Turun")) {
+                    Collections.sort(riwayatList, new Comparator<ModelRiwayatPengajuanBarangMasuk>() {
+                        @Override
+                        public int compare(ModelRiwayatPengajuanBarangMasuk o1, ModelRiwayatPengajuanBarangMasuk o2) {
+                            return o2.getTanggalMasuk().compareTo(o1.getTanggalMasuk());
+                        }
+                    });
+                }
+                adapter.notifyDataSetChanged();   
+                tvTotalRiwayat.setText("Total Riwayat Pengajuan: " + riwayatList.size());
             }
 
             @Override

@@ -263,6 +263,7 @@ public class Client extends AppCompatActivity implements ItemClickClient {
                     list_client.add(mc);
                 }
                 adapterClient.notifyDataSetChanged();
+                tvTotalClients.setText("Total Clients: " + list_client.size());
                 pd.dismiss();
 
             }
@@ -366,7 +367,7 @@ public class Client extends AppCompatActivity implements ItemClickClient {
                             etAlamatKlien.setError("Required");
                         } else if (noTelpKlien.trim().isEmpty()) {
                             etNoTelpKlien.setError("Required");
-                        } else if (noTelpKlien.length() > 13) {
+                        } else if (noTelpKlien.length() > 13 || noTelpKlien.length() < 10) {
                             etNoTelpKlien.setError("Nomor Telpon Tidak Boleh Melebihi 13 digit");
                         } else if (emailKlien.trim().isEmpty()) {
                             etEmailKlien.setError("Required");
