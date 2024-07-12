@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -94,6 +96,9 @@ public class BarangMasuk extends AppCompatActivity {
             }
         });
 
+        // Set filter to limit input to 4 digits
+        etJumlah.setFilters(new InputFilter[]{new InputFilter.LengthFilter(4), new InputFilterMinMax(1, 9999)});
+
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,12 +107,7 @@ public class BarangMasuk extends AppCompatActivity {
                         namaBarang = tvNamaBarang.getText().toString();
                         keterangan = etKeterangan.getText().toString();
                         jumlahMasuk = Integer.parseInt(etJumlah.getText().toString());
-                        if (jumlahMasuk > 1000) {
-                            Toast.makeText(BarangMasuk.this, "Jumlah Yang Di Input Harus Kurang Dari 1000", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
                         satuan = tvSatuan.getText().toString();
-
                     } catch (NumberFormatException e) {
                         Toast.makeText(BarangMasuk.this, "Jumlah harus berupa angka", Toast.LENGTH_SHORT).show();
                         return;
@@ -314,4 +314,34 @@ public class BarangMasuk extends AppCompatActivity {
         });
     }
 
+    // InputFilterMinMax class to limit input range
+    public class InputFilterMinMax implements InputFilter {
+
+        private int min, max;
+
+        public InputFilterMinMax(int min, int max) {
+            this.min = min;
+            this.max = max;
+        }
+
+        public InputFilterMinMax(String min, String max) {
+            this.min = Integer.parseInt(min);
+            this.max = Integer.parseInt(max);
+        }
+
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            try {
+                int input = Integer.parseInt(dest.toString() + source.toString());
+                if (isInRange(min, max, input))
+                    return null;
+            } catch (NumberFormatException nfe) {
+            }
+            return "";
+        }
+
+        private boolean isInRange(int a, int b, int c) {
+            return b > a ? c >= a && c <= b : c >= b && c <= a;
+        }
+    }
 }
