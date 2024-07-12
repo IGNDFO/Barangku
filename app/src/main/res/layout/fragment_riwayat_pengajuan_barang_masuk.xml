@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:spinnerMode="dropdown"
+            android:background="@color/yellow"
             android:entries="@array/filter_date_options" />
         <Spinner
             android:id="@+id/spinner_filter"
@@ -34,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="140dp"
             android:spinnerMode="dropdown"
+            android:background="@color/white"
             android:entries="@array/filter_options_riwayat" />
 
     </LinearLayout>
