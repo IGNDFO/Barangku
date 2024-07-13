@@ -10,6 +10,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -159,6 +160,8 @@ public class Client extends AppCompatActivity implements ItemClickClient {
                 EditText etNoTelpKlien = dialog.findViewById(R.id.et_telp_klien);
                 EditText etEmailKlien = dialog.findViewById(R.id.et_email_klien);
                 EditText etCatatanKlien = dialog.findViewById(R.id.et_catatan_klien);
+                // Set filter to limit keterangan to 255 characters
+                etCatatanKlien.setFilters(new InputFilter[]{new InputFilter.LengthFilter(255)});
 
 
                 dialog.findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {

@@ -98,6 +98,9 @@ public class BarangMasuk extends AppCompatActivity {
 
         // Set filter to limit input to 4 digits
         etJumlah.setFilters(new InputFilter[]{new InputFilter.LengthFilter(4), new InputFilterMinMax(1, 9999)});
+        // Set filter to limit keterangan to 255 characters
+        etKeterangan.setFilters(new InputFilter[]{new InputFilter.LengthFilter(255)});
+
 
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +147,10 @@ public class BarangMasuk extends AppCompatActivity {
         }
         if (etJumlah.getText().toString().trim().isEmpty()) {
             etJumlah.setError("Jumlah barang harus diisi");
+            return false;
+        }
+        if (etKeterangan.getText().toString().trim().length() > 255) {
+            etKeterangan.setError("Keterangan tidak boleh lebih dari 255 karakter");
             return false;
         }
         if (tvNamaBarang.getText().toString().trim().isEmpty()) {
